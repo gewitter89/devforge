@@ -40,6 +40,7 @@ DevForge.registerTool({
         <button class="tool-btn-primary" id="json-formatter-format">✦ Format</button>
         <button class="tool-btn" id="json-formatter-minify">⊟ Minify</button>
         <button class="tool-btn" id="json-formatter-copy">⧉ Copy</button>
+        <button class="tool-btn" id="json-formatter-demo"></button>
         <button class="tool-btn" id="json-formatter-clear">✕ Clear</button>
       </div>
     `;
@@ -51,8 +52,35 @@ DevForge.registerTool({
     const indentSel = document.getElementById('json-formatter-indent');
     const status = document.getElementById('json-formatter-status');
     const linesEl = document.getElementById('json-formatter-lines');
+    const demoBtn = document.getElementById('json-formatter-demo');
+    const clearBtn = document.getElementById('json-formatter-clear');
+    const copyBtn = document.getElementById('json-formatter-copy');
+
+    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+
+    // Apply translations to UI buttons
+    if (demoBtn) demoBtn.textContent = t('loadDemo');
+    if (clearBtn) clearBtn.textContent = '✕ ' + t('clear');
+    if (copyBtn) copyBtn.textContent = '⧉ ' + t('copy');
 
     let lastFormatted = '';
+
+    const DEMO_JSON = {
+      project: "DevForge",
+      type: "Developer Toolkit",
+      meta: {
+        stars: 0,
+        license: "MIT",
+        active: true
+      },
+      tags: ["open-source", "web-tools", "vanilla-js"],
+      features: [
+        "15+ built-in utilities",
+        "i18n multi-language support",
+        "Command palette CLI mode",
+        "Local private execution"
+      ]
+    };
 
     function getIndent() {
       const v = indentSel.value;
@@ -183,6 +211,15 @@ DevForge.registerTool({
       }
     });
 
+    document.getElementById('json-formatter-demo').addEventListener('click', () => {
+      input.value = JSON.stringify(DEMO_JSON, null, 2);
+      formatJSON();
+      if (window.SoundFX) window.SoundFX.playSuccess();
+      if (window.confetti) {
+        window.confetti({ particleCount: 40, spread: 35, origin: { y: 0.8 } });
+      }
+    });
+
     document.getElementById('json-formatter-clear').addEventListener('click', () => {
       input.value = '';
       output.innerHTML = '';
@@ -191,6 +228,7 @@ DevForge.registerTool({
       linesEl.textContent = '';
       lastFormatted = '';
       input.focus();
+      if (window.SoundFX) window.SoundFX.playClick();
     });
 
     // Process if there's initial content

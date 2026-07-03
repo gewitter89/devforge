@@ -18,14 +18,14 @@
   window.DevForge = DevForge;
 
   // ===================== CATEGORIES =========================
-  const CATEGORIES = [
-    { id: 'all', name: 'All Tools', icon: '⚡' },
-    { id: 'formatters', name: 'Formatters', icon: '📝' },
-    { id: 'generators', name: 'Generators', icon: '🎲' },
-    { id: 'converters', name: 'Converters', icon: '🔄' },
-    { id: 'encoders', name: 'Encoders', icon: '🔐' },
-    { id: 'text', name: 'Text', icon: '✏️' },
-    { id: 'web', name: 'Web', icon: '🌐' },
+  const getCategories = () => [
+    { id: 'all', name: window.i18n ? window.i18n.t('allTools') : 'All Tools', icon: '⚡' },
+    { id: 'formatters', name: window.i18n ? window.i18n.t('formatters') : 'Formatters', icon: '📝' },
+    { id: 'generators', name: window.i18n ? window.i18n.t('generators') : 'Generators', icon: '🎲' },
+    { id: 'converters', name: window.i18n ? window.i18n.t('converters') : 'Converters', icon: '🔄' },
+    { id: 'encoders', name: window.i18n ? window.i18n.t('encoders') : 'Encoders', icon: '🔐' },
+    { id: 'text', name: window.i18n ? window.i18n.t('text') : 'Text', icon: '✏️' },
+    { id: 'web', name: window.i18n ? window.i18n.t('web') : 'Web', icon: '🌐' },
   ];
 
   // ================== TOOL REGISTRATION =====================
@@ -73,11 +73,12 @@
   function renderCatalog() {
     const main = document.getElementById('main-content');
     const filtered = getFilteredTools();
+    const t = (k) => window.i18n ? window.i18n.t(k) : k;
 
     let html = `
       <div class="catalog-header animate-fade-in">
-        <h1>Developer Toolkit</h1>
-        <p><span class="highlight">${DevForge.tools.length}</span> free & open-source tools — all running in your browser</p>
+        <h1>${t('logoText')} — ${t('allTools')}</h1>
+        <p><span class="highlight">${DevForge.tools.length}</span> ${t('toolsAvailable')} — all running in your browser</p>
       </div>
     `;
 
@@ -87,14 +88,14 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
-          <p>No tools found</p>
-          <span>Try a different search term or category</span>
+          <p>${t('searchEmpty')}</p>
+          <span>${t('searchEmptySub')}</span>
         </div>
       `;
     } else {
       html += '<div class="tools-grid">';
       filtered.forEach(tool => {
-        const tagsHtml = tool.tags.slice(0, 3).map(t => `<span class="tool-tag">${t}</span>`).join('');
+        const tagsHtml = tool.tags.slice(0, 3).map(tag => `<span class="tool-tag">${tag}</span>`).join('');
         html += `
           <div class="tool-card" data-tool-id="${tool.id}" role="button" tabindex="0" aria-label="Open ${tool.name}">
             <div class="tool-card-icon">${tool.icon}</div>
@@ -112,11 +113,11 @@
       <!-- GitHub Star CTA -->
       <div class="star-prompt">
         <div>
-          <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:4px;">✨ Love DevForge?</h3>
-          <p style="font-size:0.8rem; opacity:0.9;">Support us by giving a star on GitHub! It helps more developers find this project.</p>
+          <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:4px;">${t('starCTATitle')}</h3>
+          <p style="font-size:0.8rem; opacity:0.9;">${t('starCTADesc')}</p>
         </div>
-        <a href="https://github.com" target="_blank" rel="noopener" class="star-prompt-btn">
-          ⭐ Star Repo
+        <a href="https://github.com/gewitter89/devforge" target="_blank" rel="noopener" class="star-prompt-btn">
+          ${t('starBtn')}
         </a>
       </div>
 
@@ -128,8 +129,7 @@
 
     // Initialize contributors listing
     if (window.Contributors) {
-      // Pass target ID and your future github repo path (e.g. your-username/devforge)
-      window.Contributors.render('contributors-container', 'your-username/devforge');
+      window.Contributors.render('contributors-container', 'gewitter89/devforge');
     }
 
     // Attach card click handlers
@@ -143,11 +143,12 @@
   // ================= RENDER TOOL VIEW =======================
   function renderToolView(tool) {
     const main = document.getElementById('main-content');
+    const t = (k) => window.i18n ? window.i18n.t(k) : k;
 
     const html = `
       <div class="tool-view">
         <div class="tool-view-header">
-          <button class="back-btn" id="back-btn" title="Back to all tools">
+          <button class="back-btn" id="back-btn" title="${t('backToTools')}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
             </svg>
@@ -210,7 +211,10 @@
   // =================== SIDEBAR ==============================
   function renderSidebar() {
     const nav = document.getElementById('categories');
-    nav.innerHTML = CATEGORIES.map(cat => {
+    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const cats = getCategories();
+
+    nav.innerHTML = cats.map(cat => {
       const count = cat.id === 'all'
         ? DevForge.tools.length
         : DevForge.tools.filter(t => t.category === cat.id).length;
@@ -226,8 +230,10 @@
       `;
     }).join('');
 
-    // Update tool count
-    document.getElementById('tool-count').textContent = `${DevForge.tools.length} tools available`;
+    // Update tool count & footer translation
+    document.getElementById('tool-count').textContent = `${DevForge.tools.length} ${t('toolsAvailable')}`;
+    const addBtnLink = document.querySelector('.sidebar-footer a');
+    if (addBtnLink) addBtnLink.textContent = t('addYourTool');
 
     // Attach handlers
     nav.querySelectorAll('.category-btn').forEach(btn => {
@@ -556,6 +562,35 @@
     initSearch();
     renderSidebar();
     handleRoute();
+
+    // Bind Language selector
+    const langSelect = document.getElementById('lang-selector');
+    if (langSelect && window.i18n) {
+      langSelect.value = window.i18n.lang;
+      langSelect.addEventListener('change', () => {
+        window.i18n.setLang(langSelect.value);
+        if (window.SoundFX) window.SoundFX.playSuccess();
+      });
+    }
+
+    // Subscribe to lang changes to update the UI
+    window.addEventListener('df-lang-changed', (e) => {
+      // Re-translate search placeholder
+      const searchInput = document.getElementById('search-input');
+      if (searchInput && window.i18n) {
+        searchInput.placeholder = window.i18n.t('searchPlaceholder');
+      }
+
+      // Rerender layout blocks
+      renderSidebar();
+      handleRoute();
+    });
+
+    // Translate placeholder on load
+    const searchInput = document.getElementById('search-input');
+    if (searchInput && window.i18n) {
+      searchInput.placeholder = window.i18n.t('searchPlaceholder');
+    }
 
     // Hash change listener
     window.addEventListener('hashchange', () => {

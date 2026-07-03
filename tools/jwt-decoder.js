@@ -18,6 +18,7 @@ DevForge.registerTool({
           <label for="jwt-input">Encoded JWT Token</label>
           <textarea id="jwt-input" class="tool-textarea" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE4OTA2MTAwMDB9..." style="min-height: 380px;"></textarea>
           <div class="tool-actions">
+            <button class="tool-btn" id="jwt-demo-btn"></button>
             <button class="tool-btn" id="jwt-clear-btn">Clear</button>
           </div>
         </div>
@@ -61,10 +62,18 @@ DevForge.registerTool({
     const input = document.getElementById('jwt-input');
     const headerOut = document.getElementById('jwt-header-out');
     const payloadOut = document.getElementById('jwt-payload-out');
+    const demoBtn = document.getElementById('jwt-demo-btn');
     const clearBtn = document.getElementById('jwt-clear-btn');
     const metaPanel = document.getElementById('jwt-meta-panel');
     const metaIssued = document.getElementById('jwt-meta-issued');
     const metaExpires = document.getElementById('jwt-meta-expires');
+
+    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+
+    if (demoBtn) demoBtn.textContent = t('loadDemo');
+    if (clearBtn) clearBtn.textContent = t('clear');
+
+    const DEMO_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikdld2l0dGVyODkiLCJyb2xlIjoiY3JlYXRvciIsImlhdCI6MTc4MDIwOTYwMCwiZXhwIjoxOTEwMDc4NDAwfQ.dummy-signature-here";
 
     const cleanOut = () => {
       headerOut.textContent = '';
@@ -121,7 +130,7 @@ DevForge.registerTool({
         if (payloadObj.exp) {
           const expDate = new Date(payloadObj.exp * 1000);
           const isExpired = expDate.getTime() < Date.now();
-          const color = isExpired ? 'var(--color-error)' : 'var(--color-success)';
+          const color = isExpired ? 'var(--color-error)' : 'var(--color-success)' ;
           const label = isExpired ? 'Expired' : 'Expires';
           
           metaExpires.innerHTML = `<span style="color:${color}; font-weight:bold;">${expDate.toLocaleString()} (${label})</span>`;
@@ -137,6 +146,16 @@ DevForge.registerTool({
     };
 
     input.addEventListener('input', processJWT);
+
+    demoBtn.addEventListener('click', () => {
+      input.value = DEMO_JWT;
+      processJWT();
+      if (window.SoundFX) window.SoundFX.playSuccess();
+      if (window.confetti) {
+        window.confetti({ particleCount: 40, spread: 35, origin: { y: 0.8 } });
+      }
+    });
+
     clearBtn.addEventListener('click', () => {
       input.value = '';
       cleanOut();
