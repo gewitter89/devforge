@@ -4,7 +4,7 @@
 
 ### A beautiful, open-source developer toolkit — built by the community, for the community.
 
-**15+ essential developer tools. Zero dependencies. Runs entirely in your browser.**
+**17+ essential developer tools. Zero dependencies. Runs entirely in your browser.**
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
@@ -65,6 +65,8 @@ DevForge is a **Swiss Army knife for developers** — a sleek, modular web app p
 | 13 | **Diff Checker** | Text | Side-by-side and inline comparison of two text inputs |
 | 14 | **Cron Parser** | Web | Translate crontab schedules to readable text & execution list |
 | 15 | **Image Optimizer** | Web | Compress, resize, and convert images 100% locally in browser |
+| 16 | **AI Context Packager** | Text | Combine multiple source files into a single LLM prompt block |
+| 17 | **AI Prompt Sanitizer** | Text | Strip hidden Unicode characters and audit prompts for jailbreaks |
 
 > 💡 **Want to see a new tool?** [Propose one here!](https://github.com/gewitter89/devforge/issues/new?template=new_tool.yml)
 
