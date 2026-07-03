@@ -592,6 +592,42 @@
       searchInput.placeholder = window.i18n.t('searchPlaceholder');
     }
 
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('DevForge: Service Worker registered successfully', reg.scope))
+          .catch(err => console.warn('DevForge: Service Worker registration failed', err));
+      });
+    }
+
+    // PWA Install Prompt Handler
+    let deferredPrompt;
+    const installBtn = document.getElementById('pwa-install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent standard browser bar from showing
+      e.preventDefault();
+      deferredPrompt = e;
+      // Show custom install button in header actions
+      if (installBtn) installBtn.style.display = 'block';
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        if (window.SoundFX) window.SoundFX.playClick();
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`DevForge: PWA install user choice: ${outcome}`);
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+        if (outcome === 'accepted' && window.confetti) {
+          window.confetti({ particleCount: 70, spread: 50 });
+        }
+      });
+    }
+
     // Hash change listener
     window.addEventListener('hashchange', () => {
       handleRoute();
