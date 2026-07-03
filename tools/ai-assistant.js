@@ -8,7 +8,7 @@ DevForge.registerTool({
   id: 'ai-assistant',
   name: 'AI Code Assistant',
   description: 'Generate regular expressions, SQL schemas, or explain code using AI models.',
-  category: 'text',
+  category: 'ai',
   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 7.54 16.59l-1.42-1.42A8 8 0 1 0 6 12h2a6 6 0 1 1 6 6v2a8 8 0 1 0-8-8H4a10 10 0 0 1 8-10z"/><circle cx="12" cy="12" r="3"/></svg>',
   tags: ['ai', 'regex', 'sql', 'generator', 'code-helper'],
   

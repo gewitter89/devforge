@@ -20,6 +20,7 @@
   // ===================== CATEGORIES =========================
   const getCategories = () => [
     { id: 'all', name: window.i18n ? window.i18n.t('allTools') : 'All Tools', icon: '⚡' },
+    { id: 'ai', name: window.i18n ? window.i18n.t('ai') : 'AI Tools', icon: '🤖' },
     { id: 'formatters', name: window.i18n ? window.i18n.t('formatters') : 'Formatters', icon: '📝' },
     { id: 'generators', name: window.i18n ? window.i18n.t('generators') : 'Generators', icon: '🎲' },
     { id: 'converters', name: window.i18n ? window.i18n.t('converters') : 'Converters', icon: '🔄' },
