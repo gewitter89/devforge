@@ -8,8 +8,9 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
-[![GitHub Stars](https://img.shields.io/github/stars/gewitter89/devforge?style=for-the-badge&logo=github)](https://github.com/gewitter89/devforge/stargazers)
-[![Contributors](https://img.shields.io/github/contributors/gewitter89/devforge?style=for-the-badge&logo=github)](https://github.com/gewitter89/devforge/graphs/contributors)
+[![PWA Enabled](https://img.shields.io/badge/PWA-installable-gold.svg?style=for-the-badge&logo=pwa)](manifest.json)
+[![i18n Supported](https://img.shields.io/badge/i18n-EN%20%2F%20RU-blueviolet.svg?style=for-the-badge)](js/i18n.js)
+[![Offline Support](https://img.shields.io/badge/Offline-100%25-success.svg?style=for-the-badge)](sw.js)
 [![Deploy](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-222?style=for-the-badge&logo=github)](https://gewitter89.github.io/devforge/)
 
 <br>
@@ -22,13 +23,29 @@
 
 <br>
 
-<img src="https://via.placeholder.com/800x450?text=DevForge+Screenshot" alt="DevForge Screenshot" width="720">
-
-<br>
-
 [**🌐 Live Demo**](https://gewitter89.github.io/devforge/) · [**🐛 Report a Bug**](https://github.com/gewitter89/devforge/issues/new?template=bug_report.yml) · [**✨ Request a Feature**](https://github.com/gewitter89/devforge/issues/new?template=feature_request.yml) · [**🔧 Propose a Tool**](https://github.com/gewitter89/devforge/issues/new?template=new_tool.yml)
 
 </div>
+
+---
+
+## 🏗️ How it Works (Architecture)
+
+DevForge is built with a highly decoupled, plugin-based architecture using vanilla technologies.
+
+```mermaid
+flowchart TD
+    Index[index.html Shell UI] --> App[js/app.js Core Router & Search]
+    App --> i18n[js/i18n.js Localization Engine]
+    App --> Sound[js/sound.js Audio Engine]
+    
+    subgraph Self-Registering Plugin Modules
+        T1[tools/json-formatter.js] -.->|DevForge.registerTool| App
+        T2[tools/jwt-decoder.js] -.->|DevForge.registerTool| App
+        T3[tools/web-terminal.js] -.->|DevForge.registerTool| App
+        T4[tools/...js] -.->|DevForge.registerTool| App
+    end
+```
 
 ---
 
@@ -40,9 +57,9 @@ DevForge is a **Swiss Army knife for developers** — a sleek, modular web app p
 - 🎨 **Beautiful UI** — dark/light themes, responsive layout, smooth animations
 - 🧩 **Modular architecture** — each tool is a single self-registering JS file
 - 🔌 **Zero dependencies** — built with vanilla HTML, CSS, and JavaScript
-- 🌍 **Works offline** — no server required, open `index.html` and go
+- 🌍 **Works offline** — PWA support, install on your desktop/mobile and use without internet
 - 🔒 **Private by design** — your data never touches a server
-- 🤝 **Easy to contribute** — add a tool in under 30 minutes
+- 🤝 **Easy to contribute** — add a tool in under 15 minutes
 
 ---
 
