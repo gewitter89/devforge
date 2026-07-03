@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # ⚒️ DevForge
 
@@ -8,9 +8,17 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
-[![GitHub Stars](https://img.shields.io/github/stars/your-username/devforge?style=for-the-badge&logo=github)](https://github.com/your-username/devforge/stargazers)
-[![Contributors](https://img.shields.io/github/contributors/your-username/devforge?style=for-the-badge&logo=github)](https://github.com/your-username/devforge/graphs/contributors)
-[![Deploy](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-222?style=for-the-badge&logo=github)](https://your-username.github.io/devforge/)
+[![GitHub Stars](https://img.shields.io/github/stars/gewitter89/devforge?style=for-the-badge&logo=github)](https://github.com/gewitter89/devforge/stargazers)
+[![Contributors](https://img.shields.io/github/contributors/gewitter89/devforge?style=for-the-badge&logo=github)](https://github.com/gewitter89/devforge/graphs/contributors)
+[![Deploy](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-222?style=for-the-badge&logo=github)](https://gewitter89.github.io/devforge/)
+
+<br>
+
+> [!IMPORTANT]
+> ### 📢 WE ARE BUILDING THIS TOGETHER! / МЫ ПИШЕМ ЭТОТ ПРОЕКТ ВМЕСТЕ!
+> **English**: DevForge is a 100% community-driven project. We want this to be the ultimate developer toolkit. Adding a new tool takes less than 15 minutes! Check our [Contributing Guide](CONTRIBUTING.md) and send your PRs. Let's build something awesome together! 🚀
+> 
+> **Русский**: DevForge — это проект, создаваемый сообществом. Мы хотим сделать идеальный набор инструментов для разработчиков. Добавить новую утилиту можно меньше чем за 15 минут! Читай [Руководство по участию](CONTRIBUTING.md) и отправляй свои Pull Request-ы. Давай сделаем крутой инструмент вместе! 🤝
 
 <br>
 
@@ -18,7 +26,7 @@
 
 <br>
 
-[**🌐 Live Demo**](https://your-username.github.io/devforge/) · [**🐛 Report a Bug**](https://github.com/your-username/devforge/issues/new?template=bug_report.yml) · [**✨ Request a Feature**](https://github.com/your-username/devforge/issues/new?template=feature_request.yml) · [**🔧 Propose a Tool**](https://github.com/your-username/devforge/issues/new?template=new_tool.yml)
+[**🌐 Live Demo**](https://gewitter89.github.io/devforge/) · [**🐛 Report a Bug**](https://github.com/gewitter89/devforge/issues/new?template=bug_report.yml) · [**✨ Request a Feature**](https://github.com/gewitter89/devforge/issues/new?template=feature_request.yml) · [**🔧 Propose a Tool**](https://github.com/gewitter89/devforge/issues/new?template=new_tool.yml)
 
 </div>
 
@@ -58,7 +66,7 @@ DevForge is a **Swiss Army knife for developers** — a sleek, modular web app p
 | 14 | **Cron Parser** | Web | Translate crontab schedules to readable text & execution list |
 | 15 | **Image Optimizer** | Web | Compress, resize, and convert images 100% locally in browser |
 
-> 💡 **Want to see a new tool?** [Propose one here!](https://github.com/your-username/devforge/issues/new?template=new_tool.yml)
+> 💡 **Want to see a new tool?** [Propose one here!](https://github.com/gewitter89/devforge/issues/new?template=new_tool.yml)
 
 ---
 
@@ -69,7 +77,7 @@ DevForge requires **no build step**, no Node.js, no bundler. Just a browser.
 ### Option 1 — Open directly
 
 ```bash
-git clone https://github.com/your-username/devforge.git
+git clone https://github.com/gewitter89/devforge.git
 cd devforge
 # Open index.html in your browser — that's it!
 ```
@@ -77,7 +85,7 @@ cd devforge
 ### Option 2 — Local dev server (recommended for development)
 
 ```bash
-git clone https://github.com/your-username/devforge.git
+git clone https://github.com/gewitter89/devforge.git
 cd devforge
 npx serve .
 # → http://localhost:3000
@@ -85,7 +93,7 @@ npx serve .
 
 ### Option 3 — GitHub Pages
 
-Visit the live version at **[your-username.github.io/devforge](https://your-username.github.io/devforge/)**
+Visit the live version at **[gewitter89.github.io/devforge](https://gewitter89.github.io/devforge/)**
 
 ---
 
@@ -145,7 +153,7 @@ That's it. Open a PR. 🎉
 - [ ] 🎨 **Custom themes** — community-created color schemes
 - [ ] 📊 **Usage analytics** — anonymous, opt-in tool popularity stats
 
-> Have an idea? [Open a feature request!](https://github.com/your-username/devforge/issues/new?template=feature_request.yml)
+> Have an idea? [Open a feature request!](https://github.com/gewitter89/devforge/issues/new?template=feature_request.yml)
 
 ---
 
@@ -206,4 +214,3 @@ Want to see your avatar here? Check out the **[Contributing Guide](CONTRIBUTING.
 Made with ❤️ by the open-source community
 
 </div>
-]]>

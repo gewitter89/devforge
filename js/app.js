@@ -76,9 +76,20 @@
     const t = (k) => window.i18n ? window.i18n.t(k) : k;
 
     let html = `
-      <div class="catalog-header animate-fade-in">
-        <h1>${t('logoText')} — ${t('allTools')}</h1>
-        <p><span class="highlight">${DevForge.tools.length}</span> ${t('toolsAvailable')} — all running in your browser</p>
+      <div class="hero-banner">
+        <span class="badge-contribution">🚀 Open for Contributions</span>
+        <h1 class="glow-text" style="font-size:2.2rem; font-weight:800; line-height:1.2; margin:0;">
+          ${t('logoText')} — ${t('allTools')}
+        </h1>
+        <p style="color:var(--text-secondary); font-size:1rem; margin:0; max-width:600px;">
+          <span class="highlight" style="font-weight:700;">${DevForge.tools.length}</span> ${t('toolsAvailable')} — all running 100% client-side in your browser. 
+          No servers, no tracking, works completely offline.
+        </p>
+        <div style="margin-top:var(--space-sm); display:flex; gap:var(--space-sm); align-items:center;">
+          <span style="font-size:0.8rem; color:var(--text-tertiary);">Press</span>
+          <kbd class="pulse-kbd" style="background:var(--bg-tertiary); border:1px solid var(--border-accent); color:var(--text-accent); padding:4px 10px; border-radius:6px; font-family:monospace; font-weight:bold; font-size:0.85rem; cursor:pointer;" onclick="document.dispatchEvent(new KeyboardEvent('keydown', {key:'k', ctrlKey:true}))">Ctrl + K</kbd>
+          <span style="font-size:0.8rem; color:var(--text-tertiary);">to launch Command Palette</span>
+        </div>
       </div>
     `;
 
