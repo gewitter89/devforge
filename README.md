@@ -27,6 +27,21 @@
 
 </div>
 
+## 📚 Guides & AI Hacks / База знаний и ИИ-гиды
+
+We maintain a structured, community-updated knowledge base of agentic coding hacks, cost-saving configurations, and integrations:
+Мы поддерживаем структурированную базу знаний с хаками для ИИ-агентов, инструкциями по экономии токенов и интеграциям:
+
+👉 **[Explore Full Knowledge Base / Открыть базу знаний (docs.md)](docs.md)**
+
+* 🚀 **[GIG AI Boost (EN/RU)](gig-ai-boost.md)** — Private repositories, MCP servers, and agent configurations.
+* 🪨 **[Caveman SKILLS (EN/RU)](caveman.md)** — Prompt token compression guide (save ~65% tokens).
+* 🔑 **[Free LLM APIs (EN/RU)](free-llm-apis.md)** — Permanent free API keys for developers.
+* 🔌 **[ClinePass Setup (EN/RU)](cline-pass.md)** — Custom OpenAI-compatible configurations.
+* 🐳 **[CLI in Docker (EN/RU)](cli-in-docker.md)** — Sandboxing your AI agent inside Docker.
+* 🤖 **[TelePI Telegram Bot (EN/RU)](telepi.md)** — Run your PI CLI through a Telegram bot.
+* 🎛️ **[Herdr Multiplexer (EN/RU)](herdr.md)** — Tmux for AI coding agents.
+
 ---
 
 ## 🏗️ How it Works (Architecture)
