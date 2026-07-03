@@ -12,31 +12,40 @@ DevForge.registerTool({
   tags: ['diff', 'compare', 'text-diff', 'lines', 'match'],
   
   render() {
+    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const isRu = (window.i18n && window.i18n.lang === 'ru');
     return `
       <div class="tool-full">
         <!-- Texts Inputs Grid -->
         <div class="tool-split">
           <div class="tool-group">
-            <label for="diff-original">Original Text (Left)</label>
-            <textarea id="diff-original" class="tool-textarea" placeholder="Paste original text here..." style="min-height: 180px;"></textarea>
+            <label for="diff-original">${isRu ? 'Оригинальный текст (слева)' : 'Original Text (Left)'}</label>
+            <textarea id="diff-original" class="tool-textarea" placeholder="${isRu ? 'Вставьте оригинальный текст сюда...' : 'Paste original text here...'}" style="min-height: 180px;"></textarea>
           </div>
           <div class="tool-group">
-            <label for="diff-modified">Modified Text (Right)</label>
-            <textarea id="diff-modified" class="tool-textarea" placeholder="Paste modified text here..." style="min-height: 180px;"></textarea>
+            <label for="diff-modified">${isRu ? 'Измененный текст (справа)' : 'Modified Text (Right)'}</label>
+            <textarea id="diff-modified" class="tool-textarea" placeholder="${isRu ? 'Вставьте измененный текст сюда...' : 'Paste modified text here...'}" style="min-height: 180px;"></textarea>
           </div>
         </div>
 
         <!-- Mode controls -->
-        <div class="tool-actions" style="margin-top: 0; margin-bottom: var(--space-md);">
-          <button class="tool-btn tool-btn-primary" id="diff-compare-btn">Compare Texts</button>
-          <button class="tool-btn" id="diff-clear-btn">Clear Both</button>
+        <div class="tool-actions" style="margin-top: 0; margin-bottom: var(--space-md); display:flex; gap:var(--space-sm); align-items:center; flex-wrap:wrap;">
+          <button class="tool-btn tool-btn-primary" id="diff-compare-btn">${isRu ? 'Сравнить тексты' : 'Compare Texts'}</button>
+          <button class="tool-btn" id="diff-clear-btn">${t('clear')}</button>
+          
+          <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
+            <label style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">
+              ${isRu ? 'Символьный анализ:' : 'Char-level Diff:'}
+            </label>
+            <input type="checkbox" id="diff-char-level" checked style="width:16px; height:16px; cursor:pointer;">
+          </div>
         </div>
 
         <!-- Result Display -->
         <div class="tool-group">
-          <label>Comparison Results</label>
+          <label>${isRu ? 'Результаты сравнения' : 'Comparison Results'}</label>
           <div id="diff-results" style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-md); background:var(--bg-input); padding:var(--space-md); border-radius:var(--radius-md); border:1px solid var(--border-primary); max-height:480px; overflow-y:auto; font-family:'JetBrains Mono', monospace; font-size:0.8rem; line-height:1.6;">
-            <div style="color:var(--text-tertiary);">Compare outputs will appear here...</div>
+            <div style="color:var(--text-tertiary);">${isRu ? 'Результаты сравнения отобразятся здесь...' : 'Compare outputs will appear here...'}</div>
             <div></div>
           </div>
         </div>
@@ -50,16 +59,51 @@ DevForge.registerTool({
     const compareBtn = document.getElementById('diff-compare-btn');
     const clearBtn = document.getElementById('diff-clear-btn');
     const resultsDiv = document.getElementById('diff-results');
+    const charLevelCheck = document.getElementById('diff-char-level');
 
     const clean = () => {
+      const isRu = (window.i18n && window.i18n.lang === 'ru');
       originalText.value = '';
       modifiedText.value = '';
-      resultsDiv.innerHTML = '<div style="color:var(--text-tertiary);">Compare outputs will appear here...</div><div></div>';
+      resultsDiv.innerHTML = `<div style="color:var(--text-tertiary);">${isRu ? 'Результаты сравнения отобразятся здесь...' : 'Compare outputs will appear here...'}</div><div></div>`;
+    };
+
+    const diffChars = (oldStr, newStr) => {
+      // Basic Levenshtein character-level diff highlighting for inline modifications
+      let outOld = '', outNew = '';
+      let i = 0, j = 0;
+      while (i < oldStr.length || j < newStr.length) {
+        if (oldStr[i] === newStr[j]) {
+          outOld += escapeHTML(oldStr[i] || '');
+          outNew += escapeHTML(newStr[j] || '');
+          i++; j++;
+        } else {
+          // Highlight character change
+          if (i < oldStr.length && (j >= newStr.length || oldStr[i+1] === newStr[j])) {
+            outOld += `<span style="background:rgba(239,68,68,0.4); text-decoration:line-through; border-radius:2px;">${escapeHTML(oldStr[i])}</span>`;
+            i++;
+          } else if (j < newStr.length && (i >= oldStr.length || oldStr[i] === newStr[j+1])) {
+            outNew += `<span style="background:rgba(34,197,94,0.4); border-radius:2px;">${escapeHTML(newStr[j])}</span>`;
+            j++;
+          } else {
+            if (i < oldStr.length) {
+              outOld += `<span style="background:rgba(239,68,68,0.4); text-decoration:line-through; border-radius:2px;">${escapeHTML(oldStr[i])}</span>`;
+              i++;
+            }
+            if (j < newStr.length) {
+              outNew += `<span style="background:rgba(34,197,94,0.4); border-radius:2px;">${escapeHTML(newStr[j])}</span>`;
+              j++;
+            }
+          }
+        }
+      }
+      return { oldHtml: outOld, newHtml: outNew };
     };
 
     const performDiff = () => {
       const leftLines = originalText.value.split('\n');
       const rightLines = modifiedText.value.split('\n');
+      const doCharDiff = charLevelCheck.checked;
 
       let leftHTML = '';
       let rightHTML = '';
@@ -73,21 +117,24 @@ DevForge.registerTool({
         const lineNum = i + 1;
 
         if (left === right) {
-          // Lines match
           leftHTML += `<div style="padding:2px var(--space-sm); border-bottom:1px solid rgba(255,255,255,0.01); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>${escapeHTML(left || '')}</span></div>`;
           rightHTML += `<div style="padding:2px var(--space-sm); border-bottom:1px solid rgba(255,255,255,0.01); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>${escapeHTML(right || '')}</span></div>`;
         } else if (left !== null && right === null) {
-          // Line deleted from modified
           leftHTML += `<div style="background:rgba(239,68,68,0.15); border-left:3px solid var(--color-error); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(239,68,68,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>- ${escapeHTML(left)}</span></div>`;
           rightHTML += `<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>`;
         } else if (left === null && right !== null) {
-          // Line added to modified
           leftHTML += `<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>`;
           rightHTML += `<div style="background:rgba(34,197,94,0.15); border-left:3px solid var(--color-success); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(34,197,94,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>+ ${escapeHTML(right)}</span></div>`;
         } else {
-          // Lines modified (replaced)
-          leftHTML += `<div style="background:rgba(239,68,68,0.1); border-left:3px solid var(--color-error); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(239,68,68,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>- ${escapeHTML(left)}</span></div>`;
-          rightHTML += `<div style="background:rgba(34,197,94,0.1); border-left:3px solid var(--color-success); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(34,197,94,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>+ ${escapeHTML(right)}</span></div>`;
+          // Replaced / modified line
+          if (doCharDiff) {
+            const { oldHtml, newHtml } = diffChars(left, right);
+            leftHTML += `<div style="background:rgba(239,68,68,0.1); border-left:3px solid var(--color-error); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(239,68,68,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>- ${oldHtml}</span></div>`;
+            rightHTML += `<div style="background:rgba(34,197,94,0.1); border-left:3px solid var(--color-success); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(34,197,94,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>+ ${newHtml}</span></div>`;
+          } else {
+            leftHTML += `<div style="background:rgba(239,68,68,0.1); border-left:3px solid var(--color-error); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(239,68,68,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>- ${escapeHTML(left)}</span></div>`;
+            rightHTML += `<div style="background:rgba(34,197,94,0.1); border-left:3px solid var(--color-success); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(34,197,94,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>+ ${escapeHTML(right)}</span></div>`;
+          }
         }
       }
 
