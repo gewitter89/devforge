@@ -12,10 +12,11 @@ DevForge.registerTool({
   tags: ['jwt', 'token', 'decode', 'json', 'auth'],
   
   render() {
+    const isRu = (window.i18n && window.i18n.lang === 'ru');
     return `
       <div class="tool-split">
         <div class="tool-group">
-          <label for="jwt-input">Encoded JWT Token</label>
+          <label for="jwt-input">${isRu ? 'Закодированный токен JWT' : 'Encoded JWT Token'}</label>
           <textarea id="jwt-input" class="tool-textarea" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE4OTA2MTAwMDB9..." style="min-height: 380px;"></textarea>
           <div class="tool-actions">
             <button class="tool-btn" id="jwt-demo-btn"></button>
@@ -24,12 +25,12 @@ DevForge.registerTool({
         </div>
 
         <div class="tool-group">
-          <label>Decoded Token Components</label>
+          <label>${isRu ? 'Декодированные части токена' : 'Decoded Token Components'}</label>
           
           <!-- Header panel -->
           <div style="margin-bottom:var(--space-md);">
             <div style="display:flex; justify-content:space-between; font-size:0.75rem; font-weight:bold; color:#f43f5e; margin-bottom:4px; text-transform:uppercase;">
-              <span>Header: Algorithm & Token Type</span>
+              <span>${isRu ? 'Заголовок: Алгоритм и Тип токена' : 'Header: Algorithm & Token Type'}</span>
             </div>
             <pre class="tool-result" id="jwt-header-out" style="min-height:90px; height:90px; border-color:rgba(244,63,94,0.2); overflow:auto;"></pre>
           </div>
@@ -37,7 +38,7 @@ DevForge.registerTool({
           <!-- Payload panel -->
           <div style="margin-bottom:var(--space-md);">
             <div style="display:flex; justify-content:space-between; font-size:0.75rem; font-weight:bold; color:#3b82f6; margin-bottom:4px; text-transform:uppercase;">
-              <span>Payload: Data / Claims</span>
+              <span>${isRu ? 'Полезная нагрузка: Данные / Права' : 'Payload: Data / Claims'}</span>
             </div>
             <pre class="tool-result" id="jwt-payload-out" style="min-height:160px; height:180px; border-color:rgba(59,130,246,0.2); overflow:auto;"></pre>
           </div>
@@ -45,11 +46,11 @@ DevForge.registerTool({
           <!-- Metadata panel -->
           <div id="jwt-meta-panel" style="background:var(--bg-input); padding:var(--space-sm); border-radius:var(--radius-sm); border:1px solid var(--border-primary); display:none; font-size:0.8rem;">
             <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-              <span style="color:var(--text-secondary);">Issued At (iat):</span>
+              <span style="color:var(--text-secondary);">${isRu ? 'Дата выпуска (iat):' : 'Issued At (iat):'}</span>
               <span id="jwt-meta-issued" style="font-family:monospace; font-weight:500;">-</span>
             </div>
             <div style="display:flex; justify-content:space-between;">
-              <span style="color:var(--text-secondary);">Expires At (exp):</span>
+              <span style="color:var(--text-secondary);">${isRu ? 'Истекает (exp):' : 'Expires At (exp):'}</span>
               <span id="jwt-meta-expires" style="font-family:monospace; font-weight:500;">-</span>
             </div>
           </div>
@@ -67,6 +68,7 @@ DevForge.registerTool({
     const metaPanel = document.getElementById('jwt-meta-panel');
     const metaIssued = document.getElementById('jwt-meta-issued');
     const metaExpires = document.getElementById('jwt-meta-expires');
+    const isRu = () => (window.i18n && window.i18n.lang === 'ru');
 
     const t = (k) => window.i18n ? window.i18n.t(k) : k;
 
@@ -82,7 +84,6 @@ DevForge.registerTool({
     };
 
     const base64UrlDecode = (str) => {
-      // Add padding
       str = str.replace(/-/g, '+').replace(/_/g, '/');
       while (str.length % 4) {
         str += '=';
@@ -101,7 +102,7 @@ DevForge.registerTool({
 
       const parts = token.split('.');
       if (parts.length !== 3) {
-        headerOut.innerHTML = '<span style="color:var(--color-error)">Invalid JWT: Token must contain exactly 2 dots (3 base64 parts)</span>';
+        headerOut.innerHTML = `<span style="color:var(--color-error)">${isRu() ? 'Неверный JWT: токен должен содержать ровно 3 части, разделенные точками' : 'Invalid JWT: Token must contain exactly 2 dots (3 base64 parts)'}</span>`;
         payloadOut.textContent = '';
         metaPanel.style.display = 'none';
         return;
@@ -117,7 +118,6 @@ DevForge.registerTool({
         headerOut.textContent = JSON.stringify(headerObj, null, 2);
         payloadOut.textContent = JSON.stringify(payloadObj, null, 2);
 
-        // Date metadata checks
         metaPanel.style.display = 'block';
 
         if (payloadObj.iat) {
@@ -131,11 +131,11 @@ DevForge.registerTool({
           const expDate = new Date(payloadObj.exp * 1000);
           const isExpired = expDate.getTime() < Date.now();
           const color = isExpired ? 'var(--color-error)' : 'var(--color-success)' ;
-          const label = isExpired ? 'Expired' : 'Expires';
+          const label = isExpired ? (isRu() ? 'Истёк' : 'Expired') : (isRu() ? 'Expires' : 'Expires');
           
           metaExpires.innerHTML = `<span style="color:${color}; font-weight:bold;">${expDate.toLocaleString()} (${label})</span>`;
         } else {
-          metaExpires.textContent = 'Never expires';
+          metaExpires.textContent = isRu() ? 'Никогда не истекает' : 'Never expires';
         }
 
       } catch (err) {
@@ -162,7 +162,6 @@ DevForge.registerTool({
       if (window.SoundFX) window.SoundFX.playClick();
     });
 
-    // Auto process if pre-filled
     processJWT();
   }
 });
