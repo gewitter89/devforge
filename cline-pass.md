@@ -106,3 +106,41 @@ source ~/.zshrc
   * `cline-pass/qwen3.7-max` (Qwen3.7 Max)
   * `cline-pass/qwen3.7-plus` (Qwen3.7 Plus)
 
+---
+
+### 3. Интеграция с OpenCode CLI
+Чтобы использовать **ClinePass** в OpenCode, откройте ваш конфигурационный файл `~/.config/opencode/opencode.json` (или `opencode.jsonc`) и добавьте провайдера `clinepass` в секцию `"provider"`:
+
+```json
+{
+  "provider": {
+    "clinepass": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "ClinePass",
+      "options": {
+        "apiKey": "ваш_api_ключ_sk-...",
+        "baseURL": "https://api.cline.bot/api/v1"
+      },
+      "models": {
+        "cline-pass/glm-5.2":           {"name": "GLM-5.2"},
+        "cline-pass/kimi-k2.7-code":    {"name": "Kimi K2.7 Code"},
+        "cline-pass/kimi-k2.6":         {"name": "Kimi K2.6"},
+        "cline-pass/deepseek-v4-pro":   {"name": "DeepSeek V4 Pro"},
+        "cline-pass/deepseek-v4-flash": {"name": "DeepSeek V4 Flash"},
+        "cline-pass/mimo-v2.5":         {"name": "MiMo-V2.5"},
+        "cline-pass/mimo-v2.5-pro":     {"name": "MiMo-V2.5-Pro"},
+        "cline-pass/minimax-m3":        {"name": "MiniMax M3"},
+        "cline-pass/qwen3.7-max":       {"name": "Qwen3.7 Max"},
+        "cline-pass/qwen3.7-plus":      {"name": "Qwen3.7 Plus"}
+      }
+    }
+  }
+}
+```
+
+> [!IMPORTANT]
+> Для правильного распознавания обязательно укажите пакет `"npm": "@ai-sdk/openai-compatible"` и перечислите ключи моделей в блоке `"models"`, иначе команда `/models` не выведет нового провайдера.
+
+После сохранения файла выполните в терминале команду `/models` и переключитесь на провайдер **ClinePass**.
+
+
