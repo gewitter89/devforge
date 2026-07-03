@@ -12,16 +12,17 @@
       const container = document.getElementById(targetElementId);
       if (!container) return;
 
+      const t = (k) => window.i18n ? window.i18n.t(k) : k;
       container.innerHTML = `
         <div style="text-align:center; padding:var(--space-xl) 0;">
           <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:var(--space-sm); background:var(--gradient-accent); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">
-            🏆 Project Contributors
+            ${t('contributorsTitle')}
           </h2>
           <p style="color:var(--text-secondary); font-size:0.875rem; margin-bottom:var(--space-lg);">
-            The amazing people who help make DevForge better. You could be here too!
+            ${t('contributorsDesc')}
           </p>
           <div id="contributors-list" class="animate-fade-in" style="display:flex; flex-wrap:wrap; justify-content:center; gap:var(--space-md); max-width:800px; margin:0 auto;">
-            <div style="color:var(--text-tertiary); font-size:0.85rem;">Loading contributors...</div>
+            <div style="color:var(--text-tertiary); font-size:0.85rem;">...</div>
           </div>
         </div>
       `;
@@ -97,11 +98,12 @@
     },
 
     getInvitationCardHTML() {
+      const t = (k) => window.i18n ? window.i18n.t(k) : k;
       return `
         <a href="https://github.com" target="_blank" rel="noopener" class="contributor-card" 
            style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:90px; padding:var(--space-sm); background:var(--bg-card); border:1px dashed var(--text-accent); border-radius:var(--radius-md); transition:all var(--transition-fast); text-decoration:none;">
           <div style="width:48px; height:48px; border-radius:var(--radius-full); background:var(--bg-input); display:flex; align-items:center; justify-content:center; margin-bottom:6px; font-size:1.5rem; color:var(--text-accent); font-weight:bold;">＋</div>
-          <span style="font-size:0.75rem; font-weight:500; color:var(--text-accent); text-align:center;">Join Us</span>
+          <span style="font-size:0.75rem; font-weight:500; color:var(--text-accent); text-align:center;">${t('joinUs')}</span>
         </a>
       `;
     }
