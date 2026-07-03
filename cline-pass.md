@@ -48,3 +48,61 @@ source ~/.zshrc
 
 ### Шаг 3: Проверка и запуск
 После установки переменных окружения перезапустите ваш CLI агент. Теперь запросы будут идти в обход стандартной тарификации напрямую через пул моделей **ClinePass**, открывая доступ к дешевым и быстрым альтернативным LLM-моделям (включая китайские бенчмарки GLM-5.2 и Kimi).
+
+---
+
+## 🛠️ Подключение к Crush CLI (и другим OpenAI-совместимым утилитам)
+
+Вы также можете использовать подписку **ClinePass** в любых сторонних консольных клиентах, поддерживающих кастомные эндпоинты (OpenAI-compat).
+
+### 1. Настройка для Crush CLI
+Откройте файл конфигурации `~/.config/crush/crush.json` и добавьте в блок `"providers"` конфигурацию провайдера `cline`:
+
+```json
+{
+  "providers": {
+    "cline": {
+      "type": "openai-compat",
+      "name": "ClinePass",
+      "base_url": "https://api.cline.bot/api/v1",
+      "api_key": "ваш_api_ключ_от_cline_sk-...",
+      "models": [
+        {"id": "cline-pass/glm-5.2",           "name": "GLM-5.2"},
+        {"id": "cline-pass/kimi-k2.7-code",    "name": "Kimi K2.7 Code"},
+        {"id": "cline-pass/kimi-k2.6",         "name": "Kimi K2.6"},
+        {"id": "cline-pass/deepseek-v4-pro",   "name": "DeepSeek V4 Pro"},
+        {"id": "cline-pass/deepseek-v4-flash", "name": "DeepSeek V4 Flash"},
+        {"id": "cline-pass/mimo-v2.5",         "name": "MiMo-V2.5"},
+        {"id": "cline-pass/mimo-v2.5-pro",     "name": "MiMo-V2.5-Pro"},
+        {"id": "cline-pass/minimax-m3",        "name": "MiniMax M3"},
+        {"id": "cline-pass/qwen3.7-max",       "name": "Qwen3.7 Max"},
+        {"id": "cline-pass/qwen3.7-plus",      "name": "Qwen3.7 Plus"}
+      ]
+    }
+  }
+}
+```
+
+*Примечание: Поля `type` ("openai-compat") и массив `models` с парами `id/name` являются обязательными.*  
+После редактирования перезапустите Crush CLI и переключите провайдер командой `/providers` → **ClinePass**.
+
+---
+
+### 2. Параметры для любого другого OpenAI-совместимого CLI
+Если ваш клиент настраивается через форму или плоский конфигурационный файл, укажите следующие параметры:
+
+* **Provider type**: `openai-compat` / `openai`
+* **Base URL**: `https://api.cline.bot/api/v1`
+* **API key**: `sk-...` (ваш API-ключ)
+* **Список моделей для ручного ввода**:
+  * `cline-pass/glm-5.2` (GLM-5.2)
+  * `cline-pass/kimi-k2.7-code` (Kimi K2.7 Code)
+  * `cline-pass/kimi-k2.6` (Kimi K2.6)
+  * `cline-pass/deepseek-v4-pro` (DeepSeek V4 Pro)
+  * `cline-pass/deepseek-v4-flash` (DeepSeek V4 Flash)
+  * `cline-pass/mimo-v2.5` (MiMo-V2.5)
+  * `cline-pass/mimo-v2.5-pro` (MiMo-V2.5-Pro)
+  * `cline-pass/minimax-m3` (MiniMax M3)
+  * `cline-pass/qwen3.7-max` (Qwen3.7 Max)
+  * `cline-pass/qwen3.7-plus` (Qwen3.7 Plus)
+
