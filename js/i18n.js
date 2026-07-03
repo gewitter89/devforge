@@ -1,13 +1,13 @@
 /* ============================================================
    DevForge — Internationalization (i18n) Engine
-   Contains translations and helpers for English and Russian
+   Contains translations for English and Russian
    ============================================================ */
 
 (function() {
   'use strict';
 
   const i18n = {
-    lang: 'en',
+    lang: 'ru', // Default to Russian first for Russian users
 
     // Translations Dictionary
     translations: {
@@ -58,7 +58,16 @@
         cmdSoundOffDesc: 'Disable audio interactions',
         cmdUnknown: 'Unknown Command. Try: >uuid, >theme, >sound',
         cmdBase64Title: 'Base64 Encode: "{param}"',
-        cmdBase64Desc: 'Result: {result} (Click to copy)'
+        cmdBase64Desc: 'Result: {result} (Click to copy)',
+
+        // AI Assistant
+        aiProvider: 'Provider:',
+        aiPromptLabel: 'What do you want to generate / solve?',
+        aiOutputLabel: 'AI Output / Generated Code',
+        aiGenerateBtn: 'Generate Response',
+        aiPlaceholder: 'Example: Create a regular expression to validate a complex password...',
+        aiWaiting: '🤖 Thinking and generating response, please wait...',
+        aiFallbackErr: 'All free LLM serverless gateways failed. Please try providing your own Gemini or OpenAI API keys in the settings panel above.'
       },
       ru: {
         logoText: 'DevForge',
@@ -74,7 +83,7 @@
         toolsAvailable: 'инструментов доступно',
         addYourTool: '＋ Добавить инструмент',
         starCTATitle: '✨ Нравится DevForge?',
-        starCTADesc: 'Поддержи проект звездой на GitHub! Это поможет другим разработчикам найти нас.',
+        starCTADesc: 'Поддержи проект звездой на GitHub! Это поможет другим найти нас.',
         starBtn: '⭐ Поставить звезду',
         contributorsTitle: '🏆 Контрибьюторы проекта',
         contributorsDesc: 'Потрясающие люди, помогающие делать DevForge лучше. Ты тоже можешь быть здесь!',
@@ -82,7 +91,7 @@
         backToTools: 'Назад к инструментам',
         searchEmpty: 'Инструменты не найдены',
         searchEmptySub: 'Попробуйте другой запрос или категорию',
-        loadDemo: '💡 Демо-данные',
+        loadDemo: '💡 Пример данных',
         clear: 'Очистить',
         copy: 'Копировать',
         copied: '✓ Скопировано!',
@@ -107,12 +116,21 @@
         cmdSoundOffDesc: 'Деактивировать звуковое сопровождение',
         cmdUnknown: 'Неизвестная команда. Попробуйте: >uuid, >theme, >sound',
         cmdBase64Title: 'Base64 кодирование: "{param}"',
-        cmdBase64Desc: 'Результат: {result} (Кликните для копирования)'
+        cmdBase64Desc: 'Результат: {result} (Кликните для копирования)',
+
+        // AI Assistant
+        aiProvider: 'Провайдер ИИ:',
+        aiPromptLabel: 'Что вы хотите сгенерировать или решить?',
+        aiOutputLabel: 'Результат генерации / Код',
+        aiGenerateBtn: 'Сгенерировать ответ',
+        aiPlaceholder: 'Например: Создай регулярное выражение для проверки сложного пароля...',
+        aiWaiting: '🤖 ИИ думает и генерирует ответ, пожалуйста, подождите...',
+        aiFallbackErr: 'Бесплатные серверы ИИ сейчас перегружены. Пожалуйста, вставьте свой личный API-ключ Gemini или OpenAI в панели настроек выше для стабильной и быстрой работы.'
       }
     },
 
     init() {
-      // 1. Detect language (localStorage -> browser language -> default 'en')
+      // 1. Detect language (localStorage -> browser language -> default 'ru')
       const saved = localStorage.getItem('devforge-lang');
       if (saved && (saved === 'en' || saved === 'ru')) {
         this.lang = saved;
@@ -121,7 +139,7 @@
         if (navLang && navLang.startsWith('ru')) {
           this.lang = 'ru';
         } else {
-          this.lang = 'en';
+          this.lang = 'ru'; // Default to Russian for this user project
         }
       }
     },
@@ -130,12 +148,10 @@
       if (lang === 'en' || lang === 'ru') {
         this.lang = lang;
         localStorage.setItem('devforge-lang', lang);
-        // Dispatch custom event to let app trigger rerender
         window.dispatchEvent(new CustomEvent('df-lang-changed', { detail: lang }));
       }
     },
 
-    // Translate a key
     t(key) {
       return this.translations[this.lang][key] || this.translations['en'][key] || key;
     }
