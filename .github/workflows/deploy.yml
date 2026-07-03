@@ -1,4 +1,4 @@
-<![CDATA[# Deploy DevForge to GitHub Pages
+# Deploy DevForge to GitHub Pages
 #
 # This workflow deploys the static site to GitHub Pages
 # whenever changes are pushed to the main branch.
@@ -49,4 +49,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-]]>
+
