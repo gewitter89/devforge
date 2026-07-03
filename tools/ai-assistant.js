@@ -25,6 +25,7 @@ DevForge.registerTool({
                 <option value="free-llama" selected>Free Serverless LLM</option>
                 <option value="gemini">Gemini API</option>
                 <option value="openai">OpenAI API</option>
+                <option value="deepseek">DeepSeek API</option>
               </select>
             </div>
             <div class="tool-option" id="api-key-group" style="flex: 1; max-width: 400px; display: none;">
@@ -228,6 +229,21 @@ DevForge.registerTool({
             })
           });
           if (!response.ok) throw new Error(`OpenAI API Error: ${response.statusText}`);
+          const data = await response.json();
+          resultText = data.choices[0].message.content;
+        } else if (provider === 'deepseek') {
+          const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${key}`
+            },
+            body: JSON.stringify({
+              model: 'deepseek-chat',
+              messages: [{ role: 'user', content: prompt }]
+            })
+          });
+          if (!response.ok) throw new Error(`DeepSeek API Error: ${response.statusText}`);
           const data = await response.json();
           resultText = data.choices[0].message.content;
         }
