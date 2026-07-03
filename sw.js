@@ -30,7 +30,11 @@ const ASSETS = [
   './tools/jwt-decoder.js',
   './tools/diff-checker.js',
   './tools/cron-parser.js',
-  './tools/image-optimizer.js'
+  './tools/image-optimizer.js',
+  './tools/knowledge-base.js',
+  './tools/ai-packager.js',
+  './tools/ai-sanitizer.js',
+  './tools/web-terminal.js'
 ];
 
 // Install Event — cache all core shell assets
