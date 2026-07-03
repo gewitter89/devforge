@@ -10,6 +10,7 @@ Welcome to the DevForge Knowledge Base! This page serves as a human-friendly ind
 |---|---|---|
 | 🤖 **[GIG AI Boost](gig-ai-boost.md)** | [GIG AI Boost (RU)](gig-ai-boost.md) | Get private repositories, MCP servers, hacks, and custom prompts |
 | 🪨 **[Caveman SKILLS](caveman.md)** | [Пещерный человек (RU)](caveman.md) | Save up to 65% on output tokens by compressing LLM responses |
+| 🤖 **[CursorRules Template](cursorrules.md)** | [Шаблон перепрошивки (RU)](cursorrules.md) | Copy-paste .cursorrules instructions to train and speed up your AI |
 | 🔑 **[Free LLM APIs](free-llm-apis.md)** | [Бесплатные API (RU)](free-llm-apis.md) | A curated list of permanent free LLM API keys and routers |
 | 🐳 **[CLI in Docker](cli-in-docker.md)** | [CLI в Docker (RU)](cli-in-docker.md) | Sandbox your AI agent in Docker with environment variables |
 | 🔌 **[ClinePass Setup](cline-pass.md)** | [ClinePass Настройка (RU)](cline-pass.md) | Custom OpenAI routing, Crush CLI, and OpenCode configurations |

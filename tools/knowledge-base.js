@@ -42,6 +42,15 @@
       tag: 'Hacks'
     },
     {
+      id: 'cursorrules',
+      titleEn: '🤖 .cursorrules / .clinerules System Templates',
+      titleRu: '🤖 Шаблоны перепрошивки ИИ (.cursorrules)',
+      descEn: 'Copy-paste instruction templates to configure your Cursor, Windsurf, or Cline code assistants for maximum efficiency.',
+      descRu: 'Готовые шаблоны инструкций для ИИ-агентов. Обучите ваш ИИ писать код быстро, без лишних слов и рассуждений.',
+      url: 'cursorrules.md',
+      tag: 'System Prompts'
+    },
+    {
       id: 'free-llm-apis',
       titleEn: '🔑 Awesome Free LLM APIs (API Keys)',
       titleRu: '🔑 Список постоянных бесплатных API для LLM',
