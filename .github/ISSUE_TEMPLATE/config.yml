@@ -1,0 +1,9 @@
+<![CDATA[blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/your-username/devforge/discussions
+    about: Ask questions, share ideas, or discuss DevForge with the community
+  - name: 📖 Contributing Guide
+    url: https://github.com/your-username/devforge/blob/main/CONTRIBUTING.md
+    about: Read the contributing guide before submitting your first PR
+]]>

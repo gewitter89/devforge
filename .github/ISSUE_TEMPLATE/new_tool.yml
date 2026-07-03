@@ -1,0 +1,101 @@
+<![CDATA[name: 🔧 New Tool Proposal
+description: Propose a new tool to be added to DevForge
+title: "[Tool]: "
+labels: ["new tool", "discussion"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Propose a New Tool 🔧
+
+        Have an idea for a developer tool? We'd love to hear it! Fill out the details below so we can evaluate and prioritize it.
+
+        Before submitting, please search existing issues to make sure a similar tool hasn't already been proposed.
+
+  - type: input
+    id: tool-name
+    attributes:
+      label: Tool Name
+      description: What would you call this tool?
+      placeholder: "JWT Decoder"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category best fits this tool?
+      options:
+        - Formatters
+        - Generators
+        - Converters
+        - Encoders
+        - Text
+        - Web
+        - Other / Not Sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this tool do? Describe its purpose and functionality.
+      placeholder: "A tool that decodes JSON Web Tokens (JWT) and displays the header, payload, and signature sections with syntax highlighting. It should also validate the token's expiration."
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Example Use Case
+      description: Describe a real-world scenario where a developer would use this tool.
+      placeholder: "A backend developer debugging authentication issues needs to quickly inspect the claims inside a JWT without going to an external website."
+    validations:
+      required: true
+
+  - type: textarea
+    id: inputs-outputs
+    attributes:
+      label: Inputs & Outputs
+      description: What would the user input, and what would the tool output?
+      placeholder: |
+        Input: A JWT string (e.g., eyJhbGciOiJIUzI1NiIs...)
+        Output: Decoded header (JSON), payload (JSON), signature (hex), expiration status
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References / Similar Tools
+      description: Links to similar tools or implementations for reference.
+      placeholder: "https://jwt.io"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Willing to Build It?
+      description: Would you be interested in implementing this tool?
+      options:
+        - label: I'd like to implement this tool and submit a PR
+          required: false
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated Complexity
+      description: How complex do you think this tool would be to build?
+      options:
+        - Simple (1-2 hours)
+        - Medium (half a day)
+        - Complex (1+ days)
+        - Not sure
+    validations:
+      required: false
+]]>

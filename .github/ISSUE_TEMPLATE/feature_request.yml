@@ -1,0 +1,73 @@
+<![CDATA[name: ✨ Feature Request
+description: Suggest a new feature or improvement for DevForge
+title: "[Feature]: "
+labels: ["enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Got an idea? We'd love to hear it! ✨
+
+        Feature requests help us understand what the community needs. Please describe your idea in detail.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Motivation
+      description: What problem does this feature solve? Is it related to a frustration?
+      placeholder: "I often need to decode JWTs during debugging, and currently I have to leave DevForge to use another site."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe how you'd like this feature to work.
+      placeholder: "Add a JWT Decoder tool that splits the header, payload, and signature, and displays them with syntax highlighting."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative solutions or workarounds?
+      placeholder: "I currently use jwt.io, but it requires internet access and doesn't integrate with my workflow."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: What area does this feature affect?
+      options:
+        - New tool
+        - Existing tool improvement
+        - UI / UX
+        - Core functionality
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: mockup
+    attributes:
+      label: Mockups / Examples
+      description: If you have any mockups, screenshots, or examples from other tools, share them here.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Willing to Contribute?
+      description: Would you be willing to help implement this feature?
+      options:
+        - label: I'd be willing to submit a PR for this feature
+          required: false
+]]>

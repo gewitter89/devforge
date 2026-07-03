@@ -1,0 +1,92 @@
+/* ============================================================
+   DevForge — Extra styling for sound toggles, theme settings,
+   contributor cards, confetti positioning and AI Assistant
+   ============================================================ */
+
+/* Theme Configuration grid */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.theme-card {
+  padding: var(--space-md);
+  background: var(--bg-input);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.theme-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-accent);
+}
+
+.theme-card.active {
+  border-color: var(--text-accent);
+  background: var(--gradient-subtle);
+  font-weight: bold;
+}
+
+/* Star notification trigger badge */
+.star-prompt {
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  box-shadow: var(--shadow-glow);
+  animation: scaleIn 0.4s ease;
+}
+
+.star-prompt-btn {
+  background: white;
+  color: #7c3aed;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: all var(--transition-fast);
+}
+
+.star-prompt-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255,255,255,0.25);
+}
+
+/* Sound button icons styling */
+.sound-toggle-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Command palette list items */
+.cmd-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.cmd-item:hover, .cmd-item.selected {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-left: 3px solid var(--text-accent);
+  padding-left: 11px;
+}
+
