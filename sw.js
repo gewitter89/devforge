@@ -32,6 +32,7 @@ const ASSETS = [
   './tools/cron-parser.js',
   './tools/image-optimizer.js',
   './tools/knowledge-base.js',
+  './tools/smart-transformer.js',
   './tools/ai-packager.js',
   './tools/ai-sanitizer.js',
   './tools/web-terminal.js'
