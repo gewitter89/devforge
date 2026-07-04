@@ -4,7 +4,7 @@
    Uses stale-while-revalidate for optimal freshness + offline.
    ============================================================ */
 
-const CACHE_VERSION = 'devforge-sw-v2-r2';
+const CACHE_VERSION = 'devforge-sw-v2-r3';
 const SHELL_ASSETS = [
   './',
   './index.html',
@@ -39,6 +39,7 @@ const TOOL_ASSETS = [
   './tools/ai-sanitizer.js?v=2',
   './tools/web-terminal.js?v=2',
   './tools/opencode-config-generator.js?v=2',
+  './tools/ai-agent-config-hub.js?v=2',
 ];
 
 const ALL_ASSETS = [...SHELL_ASSETS, ...TOOL_ASSETS];
