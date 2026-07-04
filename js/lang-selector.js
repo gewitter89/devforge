@@ -3,7 +3,7 @@
  * Renders dropdown with flags for all supported languages
  */
 
-(function() {
+(function () {
   'use strict';
 
   const SUPPORTED_LANGUAGES = [

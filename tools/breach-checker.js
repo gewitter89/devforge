@@ -3,7 +3,7 @@
  * Check if email/domain appears in known data breaches via HIBP API
  */
 
-(function() {
+(function () {
   'use strict';
 
   const BreachChecker = {
@@ -13,12 +13,12 @@
     description: 'Check if your email or domain appears in known data breaches (via HIBP API)',
     category: 'Security',
 
-    init: function() {
+    init: function () {
       this.render();
       this.bindEvents();
     },
 
-    render: function() {
+    render: function () {
       const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
       
       return `
@@ -182,7 +182,7 @@
       `;
     },
 
-    bindEvents: function() {
+    bindEvents: function () {
       const checkBtn = document.getElementById('check-btn');
       const input = document.getElementById('breach-input');
 
@@ -256,11 +256,11 @@
       }
     },
 
-    validateEmail: function(email) {
+    validateEmail: function (email) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     },
 
-    displayBreaches: function(breaches, email) {
+    displayBreaches: function (breaches, email) {
       const results = document.getElementById('breach-results');
       const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
 
@@ -297,7 +297,7 @@
       `;
     },
 
-    displaySafe: function(email) {
+    displaySafe: function (email) {
       const results = document.getElementById('breach-results');
       const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
 
@@ -311,7 +311,7 @@
       `;
     },
 
-    showError: function(message) {
+    showError: function (message) {
       const results = document.getElementById('breach-results');
       results.innerHTML = `
         <div class="error-message">

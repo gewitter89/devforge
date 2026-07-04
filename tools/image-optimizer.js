@@ -165,7 +165,7 @@ DevForge.registerTool({
 
         const savings = originalSize - blob.size;
         const savingsPercent = originalSize > 0 ? Math.round((savings / originalSize) * 100) : 0;
-        savingsSpan.textContent = savingsPercent > 0 ? `${savingsPercent}% (${formatBytes(savings)})` : `0%`;
+        savingsSpan.textContent = savingsPercent > 0 ? `${savingsPercent}% (${formatBytes(savings)})` : '0%';
         savingsSpan.style.color = savingsPercent > 0 ? 'var(--color-success)' : 'var(--color-warning)';
 
         if (window.SoundFX) window.SoundFX.playSuccess();

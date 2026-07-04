@@ -203,15 +203,21 @@ DevForge.registerTool({
     // Timestamp → Date
     function convertTimestamp() {
       const val = tsInput.value.trim();
-      if (!val) { tsResult.style.display = 'none'; return; }
+      if (!val) {
+        tsResult.style.display = 'none'; return; 
+      }
       const num = parseInt(val, 10);
-      if (isNaN(num)) { tsResult.style.display = 'none'; return; }
+      if (isNaN(num)) {
+        tsResult.style.display = 'none'; return; 
+      }
 
       // Auto-detect seconds vs milliseconds (if > year 2100 in seconds, assume ms)
       const ms = num > 9999999999 ? num : num * 1000;
       const date = new Date(ms);
 
-      if (isNaN(date.getTime())) { tsResult.style.display = 'none'; return; }
+      if (isNaN(date.getTime())) {
+        tsResult.style.display = 'none'; return; 
+      }
 
       tsResult.style.display = 'block';
       isoEl.textContent = date.toISOString();
@@ -241,9 +247,13 @@ DevForge.registerTool({
     // Date → Timestamp
     function convertDate() {
       const val = dateInput.value;
-      if (!val) { dateResult.style.display = 'none'; return; }
+      if (!val) {
+        dateResult.style.display = 'none'; return; 
+      }
       const date = new Date(val);
-      if (isNaN(date.getTime())) { dateResult.style.display = 'none'; return; }
+      if (isNaN(date.getTime())) {
+        dateResult.style.display = 'none'; return; 
+      }
 
       dateResult.style.display = 'block';
       dateSec.textContent = Math.floor(date.getTime() / 1000);

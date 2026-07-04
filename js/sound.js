@@ -3,7 +3,7 @@
    Provides clean, modern UI audio feedback
    ============================================================ */
 
-(function() {
+(function () {
   'use strict';
 
   const SoundFX = {

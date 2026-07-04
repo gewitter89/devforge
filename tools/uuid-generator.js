@@ -42,9 +42,9 @@ DevForge.registerTool({
 
         <p style="margin-top:14px;font-size:12px;opacity:.5;">
           ${isRu 
-            ? 'UUID генерируются на основе безопасных псевдослучайных чисел API <code>crypto.getRandomValues()</code>.' 
-            : 'UUIDs are generated using <code>crypto.getRandomValues()</code> — cryptographically secure random values.'
-          }
+    ? 'UUID генерируются на основе безопасных псевдослучайных чисел API <code>crypto.getRandomValues()</code>.' 
+    : 'UUIDs are generated using <code>crypto.getRandomValues()</code> — cryptographically secure random values.'
+}
         </p>
       </div>
     `;

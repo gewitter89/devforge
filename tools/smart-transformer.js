@@ -383,7 +383,7 @@
       });
 
       document.getElementById('text-clean-html').addEventListener('click', () => {
-        textOutput.value = textInput.value.replace(/<\/?[^>]+(>|$)/g, "");
+        textOutput.value = textInput.value.replace(/<\/?[^>]+(>|$)/g, '');
         if (window.SoundFX) window.SoundFX.playSuccess();
       });
 

@@ -135,8 +135,8 @@ DevForge.registerTool({
 
     demoBtn.addEventListener('click', () => {
       promptArea.value = window.i18n.lang === 'ru'
-        ? "Создай регулярное выражение для проверки сложного пароля: минимум 8 символов, одна заглавная буква, одна цифра и один спецсимвол. Объясни, как работает регулярка."
-        : "Create a regular expression to validate a complex password with at least 8 chars, 1 uppercase, 1 symbol, and 1 number. Explain how it works.";
+        ? 'Создай регулярное выражение для проверки сложного пароля: минимум 8 символов, одна заглавная буква, одна цифра и один спецсимвол. Объясни, как работает регулярка.'
+        : 'Create a regular expression to validate a complex password with at least 8 chars, 1 uppercase, 1 symbol, and 1 number. Explain how it works.';
       if (window.SoundFX) window.SoundFX.playSuccess();
       if (window.confetti) {
         window.confetti({ particleCount: 30, spread: 35, origin: { y: 0.8 } });
@@ -193,7 +193,7 @@ DevForge.registerTool({
           });
 
           if (!response.ok) {
-             throw new Error(t('aiFallbackErr'));
+            throw new Error(t('aiFallbackErr'));
           }
 
           const data = await response.json();

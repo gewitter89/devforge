@@ -96,7 +96,7 @@ DevForge.registerTool({
       }
 
       let markdown = '';
-      markdown += `## Project Context Files Bundle\n`;
+      markdown += '## Project Context Files Bundle\n';
       markdown += `This context contains ${loadedFiles.length} files. Please use them to answer questions or write code.\n\n`;
 
       for (let file of loadedFiles) {
@@ -104,11 +104,11 @@ DevForge.registerTool({
         markdown += `\`\`\`${getFileExtension(file.name)}\n`;
         try {
           const text = await readFileAsText(file);
-          markdown += text.trim() + `\n`;
+          markdown += text.trim() + '\n';
         } catch (err) {
           markdown += `[Error reading file content: ${err.message}]\n`;
         }
-        markdown += `\`\`\`\n\n`;
+        markdown += '```\n\n';
       }
 
       outputArea.value = markdown;
@@ -145,7 +145,7 @@ DevForge.registerTool({
     }
 
     function getFileExtension(filename) {
-      return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2) || 'text';
+      return filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2) || 'text';
     }
 
     function formatBytes(bytes) {

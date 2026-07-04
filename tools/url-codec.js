@@ -81,7 +81,9 @@ DevForge.registerTool({
 
     function encode() {
       const raw = input.value;
-      if (!raw) { output.value = ''; return; }
+      if (!raw) {
+        output.value = ''; return; 
+      }
       try {
         output.value = encodeFn(raw);
       } catch (e) {
@@ -91,7 +93,9 @@ DevForge.registerTool({
 
     function decode() {
       const raw = input.value.trim();
-      if (!raw) { output.value = ''; return; }
+      if (!raw) {
+        output.value = ''; return; 
+      }
       try {
         output.value = decodeFn(raw);
       } catch (e) {
@@ -147,7 +151,9 @@ DevForge.registerTool({
 
     function parseURL() {
       const raw = parseInput.value.trim();
-      if (!raw) { parseResult.innerHTML = ''; return; }
+      if (!raw) {
+        parseResult.innerHTML = ''; return; 
+      }
 
       try {
         const url = new URL(raw);
@@ -164,11 +170,11 @@ DevForge.registerTool({
               </thead>
               <tbody>
                 ${[...url.searchParams].map(([k, v]) =>
-                  `<tr style="border-bottom:1px solid var(--border);">
+    `<tr style="border-bottom:1px solid var(--border);">
                     <td style="padding:4px 8px;font-family:'JetBrains Mono',monospace;color:var(--accent);">${escHtml(k)}</td>
                     <td style="padding:4px 8px;font-family:'JetBrains Mono',monospace;">${escHtml(v)}</td>
                   </tr>`
-                ).join('')}
+  ).join('')}
               </tbody>
             </table>
           `;
@@ -200,7 +206,9 @@ DevForge.registerTool({
     }
 
     document.getElementById('url-codec-parse-btn').addEventListener('click', parseURL);
-    parseInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') parseURL(); });
+    parseInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') parseURL(); 
+    });
     parseInput.addEventListener('input', () => {
       clearTimeout(parseInput._t);
       parseInput._t = setTimeout(parseURL, 300);
@@ -219,7 +227,9 @@ DevForge.registerTool({
         <input type="text" class="tool-input" placeholder="value" value="${escHtml(value || '')}" style="flex:1;" data-qs="value">
         <button class="tool-btn-sm tool-btn" data-qs="remove" title="Remove" style="padding:4px 8px;">✕</button>
       `;
-      row.querySelector('[data-qs="remove"]').addEventListener('click', () => { row.remove(); buildQS(); });
+      row.querySelector('[data-qs="remove"]').addEventListener('click', () => {
+        row.remove(); buildQS(); 
+      });
       // Real-time build
       row.querySelectorAll('input').forEach(inp => inp.addEventListener('input', buildQS));
       qsRows.appendChild(row);

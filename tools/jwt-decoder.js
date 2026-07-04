@@ -75,7 +75,7 @@ DevForge.registerTool({
     if (demoBtn) demoBtn.textContent = t('loadDemo');
     if (clearBtn) clearBtn.textContent = t('clear');
 
-    const DEMO_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikdld2l0dGVyODkiLCJyb2xlIjoiY3JlYXRvciIsImlhdCI6MTc4MDIwOTYwMCwiZXhwIjoxOTEwMDc4NDAwfQ.dummy-signature-here";
+    const DEMO_JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikdld2l0dGVyODkiLCJyb2xlIjoiY3JlYXRvciIsImlhdCI6MTc4MDIwOTYwMCwiZXhwIjoxOTEwMDc4NDAwfQ.dummy-signature-here';
 
     const cleanOut = () => {
       headerOut.textContent = '';

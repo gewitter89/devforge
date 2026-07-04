@@ -91,12 +91,24 @@ DevForge.registerTool({
         c = ii(c, d, a, b, k[2], 15, 718787259);    b = ii(b, c, d, a, k[9], 21, -343485551);
         x[0] = add32(a, x[0]); x[1] = add32(b, x[1]); x[2] = add32(c, x[2]); x[3] = add32(d, x[3]);
       }
-      function cmn(q, a, b, x, s, t) { a = add32(add32(a, q), add32(x, t)); return add32((a << s) | (a >>> (32 - s)), b); }
-      function ff(a, b, c, d, x, s, t) { return cmn((b & c) | ((~b) & d), a, b, x, s, t); }
-      function gg(a, b, c, d, x, s, t) { return cmn((b & d) | (c & (~d)), a, b, x, s, t); }
-      function hh(a, b, c, d, x, s, t) { return cmn(b ^ c ^ d, a, b, x, s, t); }
-      function ii(a, b, c, d, x, s, t) { return cmn(c ^ (b | (~d)), a, b, x, s, t); }
-      function add32(a, b) { return (a + b) & 0xFFFFFFFF; }
+      function cmn(q, a, b, x, s, t) {
+        a = add32(add32(a, q), add32(x, t)); return add32((a << s) | (a >>> (32 - s)), b); 
+      }
+      function ff(a, b, c, d, x, s, t) {
+        return cmn((b & c) | ((~b) & d), a, b, x, s, t); 
+      }
+      function gg(a, b, c, d, x, s, t) {
+        return cmn((b & d) | (c & (~d)), a, b, x, s, t); 
+      }
+      function hh(a, b, c, d, x, s, t) {
+        return cmn(b ^ c ^ d, a, b, x, s, t); 
+      }
+      function ii(a, b, c, d, x, s, t) {
+        return cmn(c ^ (b | (~d)), a, b, x, s, t); 
+      }
+      function add32(a, b) {
+        return (a + b) & 0xFFFFFFFF; 
+      }
 
       function md5blk(s) {
         const md5blks = [];
@@ -107,12 +119,18 @@ DevForge.registerTool({
       }
 
       let n = string.length, state = [1732584193, -271733879, -1732584194, 271733878], i;
-      for (i = 64; i <= n; i += 64) { md5cycle(state, md5blk(string.substring(i - 64, i))); }
+      for (i = 64; i <= n; i += 64) {
+        md5cycle(state, md5blk(string.substring(i - 64, i))); 
+      }
       string = string.substring(i - 64);
       const tail = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-      for (i = 0; i < string.length; i++) { tail[i >> 2] |= string.charCodeAt(i) << ((i % 4) << 3); }
+      for (i = 0; i < string.length; i++) {
+        tail[i >> 2] |= string.charCodeAt(i) << ((i % 4) << 3); 
+      }
       tail[i >> 2] |= 0x80 << ((i % 4) << 3);
-      if (i > 55) { md5cycle(state, tail); for (i = 0; i < 16; i++) tail[i] = 0; }
+      if (i > 55) {
+        md5cycle(state, tail); for (i = 0; i < 16; i++) tail[i] = 0; 
+      }
       tail[14] = n * 8;
       md5cycle(state, tail);
 
@@ -202,7 +220,9 @@ DevForge.registerTool({
     // Clear
     document.getElementById('hash-gen-clear').addEventListener('click', () => {
       input.value = '';
-      hashAlgos.forEach(h => { document.getElementById(h.id).textContent = '—'; });
+      hashAlgos.forEach(h => {
+        document.getElementById(h.id).textContent = '—'; 
+      });
       sizeEl.textContent = '';
       input.focus();
     });

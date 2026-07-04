@@ -148,7 +148,9 @@
     main.querySelectorAll('.tool-card').forEach(card => {
       const handler = () => navigateTo('#/tool/' + card.dataset.toolId);
       card.addEventListener('click', handler);
-      card.addEventListener('keydown', e => { if (e.key === 'Enter') handler(); });
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter') handler(); 
+      });
     });
   }
 
@@ -350,10 +352,14 @@
           ];
         } else if (action === 'base64' && param) {
           const enc = btoa(param);
-          currentItems = [{ type: 'action', title: `Base64 Encode: "${param}"`, desc: `Result: ${enc} (Click to copy)`, handler: () => { DevForge.copyToClipboard(enc); hidePalette(); } }];
+          currentItems = [{ type: 'action', title: `Base64 Encode: "${param}"`, desc: `Result: ${enc} (Click to copy)`, handler: () => {
+            DevForge.copyToClipboard(enc); hidePalette(); 
+          } }];
         } else if (action === 'hash' && param) {
           // Dummy sync md5 or simple hash fallback
-          currentItems = [{ type: 'action', title: `Hash: "${param}"`, desc: 'Open Hash tool to calculate hashes', handler: () => { navigateTo('#/tool/hash-generator'); hidePalette(); } }];
+          currentItems = [{ type: 'action', title: `Hash: "${param}"`, desc: 'Open Hash tool to calculate hashes', handler: () => {
+            navigateTo('#/tool/hash-generator'); hidePalette(); 
+          } }];
         } else {
           currentItems = [{ type: 'action', title: 'Unknown Command', desc: 'Available: >uuid, >theme [light/dark], >sound [on/off], >base64 [text]', handler: () => {} }];
         }

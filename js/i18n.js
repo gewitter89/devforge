@@ -3,7 +3,7 @@
    Supports 14 languages with auto-detection and dynamic loading
    ============================================================ */
 
-(function() {
+(function () {
   'use strict';
 
   // Supported locales with native names

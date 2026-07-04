@@ -3,7 +3,7 @@
    Dynamically fetches and displays GitHub contributors with animations.
    ============================================================ */
 
-(function() {
+(function () {
   'use strict';
 
   const Contributors = {

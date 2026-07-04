@@ -3,7 +3,7 @@
  * Real-time LLM degradation tracking via aistupidlevel.info embed
  */
 
-(function() {
+(function () {
   'use strict';
 
   const LLMQualityMonitor = {
@@ -13,11 +13,11 @@
     description: 'Real-time tracking of LLM model degradation and quality metrics',
     category: 'AI',
 
-    init: function() {
+    init: function () {
       this.render();
     },
 
-    render: function() {
+    render: function () {
       const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
       
       return `

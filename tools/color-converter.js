@@ -138,8 +138,9 @@ DevForge.registerTool({
       r /= 255; g /= 255; b /= 255;
       const max = Math.max(r, g, b), min = Math.min(r, g, b);
       let h, s, l = (max + min) / 2;
-      if (max === min) { h = s = 0; }
-      else {
+      if (max === min) {
+        h = s = 0; 
+      } else {
         const d = max - min;
         s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
         switch (max) {
@@ -154,8 +155,9 @@ DevForge.registerTool({
     function hslToRgb(h, s, l) {
       h /= 360; s /= 100; l /= 100;
       let r, g, b;
-      if (s === 0) { r = g = b = l; }
-      else {
+      if (s === 0) {
+        r = g = b = l; 
+      } else {
         const hue2rgb = (p, q, t) => {
           if (t < 0) t += 1;
           if (t > 1) t -= 1;
@@ -179,8 +181,9 @@ DevForge.registerTool({
       let h, s, v = max;
       const d = max - min;
       s = max === 0 ? 0 : d / max;
-      if (max === min) { h = 0; }
-      else {
+      if (max === min) {
+        h = 0; 
+      } else {
         switch (max) {
           case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
           case g: h = ((b - r) / d + 2) / 6; break;

@@ -146,7 +146,7 @@ DevForge.registerTool({
       }
 
       if (dates.length === 0) {
-        throw new Error("Could not compute next dates. Cron pattern too sparse.");
+        throw new Error('Could not compute next dates. Cron pattern too sparse.');
       }
 
       return dates;

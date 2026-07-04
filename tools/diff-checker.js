@@ -121,9 +121,9 @@ DevForge.registerTool({
           rightHTML += `<div style="padding:2px var(--space-sm); border-bottom:1px solid rgba(255,255,255,0.01); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>${escapeHTML(right || '')}</span></div>`;
         } else if (left !== null && right === null) {
           leftHTML += `<div style="background:rgba(239,68,68,0.15); border-left:3px solid var(--color-error); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(239,68,68,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>- ${escapeHTML(left)}</span></div>`;
-          rightHTML += `<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>`;
+          rightHTML += '<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>';
         } else if (left === null && right !== null) {
-          leftHTML += `<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>`;
+          leftHTML += '<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>';
           rightHTML += `<div style="background:rgba(34,197,94,0.15); border-left:3px solid var(--color-success); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(34,197,94,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>+ ${escapeHTML(right)}</span></div>`;
         } else {
           // Replaced / modified line

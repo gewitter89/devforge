@@ -189,7 +189,9 @@ DevForge.registerTool({
     }
 
     // Sync slider & number input
-    slider.addEventListener('input', () => { lengthInput.value = slider.value; generate(); });
+    slider.addEventListener('input', () => {
+      lengthInput.value = slider.value; generate(); 
+    });
     lengthInput.addEventListener('input', () => {
       const v = Math.max(8, Math.min(128, parseInt(lengthInput.value) || 8));
       slider.value = v;

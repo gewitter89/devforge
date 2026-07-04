@@ -66,19 +66,19 @@ DevForge.registerTool({
     let lastFormatted = '';
 
     const DEMO_JSON = {
-      project: "DevForge",
-      type: "Developer Toolkit",
+      project: 'DevForge',
+      type: 'Developer Toolkit',
       meta: {
         stars: 0,
-        license: "MIT",
+        license: 'MIT',
         active: true
       },
-      tags: ["open-source", "web-tools", "vanilla-js"],
+      tags: ['open-source', 'web-tools', 'vanilla-js'],
       features: [
-        "15+ built-in utilities",
-        "i18n multi-language support",
-        "Command palette CLI mode",
-        "Local private execution"
+        '15+ built-in utilities',
+        'i18n multi-language support',
+        'Command palette CLI mode',
+        'Local private execution'
       ]
     };
 

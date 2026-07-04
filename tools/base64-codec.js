@@ -100,7 +100,9 @@ DevForge.registerTool({
 
     function encode() {
       const raw = input.value;
-      if (!raw) { output.value = ''; sizeEl.textContent = ''; return; }
+      if (!raw) {
+        output.value = ''; sizeEl.textContent = ''; return; 
+      }
       try {
         const result = utf8ToBase64(raw);
         output.value = result;
@@ -113,7 +115,9 @@ DevForge.registerTool({
 
     function decode() {
       const raw = input.value.trim();
-      if (!raw) { output.value = ''; sizeEl.textContent = ''; return; }
+      if (!raw) {
+        output.value = ''; sizeEl.textContent = ''; return; 
+      }
       try {
         const result = base64ToUtf8(raw);
         output.value = result;
