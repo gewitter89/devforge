@@ -2,12 +2,12 @@
 
 ## Hacker News - Show HN
 
-**Title:** Show HN: DevForge – Open-source browser toolkit with 22 dev tools, zero dependencies
+**Title:** Show HN: DevForge – Open-source browser toolkit with 25 dev tools, 14 languages, zero dependencies
 
 **URL:** https://gewitter89.github.io/devforge/
 
 **Text:**
-Hi HN! I built DevForge, a collection of 22 developer tools that runs entirely in your browser with no server, no tracking, no dependencies.
+Hi HN! I built DevForge, a collection of 25 developer tools that runs entirely in your browser with no server, no tracking, no dependencies.
 
 **What's included:**
 
@@ -16,9 +16,12 @@ Hi HN! I built DevForge, a collection of 22 developer tools that runs entirely i
 - Base64 codec, URL encoder, color converter
 - Markdown preview, diff checker, cron parser
 - Image optimizer (client-side compression)
-- AI tools: prompt packager, context sanitizer
+- AI tools: prompt packager, context sanitizer, AI assistant
 - **New:** AI Agent Config Generator (OpenCode, Cline, Cursor, Crush)
-- **New:** Token savings guide (65-91% reduction with Caveman/Ponytail/Memanto)
+- **New:** Breach Checker (HIBP API integration)
+- **New:** LLM Quality Monitor (real-time model degradation tracking)
+- **New:** Multi-Provider AI Router (compare 5+ LLM providers in parallel)
+- **New:** Token savings guide (65-91% reduction with Caveman/Ponytail/Memanto/Droid)
 
 **Tech stack:**
 
@@ -26,7 +29,7 @@ Hi HN! I built DevForge, a collection of 22 developer tools that runs entirely i
 - PWA with service worker (works offline)
 - Dark/light theme with system preference detection
 - Command palette (Ctrl+K) for instant tool access
-- i18n support (EN/RU)
+- **i18n support (14 languages with auto-detection)**: EN, RU, UK, PL, DE, FR, ES, PT, IT, ZH, JA, KO, AR, HI
 
 **Why I built this:**
 I was tired of installing npm packages or using sketchy online tools that track your data. Everything here runs client-side, you can audit the code, and it works offline.
@@ -39,12 +42,12 @@ Would love feedback on UX and tool ideas!
 
 ## Reddit r/LocalLLaMA
 
-**Title:** I built a browser-based AI config generator for OpenCode/Cline/Cursor + token savings guide (65-91% cost reduction)
+**Title:** I built a browser-based AI config generator for OpenCode/Cline/Cursor + Multi-Provider Router + token savings guide (65-91% cost reduction)
 
 **Text:**
 Hey everyone!
 
-I just released **DevForge**, a collection of 22 developer tools that runs entirely in your browser. No server, no tracking, no npm install.
+I just released **DevForge**, a collection of 25 developer tools that runs entirely in your browser. No server, no tracking, no npm install. Available in 14 languages.
 
 **🤖 AI Agent Config Generator**
 The main feature I want to highlight: a universal config generator for AI coding assistants.
@@ -82,6 +85,19 @@ When stacked: up to **91% total reduction**.
 - GitHub: https://github.com/gewitter89/devforge
 - Token guide: https://github.com/gewitter89/devforge/blob/main/docs/token-savings.md
 
+**🔀 NEW: Multi-Provider AI Router**
+Compare responses from multiple free LLM providers in parallel:
+
+- OpenRouter, Groq, GitHub Models, Ollama (local)
+- Side-by-side comparison with latency, tokens, cost metrics
+- Export results as JSON/Markdown
+
+**🔒 NEW: Breach Checker**
+Check if your email appears in known data breaches (via HIBP API).
+
+**📊 NEW: LLM Quality Monitor**
+Real-time tracking of model degradation (embeds aistupidlevel.info dashboard).
+
 **Other tools included:**
 
 - JSON/YAML formatter
@@ -90,7 +106,7 @@ When stacked: up to **91% total reduction**.
 - Hash generator (SHA-256, MD5, etc.)
 - UUID v7 generator (timestamp-ordered)
 - Base64 codec
-- And 16 more...
+- And 19 more...
 
 Everything runs client-side, works offline (PWA), and has zero dependencies.
 
@@ -135,7 +151,7 @@ AI APIs charge by tokens. Most developers waste 65-91% of their budget on:
 3. **AI Tools:**
    - Prompt packager (format prompts for APIs)
    - Context sanitizer (remove sensitive data)
-   - Plus 19 other dev tools (JWT decoder, JSON formatter, etc.)
+   - Plus 22 other dev tools (JWT decoder, JSON formatter, etc.)
 
 **Tech details:**
 
@@ -156,7 +172,7 @@ Would love feedback! What other tools would be useful?
 
 ## dev.to Article
 
-**Title:** How I Built DevForge: A Zero-Dependency Browser Toolkit with 22 Dev Tools
+**Title:** How I Built DevForge: A Zero-Dependency Browser Toolkit with 25 Dev Tools and 14 Languages
 
 **Tags:** webdev, javascript, opensource, productivity
 
@@ -181,7 +197,7 @@ None of these felt right.
 
 ## The Solution: DevForge
 
-I built **DevForge** - a collection of 22 developer tools that runs entirely in your browser with:
+I built **DevForge** - a collection of 25 developer tools that runs entirely in your browser with:
 
 - **Zero dependencies** (pure vanilla JS)
 - **No server** (everything client-side)
@@ -209,12 +225,15 @@ I built **DevForge** - a collection of 22 developer tools that runs entirely in 
 - Cron parser with human-readable output
 - Image optimizer (client-side compression)
 
-### AI Tools (4)
+### AI Tools (7)
 
 - AI Assistant (chat interface)
 - Prompt Packager (format prompts for APIs)
 - Context Sanitizer (remove sensitive data)
 - Knowledge Base (documentation search)
+- Breach Checker (HIBP API integration)
+- LLM Quality Monitor (real-time degradation tracking)
+- Multi-Provider AI Router (compare responses from 5+ providers in parallel)
 
 ### New: AI Agent Config Generator
 
@@ -245,7 +264,7 @@ DevForge/
 │   ├── i18n.js        # Internationalization
 │   ├── contributors.js # GitHub API integration
 │   └── sound.js       # Audio feedback
-├── tools/             # 22 tool modules
+├── tools/             # 25 tool modules
 │   ├── json-formatter.js
 │   ├── jwt-decoder.js
 │   └── ...
@@ -346,6 +365,34 @@ When stacked:
 - pxpipe: -77% image tokens
 
 **Total: up to 91% savings**
+
+## Internationalization (i18n)
+
+DevForge supports **14 languages with automatic browser detection**:
+
+| Language   | Code |
+| ---------- | ---- |
+| English    | `en` |
+| Русский    | `ru` |
+| Українська | `uk` |
+| Polski     | `pl` |
+| Deutsch    | `de` |
+| Français   | `fr` |
+| Español    | `es` |
+| Português  | `pt` |
+| Italiano   | `it` |
+| 中文       | `zh` |
+| 日本語     | `ja` |
+| 한국어     | `ko` |
+| العربية    | `ar` |
+| हिन्दी     | `hi` |
+
+**Implementation:**
+
+- Auto-detects `navigator.language` on first load
+- Lazy-loads translation JSON files for non-core languages (EN/RU embedded)
+- Dropdown selector with flags for manual switching
+- Service Worker caches all i18n JSON files for offline support
 
 ## Lessons Learned
 

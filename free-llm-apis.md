@@ -179,12 +179,108 @@ const response = await client.chat.complete({
 
 ---
 
+### Qwythos-9B-Claude-Mythos-5 (Empero AI)
+
+**Статус:** ✅ Полностью бесплатно (open-weight)  
+**Параметры:** 9B (9 миллиардов)  
+**Контекст:** 1M токенов (1 миллион!)  
+**Особенности:**
+
+- Fine-tuned Qwen3.5-9B на датасетах Claude Mythos и Fable
+- **Никакой цензуры** — unrestricted output
+- 1M контекстное окно (больше чем у GPT-4o)
+- Работает локально на 16GB RAM
+- Отличное качество кода (Python/JS/Rust/C++)
+
+**Как использовать:**
+
+```bash
+#Локальный запуск через Ollama (требует 16GB+ RAM)
+ollama pull qwythos-9b-mythos
+ollama run qwythos-9b-mythos
+
+# Hugging Face Inference API
+curl https://api-inference.huggingface.co/models/empero-ai/Qwythos-9B-Claude-Mythos-5-1M \
+  -H "Authorization: Bearer $HF_TOKEN" \
+  -d '{"inputs": "Write a Python function to..."}'
+
+# OpenRouter (если доступен)
+curl https://openrouter.ai/api/v1/chat/completions \
+  -H "Authorization: Bearer $OPENROUTER_KEY" \
+  -d '{
+    "model": "empero-ai/qwythos-9b-mythos:free",
+    "messages": [{"role": "user", "content": "Hello"}]
+  }'
+```
+
+**Ресурсы:**
+
+- Hugging Face: https://huggingface.co/empero-ai/Qwythos-9B-Claude-Mythos-5-1M
+- GitHub: https://github.com/empero-ai/Qwythos-9B-Claude-Mythos-5
+
+---
+
+### Claude Sonnet 5 (Anthropic) — Платный, но дешёвый
+
+**Статус:** 💰 $2/$10 до 31 августа 2026 (вход/выход)  
+**Параметры:** ~175B (не раскрыто Anthropic)  
+**Контекст:** 200K токенов  
+**Особенности:**
+
+- Близок к Claude Opus 4.8 по качеству
+- **В 10 раз дешевле** Opus (до конца августа 2026)
+- Отличная производительность в coding и reasoning
+- Поддержка computer use и tool use
+- Anthropic API с бесплатными кредитами для новых пользователей
+
+**Как получить ключ:**
+
+1. Регистрация: https://console.anthropic.com
+2. Бесплатные $5 кредита для новых пользователей
+3. Цена: $2/M input, $10/M output (до 31 августа)
+
+**Как использовать:**
+
+```bash
+curl https://api.anthropic.com/v1/messages \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "claude-sonnet-5-20260704",
+    "max_tokens": 1000,
+    "messages": [{"role": "user", "content": "Hello"}]
+  }'
+```
+
+```javascript
+// Node.js
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const response = await client.messages.create({
+  model: 'claude-sonnet-5-20260704',
+  max_tokens: 1000,
+  messages: [{ role: 'user', content: 'Hello' }]
+});
+```
+
+**Ресурсы:**
+
+- Docs: https://docs.anthropic.com
+- Console: https://console.anthropic.com
+- GitHub: https://github.com/anthropics/anthropic-sdk-typescript
+
+---
+
 ## 📊 Сравнение бесплатных моделей
 
 | Модель                 | Параметры | Контекст | Скорость      | Лучшее для                |
 | ---------------------- | --------- | -------- | ------------- | ------------------------- |
 | **GLM-5.2**            | 753B      | 128K     | Средняя       | Code, Reasoning, Research |
+| **Qwythos-9B-Mythos**  | 9B        | 1M       | Быстрая       | Long context, Code, Local |
 | **Fable 5**            | 45B       | 32K      | Быстрая       | General, Writing, Chat    |
+| **Claude Sonnet 5**    | ~175B     | 200K     | Быстрая       | Code, Reasoning, Agents   |
 | **Nano Banana 2 Lite** | 3.5B      | 8K       | Очень быстрая | Edge, Mobile, Offline     |
 | **Llama 3.3 70B**      | 70B       | 8K       | Средняя       | Open-source, Local        |
 | **Qwen3 72B**          | 72B       | 32K      | Средняя       | Code, Math, Chinese       |
