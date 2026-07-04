@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build output
+dist/
+build/
+coverage/
+test-results/
+
+# Environment
+.env
+.env.local
+
+# Archive files (should not be in repo)
+*.zip
+*.tar.gz
+*.rar
+*.7z
+DebiNewFace16.zip
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Package lock (optional, but recommended to track)
+# package-lock.json

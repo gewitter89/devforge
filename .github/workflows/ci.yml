@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run Prettier check
+        run: npm run prettier:check
+
+      - name: Check tools count
+        run: |
+          TOOL_COUNT=$(ls tools/*.js | wc -l)
+          echo "Found $TOOL_COUNT tools"
+          if [ "$TOOL_COUNT" -lt 18 ]; then
+            echo "Error: Expected at least 18 tools, found $TOOL_COUNT"
+            exit 1
+          fi
+          echo "✓ Tool count check passed"
+
+      - name: Run smoke tests
+        run: npm test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7

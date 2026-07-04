@@ -1,0 +1,44 @@
+{
+  "name": "devforge",
+  "version": "1.0.0",
+  "description": "Open-source browser-based toolkit for developers",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint tools/**/*.js js/**/*.js",
+    "lint:fix": "eslint tools/**/*.js js/**/*.js --fix",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "test": "node tests/smoke.test.js",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "serve": "npx http-server -p 8080 -o",
+    "dev": "npm run serve"
+  },
+  "keywords": [
+    "developer-tools",
+    "browser",
+    "javascript",
+    "toolkit"
+  ],
+  "author": "DevForge Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^9.15.0",
+    "prettier": "^3.4.0",
+    "vitest": "^2.1.8",
+    "@playwright/test": "^1.49.1",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "browserslist": [
+    ">0.5%",
+    "not dead",
+    "not ie 11"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/devforge"
+  }
+}
