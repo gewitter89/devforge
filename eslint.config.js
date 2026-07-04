@@ -33,19 +33,10 @@ export default [
     rules: {
       'no-unused-vars': 'warn',
       'no-console': 'off',
-      'semi': ['error', 'always'],
-      'quotes': ['error', 'single', { avoidEscape: true }],
-      'indent': ['error', 2, { SwitchCase: 1 }],
       'no-var': 'error',
       'prefer-const': 'warn',
       'eqeqeq': ['error', 'always'],
-      'curly': ['error', 'multi-line'],
-      'brace-style': ['error', '1tbs'],
-      'space-before-function-paren': ['error', {
-        anonymous: 'always',
-        named: 'never',
-        asyncArrow: 'always'
-      }]
+      'curly': ['error', 'multi-line']
     }
   }
 ];
