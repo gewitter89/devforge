@@ -68,7 +68,10 @@ test('All tools have proper structure', () => {
     );
 
     // Check for init function (supports both ES5 and ES6 syntax)
-    assert(content.includes('init:') || content.includes('init('), `${file}: Missing init function`);
+    assert(
+      content.includes('init:') || content.includes('init('),
+      `${file}: Missing init function`
+    );
   }
 });
 
