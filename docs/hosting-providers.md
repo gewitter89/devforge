@@ -3,6 +3,7 @@
 > Real-world reviews from DevForge community members (3+ months usage).
 
 Use this guide if you need a VPS to self-host:
+
 - Obscura browser automation
 - MCP servers (SocraticoCode, Claude, Cursor)
 - Free LLM proxies (CLIProxyAPI)
@@ -16,18 +17,20 @@ Use this guide if you need a VPS to self-host:
 
 **[hetzner.com](https://www.hetzner.com)**
 
-| Plan | Specs | Price |
-|------|-------|-------|
+| Plan | Specs                       | Price     |
+| ---- | --------------------------- | --------- |
 | CX23 | 2 CPU / 4GB RAM / 40GB NVMe | ~5€/month |
 | CX33 | 4 CPU / 8GB RAM / 80GB NVMe | ~9€/month |
 
 **Pros:**
+
 - Best price/performance ratio in Europe
 - 99.99% uptime over 4 months
 - NVMe storage standard
 - No KYC issues for CIS countries (with foreign card)
 
 **Cons:**
+
 - Requires credit card (non-Russian)
 - Russian IPs may be blocked (use residential proxy to signup)
 
@@ -68,11 +71,13 @@ Use this guide if you need a VPS to self-host:
 - Telegram-based support
 
 **Pros:**
+
 - No KYC
 - Crypto payments
 - Hourly billing
 
 **Cons:**
+
 - May have TPSU-blocked IPs
 - Limited stock on good plans (CX23/CX33 sell out fast)
 
@@ -94,28 +99,32 @@ Use this guide if you need a VPS to self-host:
 
 ## Comparison Matrix
 
-| Provider | Reliability | Price | TPSU Risk | KYC | Best For |
-|----------|-------------|-------|-----------|-----|----------|
-| **Hetzner** | ⭐⭐⭐⭐⭐ | €5-9/mo | Low | Medium | Production |
-| **Intezio** | ⭐⭐⭐⭐ | €4-7/mo | Low | Low | Budget |
-| **VibeHost** | ⭐⭐⭐ | $2-5/mo | High | Low | Testing |
-| **NodeHost** | ⭐⭐ | $1-3/mo | High | Low | Temporary |
-| **Spacecore** | ⭐⭐⭐ | €8+/mo | Low | Medium | Fallback |
+| Provider      | Reliability | Price   | TPSU Risk | KYC    | Best For   |
+| ------------- | ----------- | ------- | --------- | ------ | ---------- |
+| **Hetzner**   | ⭐⭐⭐⭐⭐  | €5-9/mo | Low       | Medium | Production |
+| **Intezio**   | ⭐⭐⭐⭐    | €4-7/mo | Low       | Low    | Budget     |
+| **VibeHost**  | ⭐⭐⭐      | $2-5/mo | High      | Low    | Testing    |
+| **NodeHost**  | ⭐⭐        | $1-3/mo | High      | Low    | Temporary  |
+| **Spacecore** | ⭐⭐⭐      | €8+/mo  | Low       | Medium | Fallback   |
 
 ---
 
 ## Recommendations by Use Case
 
 ### Self-hosting Obscura workers
+
 **Hetzner CX33** (4 CPU / 8GB) — enough for 20+ parallel workers with stealth mode.
 
 ### MCP server deployment
+
 **Hetzner CX23** (2 CPU / 4GB) — MCP servers are lightweight.
 
 ### CLIProxyAPI (free LLM routing)
+
 **VibeHost** or **NodeHost** hourly — test then shut down.
 
 ### DevForge static hosting
+
 **GitHub Pages** (free) — DevForge is static, no VPS needed. See `.github/workflows/deploy.yml`.
 
 ---
@@ -137,5 +146,5 @@ Use this guide if you need a VPS to self-host:
 
 ---
 
-*Last updated: 2026-07-04*
-*Source: Community reviews from GIG AI Tools chat*
+_Last updated: 2026-07-04_
+_Source: Community reviews from GIG AI Tools chat_

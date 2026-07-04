@@ -8,15 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - SECURITY.md with privacy model and responsible disclosure policy
 - CHANGELOG.md for version tracking
 - Good first issues for new contributors
 
 ### Changed
+
 - Updated README with clearer privacy model explanation
 - Improved CONTRIBUTING.md with step-by-step guide
 
 ### Fixed
+
 - Service worker cache invalidation for tool updates
 
 ---
@@ -24,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-07-04
 
 ### Added
+
 - **Core Application**
   - Plugin-based architecture with self-registering tools
   - Dark/Light theme support

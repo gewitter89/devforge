@@ -10,13 +10,13 @@
 
 ### Why Obscura?
 
-| Metric | Obscura | Headless Chrome |
-|--------|---------|-----------------|
-| Memory | **30 MB** | 200+ MB |
-| Binary size | **70 MB** | 300+ MB |
-| Page load | **85 ms** | ~500 ms |
-| Anti-detect | **Built-in** | None |
-| MCP server | **Built-in** | ❌ |
+| Metric      | Obscura      | Headless Chrome |
+| ----------- | ------------ | --------------- |
+| Memory      | **30 MB**    | 200+ MB         |
+| Binary size | **70 MB**    | 300+ MB         |
+| Page load   | **85 ms**    | ~500 ms         |
+| Anti-detect | **Built-in** | None            |
+| MCP server  | **Built-in** | ❌              |
 
 **Apache 2.0 license, Rust + V8, CDP-compatible.**
 
@@ -107,6 +107,7 @@ obscura scrape https://news.ycombinator.com https://reddit.com \
 ### 1. AI Agent Eyes
 
 Use Obscura as browser backend for AI agents that need to:
+
 - Fill forms and click buttons
 - Read dynamic content (SPAs, infinite scroll)
 - Bypass Cloudflare/anti-bot checks
@@ -114,6 +115,7 @@ Use Obscura as browser backend for AI agents that need to:
 ### 2. Content Scraping
 
 Batch-scrape docs, APIs, or competitor sites:
+
 - 25 concurrent workers
 - JSON output for easy parsing
 - Stealth mode to avoid bans
@@ -121,6 +123,7 @@ Batch-scrape docs, APIs, or competitor sites:
 ### 3. Testing
 
 Replace headless Chrome in Playwright/Puppeteer tests:
+
 - 6x faster test runs
 - Less memory pressure
 - Same CDP API
@@ -166,23 +169,23 @@ await page.fill('input[name="search"]', 'query');
 
 ### Why nodriver?
 
-| Feature | nodriver | Selenium |
-|---------|----------|----------|
-| Protocol | **Direct CDP** | WebDriver binary |
-| Async | **Native async** | Sync by default |
-| Anti-detect | **Built-in** | Manual configuration |
-| iframe support | **`tab.get_frames()`** | Complex workaround |
-| Setup | **1-2 lines** | Driver installation required |
+| Feature        | nodriver               | Selenium                     |
+| -------------- | ---------------------- | ---------------------------- |
+| Protocol       | **Direct CDP**         | WebDriver binary             |
+| Async          | **Native async**       | Sync by default              |
+| Anti-detect    | **Built-in**           | Manual configuration         |
+| iframe support | **`tab.get_frames()`** | Complex workaround           |
+| Setup          | **1-2 lines**          | Driver installation required |
 
 ### When to use which
 
-| Use Case | Tool |
-|----------|------|
-| MCP server integration | **Obscura** (built-in MCP) |
-| Fast parallel scraping | **Obscura** (`scrape --concurrency 25`) |
-| Python AI agents | **nodriver** (async Python) |
-| iframe/auth flow automation | **nodriver** (`get_frames()`) |
-| Anti-detect + Cloudflare bypass | **Either** (both strong) |
+| Use Case                        | Tool                                    |
+| ------------------------------- | --------------------------------------- |
+| MCP server integration          | **Obscura** (built-in MCP)              |
+| Fast parallel scraping          | **Obscura** (`scrape --concurrency 25`) |
+| Python AI agents                | **nodriver** (async Python)             |
+| iframe/auth flow automation     | **nodriver** (`get_frames()`)           |
+| Anti-detect + Cloudflare bypass | **Either** (both strong)                |
 
 ### Quick start
 
@@ -196,15 +199,15 @@ import nodriver as uc
 async def main():
     browser = await uc.start()
     page = await browser.get('https://example.com')
-    
+
     # Anti-detect built-in
     title = await page.evaluate('document.title')
-    
+
     # iframe traversal
     frames = await page.get_frames()
     for frame in frames:
         print(await frame.get_content())
-    
+
     await browser.stop()
 
 uc.loop().run_until_complete(main())
@@ -214,13 +217,13 @@ uc.loop().run_until_complete(main())
 
 ## Alternatives
 
-| Tool | Pros | Cons | Use when |
-|------|------|------|----------|
-| **Obscura** | Fast, stealth, MCP, standalone | 70MB binary | AI agents, scraping |
-| **nodriver** | Python async, anti-detect, free | Needs Chrome installed | Python agents, iframes |
-| **Playwright** | Full browser control | Heavy (200MB+) | Complex web apps |
-| **Puppeteer** | Mature ecosystem | Chrome-only | Legacy code |
-| **Selenium** | Cross-browser | Slow, flaky | E2E testing |
+| Tool           | Pros                            | Cons                   | Use when               |
+| -------------- | ------------------------------- | ---------------------- | ---------------------- |
+| **Obscura**    | Fast, stealth, MCP, standalone  | 70MB binary            | AI agents, scraping    |
+| **nodriver**   | Python async, anti-detect, free | Needs Chrome installed | Python agents, iframes |
+| **Playwright** | Full browser control            | Heavy (200MB+)         | Complex web apps       |
+| **Puppeteer**  | Mature ecosystem                | Chrome-only            | Legacy code            |
+| **Selenium**   | Cross-browser                   | Slow, flaky            | E2E testing            |
 
 ---
 
@@ -235,6 +238,7 @@ uc.loop().run_until_complete(main())
 ## TL;DR
 
 **Obscura = Lightweight Chrome for AI agents.**
+
 - 30MB RAM (vs 200MB Chrome)
 - Built-in MCP server
 - Stealth mode (anti-detection)
@@ -244,4 +248,4 @@ uc.loop().run_until_complete(main())
 
 ---
 
-*Last updated: 2026-07-04*
+_Last updated: 2026-07-04_

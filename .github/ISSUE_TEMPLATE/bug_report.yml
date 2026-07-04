@@ -1,7 +1,7 @@
-<![CDATA[name: 🐛 Bug Report
+name: 🐛 Bug Report
 description: Report a bug or unexpected behavior in DevForge
-title: "[Bug]: "
-labels: ["bug", "triage"]
+title: '[Bug]: '
+labels: ['bug', 'triage']
 assignees: []
 
 body:
@@ -39,7 +39,7 @@ body:
     attributes:
       label: Expected Behavior
       description: What did you expect to happen?
-      placeholder: "The JSON should be formatted and displayed in the output area."
+      placeholder: 'The JSON should be formatted and displayed in the output area.'
     validations:
       required: true
 
@@ -48,7 +48,7 @@ body:
     attributes:
       label: Actual Behavior
       description: What actually happened?
-      placeholder: "The output area remains empty. No error shown in the UI."
+      placeholder: 'The output area remains empty. No error shown in the UI.'
     validations:
       required: true
 
@@ -57,7 +57,7 @@ body:
     attributes:
       label: Affected Tool
       description: Which tool has the bug? (e.g., "JSON Formatter", "Base64 Encoder")
-      placeholder: "JSON Formatter"
+      placeholder: 'JSON Formatter'
     validations:
       required: false
 
@@ -79,8 +79,8 @@ body:
     id: os
     attributes:
       label: Operating System
-      description: "e.g., Windows 11, macOS 14 Sonoma, Ubuntu 22.04"
-      placeholder: "Windows 11"
+      description: 'e.g., Windows 11, macOS 14 Sonoma, Ubuntu 22.04'
+      placeholder: 'Windows 11'
     validations:
       required: false
 
@@ -108,4 +108,3 @@ body:
       description: Any other context about the problem.
     validations:
       required: false
-]]>

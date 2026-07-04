@@ -1,7 +1,7 @@
-<![CDATA[name: 🔧 New Tool Proposal
+name: 🔧 New Tool Proposal
 description: Propose a new tool to be added to DevForge
-title: "[Tool]: "
-labels: ["new tool", "discussion"]
+title: '[Tool]: '
+labels: ['new tool', 'discussion']
 assignees: []
 
 body:
@@ -19,7 +19,7 @@ body:
     attributes:
       label: Tool Name
       description: What would you call this tool?
-      placeholder: "JWT Decoder"
+      placeholder: 'JWT Decoder'
     validations:
       required: true
 
@@ -53,7 +53,7 @@ body:
     attributes:
       label: Example Use Case
       description: Describe a real-world scenario where a developer would use this tool.
-      placeholder: "A backend developer debugging authentication issues needs to quickly inspect the claims inside a JWT without going to an external website."
+      placeholder: 'A backend developer debugging authentication issues needs to quickly inspect the claims inside a JWT without going to an external website.'
     validations:
       required: true
 
@@ -73,7 +73,7 @@ body:
     attributes:
       label: References / Similar Tools
       description: Links to similar tools or implementations for reference.
-      placeholder: "https://jwt.io"
+      placeholder: 'https://jwt.io'
     validations:
       required: false
 
@@ -98,4 +98,3 @@ body:
         - Not sure
     validations:
       required: false
-]]>

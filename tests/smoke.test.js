@@ -54,27 +54,21 @@ test('At least 21 tools registered', () => {
 test('All tools have proper structure', () => {
   const toolsDir = join(rootDir, 'tools');
   const files = readdirSync(toolsDir).filter(f => f.endsWith('.js'));
-  
+
   for (const file of files) {
     const content = readFileSync(join(toolsDir, file), 'utf8');
-    
+
     // Check for DevForge.registerTool
-    assert(
-      content.includes('DevForge.registerTool'),
-      `${file}: Missing DevForge.registerTool`
-    );
-    
+    assert(content.includes('DevForge.registerTool'), `${file}: Missing DevForge.registerTool`);
+
     // Check for required properties
     assert(
       content.includes('id:') && content.includes('name:') && content.includes('render'),
       `${file}: Missing required properties (id, name, render)`
     );
-    
+
     // Check for init function
-    assert(
-      content.includes('init:'),
-      `${file}: Missing init function`
-    );
+    assert(content.includes('init:'), `${file}: Missing init function`);
   }
 });
 
@@ -83,32 +77,23 @@ test('index.html loads all tools', () => {
   const indexContent = readFileSync(join(rootDir, 'index.html'), 'utf8');
   const toolsDir = join(rootDir, 'tools');
   const toolFiles = readdirSync(toolsDir).filter(f => f.endsWith('.js'));
-  
+
   for (const file of toolFiles) {
-    assert(
-      indexContent.includes(file),
-      `index.html missing script tag for ${file}`
-    );
+    assert(indexContent.includes(file), `index.html missing script tag for ${file}`);
   }
 });
 
 // Test 5: Check sw.js caches all tools
 test('sw.js caches all tools', () => {
   const swContent = readFileSync(join(rootDir, 'sw.js'), 'utf8');
-  
-  assert(
-    swContent.includes('TOOL_ASSETS'),
-    'sw.js missing TOOL_ASSETS array'
-  );
-  
+
+  assert(swContent.includes('TOOL_ASSETS'), 'sw.js missing TOOL_ASSETS array');
+
   const toolsDir = join(rootDir, 'tools');
   const toolFiles = readdirSync(toolsDir).filter(f => f.endsWith('.js'));
-  
+
   for (const file of toolFiles) {
-    assert(
-      swContent.includes(file),
-      `sw.js missing cache entry for ${file}`
-    );
+    assert(swContent.includes(file), `sw.js missing cache entry for ${file}`);
   }
 });
 
@@ -123,7 +108,7 @@ test('Core files exist', () => {
     'js/sound.js',
     'css/styles.css'
   ];
-  
+
   for (const file of requiredFiles) {
     const path = join(rootDir, file);
     try {
@@ -136,17 +121,12 @@ test('Core files exist', () => {
 
 // Test 7: Check package.json scripts
 test('package.json has required scripts', () => {
-  const packageJson = JSON.parse(
-    readFileSync(join(rootDir, 'package.json'), 'utf8')
-  );
-  
+  const packageJson = JSON.parse(readFileSync(join(rootDir, 'package.json'), 'utf8'));
+
   const requiredScripts = ['lint', 'test', 'dev'];
-  
+
   for (const script of requiredScripts) {
-    assert(
-      packageJson.scripts && packageJson.scripts[script],
-      `Missing script: ${script}`
-    );
+    assert(packageJson.scripts && packageJson.scripts[script], `Missing script: ${script}`);
   }
 });
 
@@ -161,17 +141,14 @@ test('All tool IDs are unique', () => {
   const toolsDir = join(rootDir, 'tools');
   const files = readdirSync(toolsDir).filter(f => f.endsWith('.js'));
   const ids = new Set();
-  
+
   for (const file of files) {
     const content = readFileSync(join(toolsDir, file), 'utf8');
     const match = content.match(/id:\s*['"]([^'"]+)['"]/);
-    
+
     if (match) {
       const id = match[1];
-      assert(
-        !ids.has(id),
-        `Duplicate tool ID: ${id} (found in ${file})`
-      );
+      assert(!ids.has(id), `Duplicate tool ID: ${id} (found in ${file})`);
       ids.add(id);
     }
   }

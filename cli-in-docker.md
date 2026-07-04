@@ -87,14 +87,14 @@ exec "$@"
 services:
   agent:
     build: .
-    stdin_open: true        # обязательно для интерактивных CLI
-    tty: true               # обязательно для интерактивных CLI
-    env_file: .env           # все секреты в одном файле
+    stdin_open: true # обязательно для интерактивных CLI
+    tty: true # обязательно для интерактивных CLI
+    env_file: .env # все секреты в одном файле
     volumes:
       - ${WORKSPACE:-./workspace}:/home/coder/workspace
     environment:
       - API_KEY=${API_KEY}
-    restart: "no"            # умирает с сессией
+    restart: 'no' # умирает с сессией
 ```
 
 ### docker-compose.yml — ЗАПРЕЩЕНО
@@ -144,15 +144,15 @@ workspace/
 
 Заменить ровно эти переменные — и проверить каждый путь по официальной документации:
 
-| Переменная       | opencode (пример)                                | Ваш CLI     |
-|------------------|--------------------------------------------------|-------------|
-| `BASE_IMAGE`     | `node:lts-slim`                                  |             |
-| `INSTALL_CMD`    | `npm install -g opencode-ai`                     |             |
-| `AUTH_FILE`      | `$HOME/.local/share/opencode/auth.json`          |             |
-| `CONFIG_SRC`     | `$HOME/opencode.json`                            |             |
-| `CONFIG_DST`     | `$HOME/.config/opencode/opencode.json`           |             |
-| `API_KEY_ENV`    | `OPENCODE_API_KEY`                               |             |
-| `CLI_BINARY`     | `opencode`                                       |             |
+| Переменная    | opencode (пример)                       | Ваш CLI |
+| ------------- | --------------------------------------- | ------- |
+| `BASE_IMAGE`  | `node:lts-slim`                         |         |
+| `INSTALL_CMD` | `npm install -g opencode-ai`            |         |
+| `AUTH_FILE`   | `$HOME/.local/share/opencode/auth.json` |         |
+| `CONFIG_SRC`  | `$HOME/opencode.json`                   |         |
+| `CONFIG_DST`  | `$HOME/.config/opencode/opencode.json`  |         |
+| `API_KEY_ENV` | `OPENCODE_API_KEY`                      |         |
+| `CLI_BINARY`  | `opencode`                              |         |
 
 **ДОЛЖЕН** сверить каждый путь с документацией тула. НЕ гадать.
 

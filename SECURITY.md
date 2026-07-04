@@ -4,10 +4,10 @@
 
 The latest version on the `main` branch and the latest tagged release are actively maintained and supported with security updates.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| Latest  | :white_check_mark: |
-| < Latest| :x:                |
+| Version  | Supported          |
+| -------- | ------------------ |
+| Latest   | :white_check_mark: |
+| < Latest | :x:                |
 
 ## Reporting a Vulnerability
 
@@ -16,9 +16,11 @@ The latest version on the `main` branch and the latest tagged release are active
 If you discover a security vulnerability, please report it responsibly:
 
 ### Email
+
 Contact: [Create a private vulnerability report](https://github.com/gewitter89/devforge/security/advisories/new)
 
 ### What to Include
+
 - Affected tool or page (e.g., JWT Decoder, AI Assistant)
 - Steps to reproduce the vulnerability
 - Potential impact
@@ -26,6 +28,7 @@ Contact: [Create a private vulnerability report](https://github.com/gewitter89/d
 - Suggested fix (if available)
 
 ### Response Time
+
 - **Acknowledgment**: Within 48 hours
 - **Status Update**: Within 7 days
 - **Resolution**: Depends on severity, typically within 30 days
@@ -35,7 +38,9 @@ Contact: [Create a private vulnerability report](https://github.com/gewitter89/d
 DevForge operates on a **privacy-first** architecture:
 
 ### Local-Only Tools
+
 Most tools run **entirely client-side** in your browser:
+
 - All data processing happens locally
 - No data is sent to external servers
 - No telemetry or analytics
@@ -44,16 +49,19 @@ Most tools run **entirely client-side** in your browser:
 Tools marked as `network: false` in their metadata are guaranteed to make **zero network requests**.
 
 ### AI-Powered Tools
+
 Some tools (AI Assistant, AI Packager, AI Sanitizer) may interact with external AI providers:
+
 - **Explicit user action required**: Data is only sent when you explicitly trigger the tool
 - **Provider transparency**: The tool clearly shows which AI provider is being used
-- **API key handling**: 
+- **API key handling**:
   - Keys are stored in session memory only (not persisted by default)
   - Optional "Remember key locally" toggle for convenience
   - Clear button to remove stored keys
 - **User control**: You choose which provider and when to send data
 
 ### Data You Control
+
 - **No account required**: Use all tools without registration
 - **No tracking**: No cookies, no analytics, no fingerprinting
 - **Local storage**: Only used for preferences (theme, language, sound) and optional API keys
@@ -117,6 +125,7 @@ We appreciate security researchers who responsibly disclose vulnerabilities. We 
 ## Security Updates
 
 Security updates will be:
+
 - Published via GitHub Security Advisories
 - Included in release notes
 - Tagged with security-related labels
@@ -124,6 +133,7 @@ Security updates will be:
 ## Contact
 
 For questions about this security policy:
+
 - Open a discussion on GitHub Discussions
 - Create a private security advisory
 

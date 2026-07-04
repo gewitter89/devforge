@@ -16,9 +16,11 @@
 <br>
 
 > [!IMPORTANT]
+>
 > ### 📢 WE ARE BUILDING THIS TOGETHER! / МЫ ПИШЕМ ЭТОТ ПРОЕКТ ВМЕСТЕ!
+>
 > **English**: DevForge is a 100% community-driven project. We want this to be the ultimate developer toolkit. Adding a new tool takes less than 15 minutes! Check our [Contributing Guide](CONTRIBUTING.md) and send your PRs. Let's build something awesome together! 🚀
-> 
+>
 > **Русский**: DevForge — это проект, создаваемый сообществом. Мы хотим сделать идеальный набор инструментов для разработчиков. Добавить новую утилиту можно меньше чем за 15 минут! Читай [Руководство по участию](CONTRIBUTING.md) и отправляй свои Pull Request-ы. Давай сделаем крутой инструмент вместе! 🤝
 
 <br>
@@ -34,13 +36,13 @@ We maintain a structured, community-updated knowledge base of agentic coding hac
 
 👉 **[Explore Full Knowledge Base / Открыть базу знаний (docs.md)](docs.md)**
 
-* 🚀 **[GIG AI Boost (EN/RU)](gig-ai-boost.md)** — Private repositories, MCP servers, and agent configurations.
-* 🪨 **[Caveman SKILLS (EN/RU)](caveman.md)** — Prompt token compression guide (save ~65% tokens).
-* 🔑 **[Free LLM APIs (EN/RU)](free-llm-apis.md)** — Permanent free API keys for developers.
-* 🔌 **[ClinePass Setup (EN/RU)](cline-pass.md)** — Custom OpenAI-compatible configurations.
-* 🐳 **[CLI in Docker (EN/RU)](cli-in-docker.md)** — Sandboxing your AI agent inside Docker.
-* 🤖 **[TelePI Telegram Bot (EN/RU)](telepi.md)** — Run your PI CLI through a Telegram bot.
-* 🎛️ **[Herdr Multiplexer (EN/RU)](herdr.md)** — Tmux for AI coding agents.
+- 🚀 **[GIG AI Boost (EN/RU)](gig-ai-boost.md)** — Private repositories, MCP servers, and agent configurations.
+- 🪨 **[Caveman SKILLS (EN/RU)](caveman.md)** — Prompt token compression guide (save ~65% tokens).
+- 🔑 **[Free LLM APIs (EN/RU)](free-llm-apis.md)** — Permanent free API keys for developers.
+- 🔌 **[ClinePass Setup (EN/RU)](cline-pass.md)** — Custom OpenAI-compatible configurations.
+- 🐳 **[CLI in Docker (EN/RU)](cli-in-docker.md)** — Sandboxing your AI agent inside Docker.
+- 🤖 **[TelePI Telegram Bot (EN/RU)](telepi.md)** — Run your PI CLI through a Telegram bot.
+- 🎛️ **[Herdr Multiplexer (EN/RU)](herdr.md)** — Tmux for AI coding agents.
 
 ---
 
@@ -53,7 +55,7 @@ flowchart TD
     Index[index.html Shell UI] --> App[js/app.js Core Router & Search]
     App --> i18n[js/i18n.js Localization Engine]
     App --> Sound[js/sound.js Audio Engine]
-    
+
     subgraph Self-Registering Plugin Modules
         T1[tools/json-formatter.js] -.->|DevForge.registerTool| App
         T2[tools/jwt-decoder.js] -.->|DevForge.registerTool| App
@@ -80,26 +82,26 @@ DevForge is a **Swiss Army knife for developers** — a sleek, modular web app p
 
 ## 🛠️ Available Tools
 
-| # | Tool | Category | Description |
-|---|------|----------|-------------|
-| 1 | **JSON Formatter** | Formatters | Format, validate, minify, and syntax-highlight JSON |
-| 2 | **Base64 Encoder/Decoder** | Encoders | Encode and decode Base64 strings in real-time |
-| 3 | **Hash Generator** | Encoders | Generate MD5, SHA-1, SHA-256, SHA-512 hashes |
-| 4 | **URL Encoder/Decoder** | Encoders | Encode and decode URL components |
-| 5 | **UUID Generator** | Generators | Generate v4 UUIDs — single or in bulk |
-| 6 | **Color Converter** | Converters | Convert between HEX, RGB, HSL color formats |
-| 7 | **Password Generator** | Generators | Create strong passwords with customizable rules |
-| 8 | **Timestamp Converter** | Converters | Convert between Unix timestamps and human-readable dates |
-| 9 | **Markdown Preview** | Formatters | Live Markdown editor with instant HTML preview |
-| 10 | **Lorem Ipsum Generator** | Generators | Generate placeholder text (words, sentences, paragraphs) |
-| 11 | **AI Code Assistant** | Text | Generate regex, SQL, and code explanations with LLMs |
-| 12 | **JWT Decoder** | Encoders | Parse and inspect JSON Web Tokens (JWT) payload and dates |
-| 13 | **Diff Checker** | Text | Side-by-side and inline comparison of two text inputs |
-| 14 | **Cron Parser** | Web | Translate crontab schedules to readable text & execution list |
-| 15 | **Image Optimizer** | Web | Compress, resize, and convert images 100% locally in browser |
-| 16 | **AI Context Packager** | Text | Combine multiple source files into a single LLM prompt block |
-| 17 | **AI Prompt Sanitizer** | Text | Strip hidden Unicode characters and audit prompts for jailbreaks |
-| 18 | **Visual Web Terminal** | Web | Interact with DevForge tools using a simulated Unix terminal |
+| #   | Tool                       | Category   | Description                                                      |
+| --- | -------------------------- | ---------- | ---------------------------------------------------------------- |
+| 1   | **JSON Formatter**         | Formatters | Format, validate, minify, and syntax-highlight JSON              |
+| 2   | **Base64 Encoder/Decoder** | Encoders   | Encode and decode Base64 strings in real-time                    |
+| 3   | **Hash Generator**         | Encoders   | Generate MD5, SHA-1, SHA-256, SHA-512 hashes                     |
+| 4   | **URL Encoder/Decoder**    | Encoders   | Encode and decode URL components                                 |
+| 5   | **UUID Generator**         | Generators | Generate v4 UUIDs — single or in bulk                            |
+| 6   | **Color Converter**        | Converters | Convert between HEX, RGB, HSL color formats                      |
+| 7   | **Password Generator**     | Generators | Create strong passwords with customizable rules                  |
+| 8   | **Timestamp Converter**    | Converters | Convert between Unix timestamps and human-readable dates         |
+| 9   | **Markdown Preview**       | Formatters | Live Markdown editor with instant HTML preview                   |
+| 10  | **Lorem Ipsum Generator**  | Generators | Generate placeholder text (words, sentences, paragraphs)         |
+| 11  | **AI Code Assistant**      | Text       | Generate regex, SQL, and code explanations with LLMs             |
+| 12  | **JWT Decoder**            | Encoders   | Parse and inspect JSON Web Tokens (JWT) payload and dates        |
+| 13  | **Diff Checker**           | Text       | Side-by-side and inline comparison of two text inputs            |
+| 14  | **Cron Parser**            | Web        | Translate crontab schedules to readable text & execution list    |
+| 15  | **Image Optimizer**        | Web        | Compress, resize, and convert images 100% locally in browser     |
+| 16  | **AI Context Packager**    | Text       | Combine multiple source files into a single LLM prompt block     |
+| 17  | **AI Prompt Sanitizer**    | Text       | Strip hidden Unicode characters and audit prompts for jailbreaks |
+| 18  | **Visual Web Terminal**    | Web        | Interact with DevForge tools using a simulated Unix terminal     |
 
 > 💡 **Want to see a new tool?** [Propose one here!](https://github.com/gewitter89/devforge/issues/new?template=new_tool.yml)
 
@@ -153,8 +155,8 @@ DevForge.registerTool({
   id: 'my-awesome-tool',
   name: 'My Awesome Tool',
   description: 'What it does in one sentence',
-  category: 'converters',     // formatters | generators | converters | encoders | text | web
-  icon: '<svg>...</svg>',      // 24x24 SVG icon
+  category: 'converters', // formatters | generators | converters | encoders | text | web
+  icon: '<svg>...</svg>', // 24x24 SVG icon
   tags: ['awesome', 'cool'],
   render() {
     return `<div class="tool-full"><!-- Your UI here --></div>`;

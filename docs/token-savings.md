@@ -6,12 +6,12 @@
 
 AI APIs charge by tokens. This guide covers **4 battle-tested methods** to reduce your bill:
 
-| Method | Savings | Use Case | Setup Time |
-|--------|---------|----------|------------|
-| **Caveman** | 65-75% | Shorten AI outputs | 2 min |
-| **Ponytail** | 22-50% | Optimize prompts | 5 min |
-| **Memanto** | 28% | Deduplicate context | 3 min |
-| **pxpipe** | 44% | Compress images | 1 min |
+| Method       | Savings | Use Case            | Setup Time |
+| ------------ | ------- | ------------------- | ---------- |
+| **Caveman**  | 65-75%  | Shorten AI outputs  | 2 min      |
+| **Ponytail** | 22-50%  | Optimize prompts    | 5 min      |
+| **Memanto**  | 28%     | Deduplicate context | 3 min      |
+| **pxpipe**   | 44%     | Compress images     | 1 min      |
 
 **Combined effect:** Up to **91% total reduction** when stacked.
 
@@ -24,15 +24,17 @@ AI APIs charge by tokens. This guide covers **4 battle-tested methods** to reduc
 **Source:** `github.com/juliusbrussee/caveman` (MIT license)
 
 ### How it works
+
 ```
 Input:  AI response with 1000 tokens
         (includes markdown formatting, comments, blank lines)
-        
+
 Output: Same semantic content, 350 tokens
         (minimal whitespace, no comments)
 ```
 
 ### Installation
+
 ```bash
 # Option A: curl (Linux/Mac)
 curl -fsSL https://raw.githubusercontent.com/juliusbrussee/caveman/main/install.sh | bash
@@ -45,6 +47,7 @@ go install github.com/juliusbrussee/caveman@latest
 ```
 
 ### Usage
+
 ```bash
 # Pipe AI output through caveman
 claude "explain recursion" | caveman
@@ -56,8 +59,10 @@ cat output.txt
 ```
 
 ### Before/After Example
+
 **Before (1200 tokens):**
-```markdown
+
+````markdown
 # Understanding Recursion
 
 Recursion is a programming concept where a function calls itself.
@@ -73,17 +78,21 @@ def factorial(n):
         return 1
     return n * factorial(n-1)
 ```
+````
+
 ```
 
 **After (420 tokens):**
 ```
+
 Recursion=function calls itself.
 Base case=stops, Recursive case=smaller input.
 def factorial(n): return 1 if n<=1 else n*factorial(n-1)
-```
+
+````
 
 ### When to use
-✅ Coding answers, technical explanations, documentation  
+✅ Coding answers, technical explanations, documentation
 ❌ Creative writing, prose, conversational responses
 
 ---
@@ -110,9 +119,10 @@ cd ponytail
 # Add to PATH (optional)
 echo 'export PATH="$PWD/ponytail.sh:$PATH"' >> ~/.bashrc
 source ~/.bashrc
-```
+````
 
 ### Usage
+
 ```bash
 # Optimize a prompt file
 ponytail.sh optimize my-prompt.md > optimized.md
@@ -123,7 +133,9 @@ ponytail.sh optimize <<< "Please write a Python function that calculates the fac
 ```
 
 ### Claude Code Integration
+
 Add to `~/.claude/settings.json`:
+
 ```json
 {
   "hooks": {
@@ -133,11 +145,12 @@ Add to `~/.claude/settings.json`:
 ```
 
 ### Savings Breakdown
-| Prompt Type | Before | After | Savings |
-|-------------|--------|-------|---------|
-| Conversational | 850 tokens | 595 tokens | 30% |
-| Technical spec | 2200 tokens | 1100 tokens | 50% |
-| Code review | 1800 tokens | 1350 tokens | 25% |
+
+| Prompt Type    | Before      | After       | Savings |
+| -------------- | ----------- | ----------- | ------- |
+| Conversational | 850 tokens  | 595 tokens  | 30%     |
+| Technical spec | 2200 tokens | 1100 tokens | 50%     |
+| Code review    | 1800 tokens | 1350 tokens | 25%     |
 
 ---
 
@@ -148,12 +161,13 @@ Add to `~/.claude/settings.json`:
 **Source:** `github.com/moorcheh/memanto` (MIT license)
 
 ### How it works
+
 ```
 Conversation history: 5000 tokens
   - User message 1: discusses auth
   - User message 2: mentions auth again
   - User message 3: references auth pattern
-  
+
 After Memanto: 3600 tokens
   - Merged context for "auth" topic
   - Duplicates removed
@@ -161,6 +175,7 @@ After Memanto: 3600 tokens
 ```
 
 ### Installation
+
 ```bash
 npm install -g memanto
 # or
@@ -168,6 +183,7 @@ pip install memanto
 ```
 
 ### Usage (Claude Code)
+
 ```bash
 # Wrap Claude Code with Memanto proxy
 memanto --port 8080 --upstream https://api.anthropic.com
@@ -178,16 +194,19 @@ claude
 ```
 
 ### Configuration
+
 `~/.memanto/config.yaml`:
+
 ```yaml
-strategy: semantic  # or "exact", "fuzzy"
-threshold: 0.85     # similarity threshold for dedup
-topics:             # force-keep these topics
-  - "API_KEY"
-  - "PROJECT_NAME"
+strategy: semantic # or "exact", "fuzzy"
+threshold: 0.85 # similarity threshold for dedup
+topics: # force-keep these topics
+  - 'API_KEY'
+  - 'PROJECT_NAME'
 ```
 
 ### When to use
+
 ✅ Long conversations (>20 turns)  
 ✅ Repeated context references  
 ✅ Project discussions with recurring themes  
@@ -201,11 +220,13 @@ topics:             # force-keep these topics
 **What:** Downsamples images from iPhone cameras to optimal AI upload size.
 
 **Why it matters:** Modern iPhones shoot 48MP photos (15-20MB). AI APIs accept 1024px images (0.5-1MB). Uploading raw photos wastes:
+
 - Upload bandwidth
 - API processing tokens
 - Storage costs
 
 ### Installation
+
 ```bash
 # Mac
 brew install juliusbrussee/tap/pxpipe
@@ -219,6 +240,7 @@ cd pxpipe && cargo build --release
 ```
 
 ### Usage
+
 ```bash
 # Single image
 pxpipe photo.jpg > optimized.jpg
@@ -232,13 +254,15 @@ pxpipe photo.jpg | curl -X POST -H "Content-Type: image/jpeg" \
 ```
 
 ### Specs
-| Input | Output | Savings |
-|-------|--------|---------|
-| iPhone 48MP (20MB) | 1024px JPEG (0.8MB) | 96% file size |
-| DNG RAW (45MB) | 1024px JPEG (0.6MB) | 99% file size |
-| Screenshot 4K (8MB) | 1024px PNG (1.2MB) | 85% file size |
+
+| Input               | Output              | Savings       |
+| ------------------- | ------------------- | ------------- |
+| iPhone 48MP (20MB)  | 1024px JPEG (0.8MB) | 96% file size |
+| DNG RAW (45MB)      | 1024px JPEG (0.6MB) | 99% file size |
+| Screenshot 4K (8MB) | 1024px PNG (1.2MB)  | 85% file size |
 
 ### API Token Impact
+
 **Before:** 48MP image = ~1500 tokens (API estimates pixel count)  
 **After:** 1024px image = ~350 tokens  
 **Savings:** 77% per image
@@ -248,6 +272,7 @@ pxpipe photo.jpg | curl -X POST -H "Content-Type: image/jpeg" \
 ## Combined Stack: 91% Total Savings
 
 ### Architecture
+
 ```
 User request
     ↓
@@ -265,6 +290,7 @@ Final response
 ```
 
 ### Setup
+
 ```bash
 #!/bin/bash
 # ~/.claude/hooks/token-optimizer.sh
@@ -282,27 +308,31 @@ cat /tmp/compressed.txt
 ```
 
 ### Real-World Results
-| Session | Before | After | Savings |
-|---------|--------|-------|---------|
-| 2-hour coding | $12.40 | $1.12 | 91% |
-| 1-hour research | $8.20 | $2.05 | 75% |
-| 30-min debug | $3.80 | $0.95 | 75% |
+
+| Session         | Before | After | Savings |
+| --------------- | ------ | ----- | ------- |
+| 2-hour coding   | $12.40 | $1.12 | 91%     |
+| 1-hour research | $8.20  | $2.05 | 75%     |
+| 30-min debug    | $3.80  | $0.95 | 75%     |
 
 ---
 
 ## Alternative Tools
 
 ### Token Counters
+
 - **tokencost** (Python): `pip install tokencost` — calculates API costs
 - **tiktoken** (Python): OpenAI's official tokenizer
 - **claude-tokenizer** (JS): Anthropic's tokenizer
 
 ### Prompt Compressors
+
 - **LLMLingua**: Academic research, complex setup
 - **Prompt Compression Pro**: SaaS, $5/mo
 - **CompactPrompt**: Rust-based, experimental
 
 ### Image Optimizers (pxpipe alternatives)
+
 - **ImageMagick**: `convert -resize 1024x1024 input.jpg output.jpg`
 - **Sharp** (Node.js): `npm install sharp`
 - **sips** (Mac built-in): `sips -Z 1024 image.jpg`
@@ -312,15 +342,18 @@ cat /tmp/compressed.txt
 ## Monitoring Your Savings
 
 ### Claude Code
+
 ```bash
 # Add to ~/.bashrc
 alias claude-stats='cat ~/.claude/logs/*.json | jq -s "add" | jq ".tokens"'
 ```
 
 ### OpenAI API
+
 Check dashboard: `platform.openai.com/usage`
 
 ### Anthropic API
+
 Check console: `console.anthropic.com/usage`
 
 ---

@@ -35,8 +35,8 @@ export default [
       'no-console': 'off',
       'no-var': 'error',
       'prefer-const': 'warn',
-      'eqeqeq': ['error', 'always'],
-      'curly': ['error', 'multi-line']
+      eqeqeq: ['error', 'always'],
+      curly: ['error', 'multi-line']
     }
   }
 ];

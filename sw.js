@@ -27,7 +27,7 @@ const SHELL_ASSETS = [
   './i18n/it.json',
   './i18n/pl.json',
   './i18n/ar.json',
-  './i18n/hi.json',
+  './i18n/hi.json'
 ];
 
 const TOOL_ASSETS = [
@@ -54,19 +54,19 @@ const TOOL_ASSETS = [
   './tools/opencode-config-generator.js?v=2',
   './tools/ai-agent-config-hub.js?v=2',
   './tools/breach-checker.js?v=2',
-  './tools/llm-quality-monitor.js?v=2',
+  './tools/llm-quality-monitor.js?v=2'
 ];
 
 const ALL_ASSETS = [...SHELL_ASSETS, ...TOOL_ASSETS];
 
 // Install — cache all core shell + tool assets
-self.addEventListener('install', (e) => {
+self.addEventListener('install', e => {
   self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE_VERSION).then((cache) => {
+    caches.open(CACHE_VERSION).then(cache => {
       // Add each asset individually so a 404 on one file doesn't kill the whole install
-      const promises = ALL_ASSETS.map((url) =>
-        cache.add(url).catch((err) => {
+      const promises = ALL_ASSETS.map(url =>
+        cache.add(url).catch(err => {
           console.warn(`[SW] Failed to cache: ${url}`, err);
         })
       );
@@ -76,40 +76,44 @@ self.addEventListener('install', (e) => {
 });
 
 // Activate — cleanup ALL old caches (including devforge-cache-v1)
-self.addEventListener('activate', (e) => {
+self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_VERSION) {
-            console.log(`[SW] Deleting old cache: ${key}`);
-            return caches.delete(key);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches
+      .keys()
+      .then(keys => {
+        return Promise.all(
+          keys.map(key => {
+            if (key !== CACHE_VERSION) {
+              console.log(`[SW] Deleting old cache: ${key}`);
+              return caches.delete(key);
+            }
+          })
+        );
+      })
+      .then(() => self.clients.claim())
   );
 });
 
 // Fetch — stale-while-revalidate for HTML/JS/CSS, cache-first for CDN assets
-self.addEventListener('fetch', (e) => {
+self.addEventListener('fetch', e => {
   const request = e.request;
 
   // Ignore non-GET requests
   if (request.method !== 'GET') return;
 
   // CDN assets (fonts, confetti) — cache-first (they're versioned by CDN)
-  const isCdnAsset = request.url.includes('cdn.jsdelivr.net') ||
-                      request.url.includes('fonts.googleapis.com') ||
-                      request.url.includes('fonts.gstatic.com');
+  const isCdnAsset =
+    request.url.includes('cdn.jsdelivr.net') ||
+    request.url.includes('fonts.googleapis.com') ||
+    request.url.includes('fonts.gstatic.com');
 
   if (isCdnAsset) {
     e.respondWith(
-      caches.match(request).then((cached) => {
+      caches.match(request).then(cached => {
         if (cached) return cached;
-        return fetch(request).then((networkResponse) => {
+        return fetch(request).then(networkResponse => {
           const clone = networkResponse.clone();
-          caches.open(CACHE_VERSION).then((cache) => {
+          caches.open(CACHE_VERSION).then(cache => {
             cache.put(request, clone);
           });
           return networkResponse;
@@ -122,31 +126,36 @@ self.addEventListener('fetch', (e) => {
   // Same-origin assets — stale-while-revalidate
   // Return cache immediately IF available, then update cache in background
   e.respondWith(
-    caches.match(request).then((cachedResponse) => {
-      const fetchPromise = fetch(request).then((networkResponse) => {
-        // Update cache with fresh network copy
-        if (networkResponse && networkResponse.status === 200) {
-          const clone = networkResponse.clone();
-          caches.open(CACHE_VERSION).then((cache) => {
-            cache.put(request, clone);
-          });
-        }
-        return networkResponse;
-      }).catch(() => null);
+    caches.match(request).then(cachedResponse => {
+      const fetchPromise = fetch(request)
+        .then(networkResponse => {
+          // Update cache with fresh network copy
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_VERSION).then(cache => {
+              cache.put(request, clone);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => null);
 
       // Stale-while-revalidate: return cache hit now, refresh in background
-      return cachedResponse || fetchPromise.catch(() => {
-        // Offline fallback for navigation
-        if (request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
-      });
+      return (
+        cachedResponse ||
+        fetchPromise.catch(() => {
+          // Offline fallback for navigation
+          if (request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
+        })
+      );
     })
   );
 });
 
 // Listen for "skip and reload" message from the page
-self.addEventListener('message', (e) => {
+self.addEventListener('message', e => {
   if (e.data && e.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
