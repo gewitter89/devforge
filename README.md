@@ -4,14 +4,18 @@
 
 ### A beautiful, open-source developer toolkit — built by the community, for the community.
 
-**18+ essential developer tools. Zero dependencies. Runs entirely in your browser.**
+**25+ essential developer & AI-agent tools. Zero dependencies. Runs entirely in your browser.**
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
 [![PWA Enabled](https://img.shields.io/badge/PWA-installable-gold.svg?style=for-the-badge&logo=pwa)](manifest.json)
-[![i18n Supported](https://img.shields.io/badge/i18n-EN%20%2F%20RU-blueviolet.svg?style=for-the-badge)](js/i18n.js)
+[![i18n Supported](https://img.shields.io/badge/i18n-14%20languages-blueviolet.svg?style=for-the-badge)](js/i18n.js)
 [![Offline Support](https://img.shields.io/badge/Offline-100%25-success.svg?style=for-the-badge)](sw.js)
 [![Deploy](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-222?style=for-the-badge&logo=github)](https://gewitter89.github.io/devforge/)
+
+<br>
+
+[![DevForge Screenshot](assets/screenshot.png)](https://gewitter89.github.io/devforge/)
 
 <br>
 
@@ -25,85 +29,81 @@
 
 <br>
 
-[**🌐 Live Demo**](https://gewitter89.github.io/devforge/) · [**🐛 Report a Bug**](https://github.com/gewitter89/devforge/issues/new?template=bug_report.yml) · [**✨ Request a Feature**](https://github.com/gewitter89/devforge/issues/new?template=feature_request.yml) · [**🔧 Propose a Tool**](https://github.com/gewitter89/devforge/issues/new?template=new_tool.yml)
+[**🌐 Live Demo**](https://gewitter89.github.io/devforge/) · [**🐛 Report a Bug**](https://github.com/gewitter89/devforge/issues/new?template=bug_report.yml) · [**✨ Request a Feature**](https://github.com/gewitter89/devforge/issues/new?template=feature_request.yml) · [**🔧 Propose a Tool**](https://github.com/gewitter89/devforge/issues/new?template=new_tool.yml) · [**🌱 Good First Issues**](https://github.com/gewitter89/devforge/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 
 </div>
 
-## 📚 Guides & AI Hacks / База знаний и ИИ-гиды
-
-We maintain a structured, community-updated knowledge base of agentic coding hacks, cost-saving configurations, and integrations:
-Мы поддерживаем структурированную базу знаний с хаками для ИИ-агентов, инструкциями по экономии токенов и интеграциям:
-
-👉 **[Explore Full Knowledge Base / Открыть базу знаний (docs.md)](docs.md)**
-
-- 🚀 **[GIG AI Boost (EN/RU)](gig-ai-boost.md)** — Private repositories, MCP servers, and agent configurations.
-- 🪨 **[Caveman SKILLS (EN/RU)](caveman.md)** — Prompt token compression guide (save ~65% tokens).
-- 🔑 **[Free LLM APIs (EN/RU)](free-llm-apis.md)** — Permanent free API keys for developers.
-- 🔌 **[ClinePass Setup (EN/RU)](cline-pass.md)** — Custom OpenAI-compatible configurations.
-- 🐳 **[CLI in Docker (EN/RU)](cli-in-docker.md)** — Sandboxing your AI agent inside Docker.
-- 🤖 **[TelePI Telegram Bot (EN/RU)](telepi.md)** — Run your PI CLI through a Telegram bot.
-- 🎛️ **[Herdr Multiplexer (EN/RU)](herdr.md)** — Tmux for AI coding agents.
-
----
-
-## 🏗️ How it Works (Architecture)
-
-DevForge is built with a highly decoupled, plugin-based architecture using vanilla technologies.
-
-```mermaid
-flowchart TD
-    Index[index.html Shell UI] --> App[js/app.js Core Router & Search]
-    App --> i18n[js/i18n.js Localization Engine]
-    App --> Sound[js/sound.js Audio Engine]
-
-    subgraph Self-Registering Plugin Modules
-        T1[tools/json-formatter.js] -.->|DevForge.registerTool| App
-        T2[tools/jwt-decoder.js] -.->|DevForge.registerTool| App
-        T3[tools/web-terminal.js] -.->|DevForge.registerTool| App
-        T4[tools/...js] -.->|DevForge.registerTool| App
-    end
-```
-
----
-
 ## 🤔 What is DevForge?
 
-DevForge is a **Swiss Army knife for developers** — a sleek, modular web app packed with everyday utilities. No installs, no sign-ups, no telemetry. Just open it and get stuff done.
+DevForge is a **Swiss Army knife for developers and AI-agent builders** — a sleek, modular web app packed with everyday utilities. No installs, no sign-ups, no telemetry. Just open it and get stuff done.
 
 - ⚡ **Blazing fast** — everything runs client-side, nothing leaves your browser
+- 🤖 **AI-agent focused** — unique tools for prompt engineering, LLM routing, and agent configs
 - 🎨 **Beautiful UI** — dark/light themes, responsive layout, smooth animations
 - 🧩 **Modular architecture** — each tool is a single self-registering JS file
 - 🔌 **Zero dependencies** — built with vanilla HTML, CSS, and JavaScript
-- 🌍 **Works offline** — PWA support, install on your desktop/mobile and use without internet
+- 🌍 **Works offline** — installable PWA, use it without internet
+- 🗣️ **14 languages** — EN, RU, UK, ZH, JA, KO, ES, PT, DE, FR, IT, PL, AR, HI
 - 🔒 **Private by design** — your data never touches a server
 - 🤝 **Easy to contribute** — add a tool in under 15 minutes
 
 ---
 
-## 🛠️ Available Tools
+## 🛠️ Available Tools (25)
 
-| #   | Tool                       | Category   | Description                                                      |
-| --- | -------------------------- | ---------- | ---------------------------------------------------------------- |
-| 1   | **JSON Formatter**         | Formatters | Format, validate, minify, and syntax-highlight JSON              |
-| 2   | **Base64 Encoder/Decoder** | Encoders   | Encode and decode Base64 strings in real-time                    |
-| 3   | **Hash Generator**         | Encoders   | Generate MD5, SHA-1, SHA-256, SHA-512 hashes                     |
-| 4   | **URL Encoder/Decoder**    | Encoders   | Encode and decode URL components                                 |
-| 5   | **UUID Generator**         | Generators | Generate v4 UUIDs — single or in bulk                            |
-| 6   | **Color Converter**        | Converters | Convert between HEX, RGB, HSL color formats                      |
-| 7   | **Password Generator**     | Generators | Create strong passwords with customizable rules                  |
-| 8   | **Timestamp Converter**    | Converters | Convert between Unix timestamps and human-readable dates         |
-| 9   | **Markdown Preview**       | Formatters | Live Markdown editor with instant HTML preview                   |
-| 10  | **Lorem Ipsum Generator**  | Generators | Generate placeholder text (words, sentences, paragraphs)         |
-| 11  | **AI Code Assistant**      | Text       | Generate regex, SQL, and code explanations with LLMs             |
-| 12  | **JWT Decoder**            | Encoders   | Parse and inspect JSON Web Tokens (JWT) payload and dates        |
-| 13  | **Diff Checker**           | Text       | Side-by-side and inline comparison of two text inputs            |
-| 14  | **Cron Parser**            | Web        | Translate crontab schedules to readable text & execution list    |
-| 15  | **Image Optimizer**        | Web        | Compress, resize, and convert images 100% locally in browser     |
-| 16  | **AI Context Packager**    | Text       | Combine multiple source files into a single LLM prompt block     |
-| 17  | **AI Prompt Sanitizer**    | Text       | Strip hidden Unicode characters and audit prompts for jailbreaks |
-| 18  | **Visual Web Terminal**    | Web        | Interact with DevForge tools using a simulated Unix terminal     |
+### 🤖 AI & Agent Tools — our specialty
+
+| Tool                             | Description                                                        |
+| -------------------------------- | ------------------------------------------------------------------ |
+| **AI Code Assistant**            | Generate regex, SQL schemas, or explain code using LLMs            |
+| **AI Context Packager**          | Combine multiple source files into a single LLM prompt block       |
+| **AI Prompt Sanitizer**          | Strip hidden Unicode characters and audit prompts for jailbreaks   |
+| **AI Agent Config Hub**          | Generate ready-to-use configs for popular AI coding agents         |
+| **OpenCode Config Generator**    | Build OpenCode configurations visually                             |
+| **Multi-Provider LLM Router**    | Compare LLM responses from multiple providers in parallel          |
+| **LLM Quality Monitor**          | Real-time tracking of LLM model degradation and quality metrics    |
+| **Knowledge Base**               | Curated guides: free LLM APIs, token compression, agent sandboxing |
+| **Smart Hub: OCR & Transformer** | Extract text from images and transform data locally                |
+
+### 🧰 Everyday Developer Tools
+
+| Tool                       | Category   | Description                                                     |
+| -------------------------- | ---------- | --------------------------------------------------------------- |
+| **JSON Formatter**         | Formatters | Format, validate, minify, and syntax-highlight JSON             |
+| **Markdown Preview**       | Formatters | Live Markdown editor with instant HTML preview                  |
+| **Base64 Encoder/Decoder** | Encoders   | Encode and decode Base64 with UTF-8 support                     |
+| **URL Encoder/Decoder**    | Encoders   | Encode/decode URLs, parse into components, build query strings  |
+| **JWT Decoder**            | Encoders   | Parse and inspect JWT payloads and expiration dates             |
+| **Hash Generator**         | Generators | MD5, SHA-1, SHA-256, SHA-384, SHA-512 hashes instantly          |
+| **UUID Generator**         | Generators | Cryptographically secure UUID v4 and v7 — single or bulk        |
+| **Password Generator**     | Generators | Strong passwords with strength analysis                         |
+| **Color Converter**        | Converters | HEX ↔ RGB ↔ HSL ↔ HSV with live preview                         |
+| **Timestamp Converter**    | Converters | Unix timestamps ↔ human dates with live clock                   |
+| **Diff Checker**           | Text       | Side-by-side and inline text comparison                         |
+| **Lorem Ipsum Generator**  | Text       | Placeholder text with formatting options                        |
+| **Cron Parser**            | Web        | Translate crontab schedules to readable text and execution list |
+| **Image Optimizer**        | Web        | Compress, resize, convert images — 100% locally                 |
+| **Visual Web Terminal**    | Web        | Use DevForge tools through a simulated Unix terminal            |
+| **Breach Checker**         | Security   | Check emails/domains against known data breaches (HIBP)         |
 
 > 💡 **Want to see a new tool?** [Propose one here!](https://github.com/gewitter89/devforge/issues/new?template=new_tool.yml)
+
+---
+
+## 📚 Guides & AI Hacks / База знаний и ИИ-гиды
+
+We maintain a structured, community-updated knowledge base of agentic coding hacks, cost-saving configurations, and integrations.
+Мы поддерживаем структурированную базу знаний с хаками для ИИ-агентов, инструкциями по экономии токенов и интеграциям.
+
+👉 **[Explore Full Knowledge Base / Открыть базу знаний (docs.md)](docs.md)**
+
+- 🚀 **[GIG AI Boost (EN/RU)](docs/guides/gig-ai-boost.md)** — Private repositories, MCP servers, and agent configurations.
+- 🪨 **[Caveman SKILLS (EN/RU)](docs/guides/caveman.md)** — Prompt token compression guide (save ~65% tokens).
+- 🔑 **[Free LLM APIs (EN/RU)](docs/guides/free-llm-apis.md)** — Permanent free API keys for developers.
+- 🔌 **[ClinePass Setup (EN/RU)](docs/guides/cline-pass.md)** — Custom OpenAI-compatible configurations.
+- 🐳 **[CLI in Docker (EN/RU)](docs/guides/cli-in-docker.md)** — Sandboxing your AI agent inside Docker.
+- 🤖 **[TelePI Telegram Bot (EN/RU)](docs/guides/telepi.md)** — Run your PI CLI through a Telegram bot.
+- 🎛️ **[Herdr Multiplexer (EN/RU)](docs/guides/herdr.md)** — Tmux for AI coding agents.
 
 ---
 
@@ -139,6 +139,9 @@ Visit the live version at **[gewitter89.github.io/devforge](https://gewitter89.g
 We love contributions! DevForge is designed to make contributing **ridiculously easy**. Whether you're a first-time contributor or an experienced developer, there's a place for you.
 
 👉 Read the full **[Contributing Guide](CONTRIBUTING.md)** for detailed instructions.
+👉 Browse **[good first issues](https://github.com/gewitter89/devforge/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)** to get started in minutes.
+
+**Every merged PR puts your avatar on the [Contributors Wall](https://gewitter89.github.io/devforge/) on the live site.**
 
 ### How to add a new tool — 3 simple steps
 
@@ -155,7 +158,7 @@ DevForge.registerTool({
   id: 'my-awesome-tool',
   name: 'My Awesome Tool',
   description: 'What it does in one sentence',
-  category: 'converters', // formatters | generators | converters | encoders | text | web
+  category: 'converters', // formatters | generators | converters | encoders | text | web | ai
   icon: '<svg>...</svg>', // 24x24 SVG icon
   tags: ['awesome', 'cool'],
   render() {
@@ -169,11 +172,48 @@ DevForge.registerTool({
 
 **Step 3:** Add a `<script>` tag to `index.html`
 
-```html
-<script src="tools/my-awesome-tool.js" defer></script>
+That's it. Open a PR. 🎉
+
+### Other easy ways to contribute
+
+- 🌍 **Translate** — add or improve one of the 14 language files in [`i18n/`](i18n/)
+- 📝 **Write a guide** — share an AI-agent hack in [`docs/guides/`](docs/guides/)
+- 🐛 **Report bugs** — even a screenshot helps
+
+---
+
+## 🏗️ How it Works (Architecture)
+
+DevForge is built with a highly decoupled, plugin-based architecture using vanilla technologies.
+
+```mermaid
+flowchart TD
+    Index[index.html Shell UI] --> App[js/app.js Core Router & Search]
+    App --> i18n[js/i18n.js Localization Engine]
+    App --> Sound[js/sound.js Audio Engine]
+
+    subgraph Self-Registering Plugin Modules
+        T1[tools/json-formatter.js] -.->|DevForge.registerTool| App
+        T2[tools/jwt-decoder.js] -.->|DevForge.registerTool| App
+        T3[tools/web-terminal.js] -.->|DevForge.registerTool| App
+        T4[tools/...js] -.->|DevForge.registerTool| App
+    end
 ```
 
-That's it. Open a PR. 🎉
+```
+devforge/
+├── index.html              # Single-page shell
+├── css/                    # Themes, layout, components
+├── js/                     # Core: registration, routing, search, i18n, sound
+├── tools/                  # Each tool = one self-registering file (25 and counting)
+├── i18n/                   # 14 language files
+├── docs/guides/            # AI-agent knowledge base
+├── templates/              # Starter template for new tools
+├── tests/                  # Smoke tests
+└── .github/                # CI, issue templates, PR template
+```
+
+Each tool calls `DevForge.registerTool()` — the core automatically adds it to the catalog, search, and routing. **Zero configuration.**
 
 ---
 
@@ -182,41 +222,17 @@ That's it. Open a PR. 🎉
 - [x] 🤖 **AI Code Assistant** — built-in Llama / Gemini / OpenAI support
 - [x] 🔊 **Audio UI feedback** — gentle synth clicks and success chords
 - [x] 🎨 **Interactive Contributors Wall** — dynamic widget loading GitHub profiles
-- [ ] 📱 **PWA support** — install DevForge as a desktop/mobile app
-- [ ] 🌐 **i18n / Localization** — support for multiple languages
-- [ ] 🔍 **More tools** — JWT decoder, cron expression parser, CSS gradient generator
-- [ ] ⌨️ **Keyboard shortcuts** — power-user navigation
+- [x] 📱 **PWA support** — install DevForge as a desktop/mobile app
+- [x] 🌐 **i18n / Localization** — 14 languages supported
+- [x] ⌨️ **Command Palette** — Ctrl+K power-user navigation
+- [x] 🔍 **JWT decoder & cron parser** — shipped!
+- [ ] 🧪 **Regex Tester** — [help wanted!](https://github.com/gewitter89/devforge/issues)
+- [ ] 📄 **YAML ⇄ JSON Converter** — [help wanted!](https://github.com/gewitter89/devforge/issues)
+- [ ] 📱 **QR Code Generator** — [help wanted!](https://github.com/gewitter89/devforge/issues)
 - [ ] 📦 **Tool favorites** — bookmark your most-used tools
 - [ ] 🎨 **Custom themes** — community-created color schemes
-- [ ] 📊 **Usage analytics** — anonymous, opt-in tool popularity stats
 
 > Have an idea? [Open a feature request!](https://github.com/gewitter89/devforge/issues/new?template=feature_request.yml)
-
----
-
-## 🏗️ Architecture
-
-```
-devforge/
-├── index.html              # Single-page shell
-├── css/
-│   └── main.css            # All styles (themes, layout, components)
-├── js/
-│   └── app.js              # Core: registration, routing, search, themes
-├── tools/
-│   ├── json-formatter.js   # Each tool = one self-registering file
-│   ├── base64-codec.js
-│   ├── hash-generator.js
-│   └── ...
-├── templates/
-│   └── tool-template.js    # Starter template for new tools
-└── .github/
-    ├── workflows/deploy.yml
-    ├── ISSUE_TEMPLATE/
-    └── PULL_REQUEST_TEMPLATE.md
-```
-
-Each tool calls `DevForge.registerTool()` — the core automatically adds it to the catalog, search, and routing. **Zero configuration.**
 
 ---
 

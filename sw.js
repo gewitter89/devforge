@@ -4,7 +4,7 @@
    Uses stale-while-revalidate for optimal freshness + offline.
    ============================================================ */
 
-const CACHE_VERSION = 'devforge-sw-v4';
+const CACHE_VERSION = 'devforge-sw-v5';
 const SHELL_ASSETS = [
   './',
   './index.html',

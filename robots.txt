@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gewitter89.github.io/devforge/sitemap.xml

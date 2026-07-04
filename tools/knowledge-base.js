@@ -33,7 +33,7 @@
         'Connect 2 private updating repos with pre-configured prompts, customized MCP servers, and personal developer stack. 10$ one-time.',
       descRu:
         'Подключите 2 приватных обновляемых репозитория с готовыми инструкциями, настроенными MCP-серверами и личным стеком автора за 10$.',
-      url: 'gig-ai-boost.md',
+      url: 'docs/guides/gig-ai-boost.md',
       tag: 'GIG AI'
     },
     {
@@ -44,7 +44,7 @@
         'Make your AI agent communicate like a caveman. Cuts down ~65% of verbose greeting/explanation tokens while keeping code 100% accurate.',
       descRu:
         'Заставьте ИИ-агента общаться кратко, как пещерный человек. Срезает ~65% "воды" при генерации, экономя ваши деньги и ускоряя ответ.',
-      url: 'caveman.md',
+      url: 'docs/guides/caveman.md',
       tag: 'Hacks'
     },
     {
@@ -55,7 +55,7 @@
         'Copy-paste instruction templates to configure your Cursor, Windsurf, or Cline code assistants for maximum efficiency.',
       descRu:
         'Готовые шаблоны инструкций для ИИ-агентов. Обучите ваш ИИ писать код быстро, без лишних слов и рассуждений.',
-      url: 'cursorrules.md',
+      url: 'docs/guides/cursorrules.md',
       tag: 'System Prompts'
     },
     {
@@ -66,7 +66,7 @@
         'Get free, stable keys and endpoints for Gemini, Llama, and Mistral. Perfect for pet-projects and testing.',
       descRu:
         'Постоянные бесплатные ключи и роутеры для Gemini, Llama и Mistral. Идеально для пет-проектов и тестирования.',
-      url: 'free-llm-apis.md',
+      url: 'docs/guides/free-llm-apis.md',
       tag: 'APIs'
     },
     {
@@ -77,7 +77,7 @@
         'Isolate your coding agent in a container with environment secrets mounted. Stop personal data theft from bad models.',
       descRu:
         'Безопасный запуск ИИ-агентов в изолированном Docker-контейнере с пробросом папки проекта. Защита от кражи личных данных.',
-      url: 'cli-in-docker.md',
+      url: 'docs/guides/cli-in-docker.md',
       tag: 'Security'
     },
     {
@@ -88,7 +88,7 @@
         'Unlock DeepSeek V4, GLM-5.2, and Kimi inside Crush CLI and OpenCode using ClinePass gateways.',
       descRu:
         'Настройка ClinePass, Crush CLI и OpenCode для работы с DeepSeek V4, GLM-5.2 и Kimi через прокси-интерфейсы.',
-      url: 'cline-pass.md',
+      url: 'docs/guides/cline-pass.md',
       tag: 'CLI Config'
     },
     {
@@ -99,7 +99,7 @@
         'Integrate your local PI CLI with a Telegram bot. Supports offline voice messages transcribing on your machine.',
       descRu:
         'Свяжите локальный ИИ-агент PI с ботом в Telegram. Поддерживает офлайн-распознавание ваших голосовых сообщений.',
-      url: 'telepi.md',
+      url: 'docs/guides/telepi.md',
       tag: 'Integrations'
     },
     {
@@ -110,7 +110,7 @@
         'Control panel allowing you to run, view status, and coordinate multiple active coding bots without losing sessions.',
       descRu:
         'Панель управления и мультиплексор для AI-агентов. Следите за статусами ботов и делите экраны в терминале.',
-      url: 'herdr.md',
+      url: 'docs/guides/herdr.md',
       tag: 'Tools'
     }
   ];
