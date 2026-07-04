@@ -103,10 +103,16 @@
         <svg class="icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
       </button>
       <!-- Language Selector -->
-      <select id="lang-selector" class="header-btn" style="width: auto; padding: 0 8px; font-size: 0.8rem; font-weight: 600; border-radius: var(--radius-sm); border: 1px solid var(--border-primary); background: var(--bg-input); outline: none;">
-        <option value="en">EN</option>
-        <option value="ru">RU</option>
-      </select>
+      <div class="dropdown" style="position:relative;">
+        <button class="header-btn" id="lang-selector-btn" style="display:flex; align-items:center; gap:4px; padding:4px 10px; font-size:0.85rem; font-weight:600;">
+          <span id="current-lang-flag">🌐</span>
+          <span id="current-lang-code">EN</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+        </button>
+        <div class="dropdown-menu" id="lang-dropdown" style="display:none; position:absolute; top:100%; right:0; background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,0.3); min-width:200px; max-height:400px; overflow-y:auto; z-index:1000; margin-top:4px; padding:8px 0;">
+          <!-- Populated by JS -->
+        </div>
+      </div>
       <!-- PWA Install Button -->
       <button class="header-btn" id="pwa-install-btn" title="Install App" style="display:none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
@@ -164,6 +170,7 @@
 
   <!-- Core -->
   <script src="js/i18n.js?v=2" defer></script>
+  <script src="js/lang-selector.js?v=2" defer></script>
   <script src="js/sound.js?v=2" defer></script>
   <script src="js/contributors.js?v=2" defer></script>
   <script src="js/app.js?v=2" defer></script>
@@ -191,6 +198,8 @@
   <script src="tools/web-terminal.js?v=2" defer></script>
   <script src="tools/opencode-config-generator.js?v=2" defer></script>
   <script src="tools/ai-agent-config-hub.js?v=2" defer></script>
+  <script src="tools/breach-checker.js?v=2" defer></script>
+  <script src="tools/llm-quality-monitor.js?v=2" defer></script>
 
 </body>
 </html>

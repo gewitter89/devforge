@@ -1,15 +1,35 @@
 /* ============================================================
    DevForge — Internationalization (i18n) Engine
-   Contains translations for English and Russian
+   Supports 14 languages with auto-detection and dynamic loading
    ============================================================ */
 
 (function() {
   'use strict';
 
-  const i18n = {
-    lang: 'ru', // Default to Russian first for Russian users
+  // Supported locales with native names
+  const SUPPORTED_LANGUAGES = [
+    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+    { code: 'uk', name: 'Українська', flag: '🇺🇦' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+    { code: 'ja', name: '日本語', flag: '🇯🇵' },
+    { code: 'ko', name: '한국어', flag: '🇰🇷' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'pt', name: 'Português', flag: '🇵🇹' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+    { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' }
+  ];
 
-    // Translations Dictionary
+  const i18n = {
+    lang: 'en',
+    translations: {},
+    supportedLanguages: SUPPORTED_LANGUAGES,
+
+    // Core translations (always loaded)
     translations: {
       en: {
         logoText: 'DevForge',
@@ -25,49 +45,27 @@
         toolsAvailable: 'tools available',
         addYourTool: '＋ Add your tool',
         starCTATitle: '✨ Love DevForge?',
-        starCTADesc: 'Support us by giving a star on GitHub! It helps more developers find this project.',
+        starCTADesc: 'Support us by giving a star on GitHub!',
         starBtn: '⭐ Star Repo',
         contributorsTitle: '🏆 Project Contributors',
-        contributorsDesc: 'The amazing people who help make DevForge better. You could be here too!',
+        contributorsDesc: 'The amazing people who make DevForge better.',
         joinUs: 'Join Us',
         backToTools: 'Back to all tools',
         searchEmpty: 'No tools found',
-        searchEmptySub: 'Try a different search term or category',
+        searchEmptySub: 'Try a different search term',
         loadDemo: '💡 Load Demo',
         clear: 'Clear',
         copy: 'Copy',
         copied: '✓ Copied!',
         success: 'Success',
         error: 'Error',
-        
-        // Command Palette
-        cmdPlaceholder: 'Type a command (e.g. >uuid, >theme light) or search...',
-        cmdEsc: 'ESC to close',
-        cmdNoMatches: 'No matches found',
-        cmdActionType: 'action',
-        cmdToolType: 'tool',
-        cmdUuidTitle: 'Generate & Copy UUID',
-        cmdUuidDesc: 'Creates a v4 UUID and saves it to clipboard',
-        cmdThemeDarkTitle: 'Set Theme: Dark',
-        cmdThemeDarkDesc: 'Switch interface to dark mode',
-        cmdThemeLightTitle: 'Set Theme: Light',
-        cmdThemeLightDesc: 'Switch interface to light mode',
-        cmdSoundOnTitle: 'Turn Sound On',
-        cmdSoundOnDesc: 'Enable audio interactions',
-        cmdSoundOffTitle: 'Turn Sound Off',
-        cmdSoundOffDesc: 'Disable audio interactions',
-        cmdUnknown: 'Unknown Command. Try: >uuid, >theme, >sound',
-        cmdBase64Title: 'Base64 Encode: "{param}"',
-        cmdBase64Desc: 'Result: {result} (Click to copy)',
-
-        // AI Assistant
         aiProvider: 'Provider:',
-        aiPromptLabel: 'What do you want to generate / solve?',
-        aiOutputLabel: 'AI Output / Generated Code',
-        aiGenerateBtn: 'Generate Response',
-        aiPlaceholder: 'Example: Create a regular expression to validate a complex password...',
-        aiWaiting: '🤖 Thinking and generating response, please wait...',
-        aiFallbackErr: 'All free LLM serverless gateways failed. Please try providing your own Gemini or OpenAI API keys in the settings panel above.'
+        aiPromptLabel: 'What do you want to generate?',
+        aiOutputLabel: 'AI Output',
+        aiGenerateBtn: 'Generate',
+        aiPlaceholder: 'Example: Create a regex for email validation...',
+        aiWaiting: '🤖 Thinking...',
+        aiFallbackErr: 'All free LLM gateways failed. Provide your own API key.'
       },
       ru: {
         logoText: 'DevForge',
@@ -83,77 +81,118 @@
         toolsAvailable: 'инструментов доступно',
         addYourTool: '＋ Добавить инструмент',
         starCTATitle: '✨ Нравится DevForge?',
-        starCTADesc: 'Поддержи проект звездой на GitHub! Это поможет другим найти нас.',
+        starCTADesc: 'Поддержи проект звездой на GitHub!',
         starBtn: '⭐ Поставить звезду',
         contributorsTitle: '🏆 Контрибьюторы проекта',
-        contributorsDesc: 'Потрясающие люди, помогающие делать DevForge лучше. Ты тоже можешь быть здесь!',
+        contributorsDesc: 'Люди, которые делают DevForge лучше.',
         joinUs: 'Участвовать',
         backToTools: 'Назад к инструментам',
         searchEmpty: 'Инструменты не найдены',
-        searchEmptySub: 'Попробуйте другой запрос или категорию',
+        searchEmptySub: 'Попробуйте другой запрос',
         loadDemo: '💡 Пример данных',
         clear: 'Очистить',
         copy: 'Копировать',
         copied: '✓ Скопировано!',
         success: 'Успешно',
         error: 'Ошибка',
-
-        // Command Palette
-        cmdPlaceholder: 'Введите команду (напр. >uuid, >theme light) или поиск...',
-        cmdEsc: 'ESC для выхода',
-        cmdNoMatches: 'Совпадений не найдено',
-        cmdActionType: 'действие',
-        cmdToolType: 'утилита',
-        cmdUuidTitle: 'Создать и скопировать UUID',
-        cmdUuidDesc: 'Генерирует UUID v4 и сохраняет в буфер обмена',
-        cmdThemeDarkTitle: 'Установить тему: Тёмная',
-        cmdThemeDarkDesc: 'Переключить интерфейс в тёмный режим',
-        cmdThemeLightTitle: 'Установить тему: Светлая',
-        cmdThemeLightDesc: 'Переключить интерфейс в светлый режим',
-        cmdSoundOnTitle: 'Включить звуки',
-        cmdSoundOnDesc: 'Активировать звуковое сопровождение',
-        cmdSoundOffTitle: 'Выключить звуки',
-        cmdSoundOffDesc: 'Деактивировать звуковое сопровождение',
-        cmdUnknown: 'Неизвестная команда. Попробуйте: >uuid, >theme, >sound',
-        cmdBase64Title: 'Base64 кодирование: "{param}"',
-        cmdBase64Desc: 'Результат: {result} (Кликните для копирования)',
-
-        // AI Assistant
         aiProvider: 'Провайдер ИИ:',
-        aiPromptLabel: 'Что вы хотите сгенерировать или решить?',
-        aiOutputLabel: 'Результат генерации / Код',
-        aiGenerateBtn: 'Сгенерировать ответ',
-        aiPlaceholder: 'Например: Создай регулярное выражение для проверки сложного пароля...',
-        aiWaiting: '🤖 ИИ думает и генерирует ответ, пожалуйста, подождите...',
-        aiFallbackErr: 'Бесплатные серверы ИИ сейчас перегружены. Пожалуйста, вставьте свой личный API-ключ Gemini или OpenAI в панели настроек выше для стабильной и быстрой работы.'
+        aiPromptLabel: 'Что вы хотите сгенерировать?',
+        aiOutputLabel: 'Результат генерации',
+        aiGenerateBtn: 'Сгенерировать',
+        aiPlaceholder: 'Например: Создай regex для валидации email...',
+        aiWaiting: '🤖 ИИ думает...',
+        aiFallbackErr: 'Бесплатные серверы ИИ перегружены. Вставьте свой API-ключ.'
       }
     },
 
+    // Auto-detect language from browser
+    detectLanguage() {
+      const navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+      
+      // Priority: match exact code, then prefix, then default to 'en'
+      const exactMatch = SUPPORTED_LANGUAGES.find(l => navLang === l.code || navLang.startsWith(l.code.toLowerCase()));
+      if (exactMatch) return exactMatch.code;
+      
+      // Special cases for regional variants
+      if (navLang.startsWith('zh')) return 'zh';
+      if (navLang.startsWith('ja')) return 'ja';
+      if (navLang.startsWith('ko')) return 'ko';
+      if (navLang.startsWith('ar')) return 'ar';
+      if (navLang.startsWith('hi')) return 'hi';
+      if (navLang.startsWith('uk')) return 'uk';
+      if (navLang.startsWith('pl')) return 'pl';
+      if (navLang.startsWith('es') || navLang.includes('lat')) return 'es';
+      if (navLang.startsWith('pt') && navLang.includes('br')) return 'pt';
+      if (navLang.startsWith('de')) return 'de';
+      if (navLang.startsWith('fr')) return 'fr';
+      if (navLang.startsWith('it')) return 'it';
+      
+      return 'en'; // Safe fallback
+    },
+
     init() {
-      // 1. Detect language (localStorage -> browser language -> default 'ru')
+      // Priority: localStorage > browser detection > 'en'
       const saved = localStorage.getItem('devforge-lang');
-      if (saved && (saved === 'en' || saved === 'ru')) {
+      const isSupported = (code) => SUPPORTED_LANGUAGES.some(l => l.code === code);
+      
+      if (saved && isSupported(saved)) {
         this.lang = saved;
       } else {
-        const navLang = navigator.language || navigator.userLanguage;
-        if (navLang && navLang.startsWith('ru')) {
-          this.lang = 'ru';
-        } else {
-          this.lang = 'ru'; // Default to Russian for this user project
-        }
+        this.lang = this.detectLanguage();
+      }
+      
+      // Load translations for detected language if not already loaded
+      this.loadTranslations(this.lang);
+    },
+
+    async loadTranslations(lang) {
+      // English and Russian are always loaded (core)
+      if (lang === 'en' || lang === 'ru') {
+        return Promise.resolve();
+      }
+      
+      // Check if already loaded
+      if (this.translations[lang]) {
+        return Promise.resolve();
+      }
+      
+      try {
+        const response = await fetch(`./i18n/${lang}.json`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        this.translations[lang] = data;
+      } catch (error) {
+        console.warn(`[i18n] Failed to load ${lang}.json, falling back to English`);
+        this.translations[lang] = this.translations['en'];
       }
     },
 
     setLang(lang) {
-      if (lang === 'en' || lang === 'ru') {
+      const isSupported = SUPPORTED_LANGUAGES.some(l => l.code === lang);
+      if (!isSupported) {
+        console.warn(`[i18n] Unsupported language: ${lang}`);
+        return;
+      }
+      
+      this.loadTranslations(lang).then(() => {
         this.lang = lang;
         localStorage.setItem('devforge-lang', lang);
         window.dispatchEvent(new CustomEvent('df-lang-changed', { detail: lang }));
-      }
+      });
     },
 
     t(key) {
-      return this.translations[this.lang][key] || this.translations['en'][key] || key;
+      const currentLang = this.translations[this.lang];
+      const fallbackLang = this.translations['en'];
+      
+      return (currentLang && currentLang[key]) || 
+             (fallbackLang && fallbackLang[key]) || 
+             key;
+    },
+
+    // Get all supported languages for UI
+    getSupportedLanguages() {
+      return [...SUPPORTED_LANGUAGES];
     }
   };
 

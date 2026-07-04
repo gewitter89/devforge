@@ -4,17 +4,30 @@
    Uses stale-while-revalidate for optimal freshness + offline.
    ============================================================ */
 
-const CACHE_VERSION = 'devforge-sw-v2-r3';
+const CACHE_VERSION = 'devforge-sw-v3';
 const SHELL_ASSETS = [
   './',
   './index.html',
   './css/main.css?v=2',
   './css/extra.css?v=2',
   './js/i18n.js?v=2',
+  './js/lang-selector.js?v=2',
   './js/sound.js?v=2',
   './js/contributors.js?v=2',
   './js/app.js?v=2',
   './manifest.json',
+  './i18n/uk.json',
+  './i18n/zh.json',
+  './i18n/ja.json',
+  './i18n/ko.json',
+  './i18n/es.json',
+  './i18n/pt.json',
+  './i18n/de.json',
+  './i18n/fr.json',
+  './i18n/it.json',
+  './i18n/pl.json',
+  './i18n/ar.json',
+  './i18n/hi.json',
 ];
 
 const TOOL_ASSETS = [
@@ -40,6 +53,8 @@ const TOOL_ASSETS = [
   './tools/web-terminal.js?v=2',
   './tools/opencode-config-generator.js?v=2',
   './tools/ai-agent-config-hub.js?v=2',
+  './tools/breach-checker.js?v=2',
+  './tools/llm-quality-monitor.js?v=2',
 ];
 
 const ALL_ASSETS = [...SHELL_ASSETS, ...TOOL_ASSETS];
