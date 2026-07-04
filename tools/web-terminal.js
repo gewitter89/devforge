@@ -48,7 +48,7 @@ DevForge.registerTool({
     const output = document.getElementById('term-output');
     const input = document.getElementById('term-input');
 
-    let history = [];
+    const history = [];
     let historyIndex = -1;
 
     // Focus input on console wrapper click

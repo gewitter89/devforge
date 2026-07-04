@@ -670,7 +670,7 @@
     }
 
     // Subscribe to lang changes to update the UI
-    window.addEventListener('df-lang-changed', e => {
+    window.addEventListener('df-lang-changed', () => {
       // Re-translate search placeholder
       const searchInput = document.getElementById('search-input');
       if (searchInput && window.i18n) {

@@ -92,19 +92,6 @@ DevForge.registerTool({
       }
     }
 
-    function decode() {
-      const raw = input.value.trim();
-      if (!raw) {
-        output.value = '';
-        return;
-      }
-      try {
-        output.value = decodeFn(raw);
-      } catch (e) {
-        output.value = '❌ ' + e.message;
-      }
-    }
-
     // Real-time encode on input
     let debounce;
     input.addEventListener('input', () => {

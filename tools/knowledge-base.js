@@ -125,7 +125,6 @@
     icon: '📚',
     tags: ['guides', 'mcp', 'cheatsheet', 'hacks', 'ru', 'en'],
     render() {
-      const isRu = window.i18n && window.i18n.lang === 'ru';
       return `
         <div class="tool-full" style="max-width: 1000px; margin: 0 auto; padding: var(--space-md);">
           <!-- KB Banner -->

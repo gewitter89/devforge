@@ -135,9 +135,9 @@ DevForge.registerTool({
     }
 
     function getMockNextDates(parts) {
-      const [m, h, dom, mon, dow] = parts;
+      const [m, h, _dom, mon, dow] = parts;
       const dates = [];
-      let current = new Date();
+      const current = new Date();
       current.setSeconds(0, 0);
 
       const matchTime = (val, target) => {

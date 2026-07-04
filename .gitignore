@@ -25,6 +25,20 @@ test-results/
 .env
 .env.local
 
+# Secrets & private keys — NEVER commit these
+*.jks
+*.p12
+*.pfx
+*.keystore
+*.pem
+*.key
+firebase-*.json
+*.sqlite
+*.db
+serviceAccountKey.json
+google-services.json
+google-service-account.json
+
 # Archive files (should not be in repo)
 *.zip
 *.tar.gz

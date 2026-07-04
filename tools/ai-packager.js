@@ -104,7 +104,7 @@ DevForge.registerTool({
       markdown += '## Project Context Files Bundle\n';
       markdown += `This context contains ${loadedFiles.length} files. Please use them to answer questions or write code.\n\n`;
 
-      for (let file of loadedFiles) {
+      for (const file of loadedFiles) {
         markdown += `### File: \`${file.name}\`\n`;
         markdown += `\`\`\`${getFileExtension(file.name)}\n`;
         try {
@@ -144,7 +144,7 @@ DevForge.registerTool({
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = e => resolve(e.target.result);
-        reader.onerror = e => reject(new Error('File reading error'));
+        reader.onerror = () => reject(new Error('File reading error'));
         reader.readAsText(file);
       });
     }

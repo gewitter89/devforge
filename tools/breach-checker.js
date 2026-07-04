@@ -270,7 +270,7 @@
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     },
 
-    displayBreaches: function (breaches, email) {
+    displayBreaches: function (breaches) {
       const results = document.getElementById('breach-results');
       const t = key => (window.i18n && window.i18n.t ? window.i18n.t(key) : key);
 
@@ -309,7 +309,7 @@
       `;
     },
 
-    displaySafe: function (email) {
+    displaySafe: function () {
       const results = document.getElementById('breach-results');
       const t = key => (window.i18n && window.i18n.t ? window.i18n.t(key) : key);
 

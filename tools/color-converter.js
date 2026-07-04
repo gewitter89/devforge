@@ -249,9 +249,8 @@ DevForge.registerTool({
       b /= 255;
       const max = Math.max(r, g, b),
         min = Math.min(r, g, b);
-      let h,
-        s,
-        l = (max + min) / 2;
+      const l = (max + min) / 2;
+      let h, s;
       if (max === min) {
         h = s = 0;
       } else {
@@ -303,11 +302,10 @@ DevForge.registerTool({
       b /= 255;
       const max = Math.max(r, g, b),
         min = Math.min(r, g, b);
-      let h,
-        s,
-        v = max;
+      const v = max;
       const d = max - min;
-      s = max === 0 ? 0 : d / max;
+      const s = max === 0 ? 0 : d / max;
+      let h;
       if (max === min) {
         h = 0;
       } else {

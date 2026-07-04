@@ -139,7 +139,6 @@ DevForge.registerTool({
     const dateMsCopy = document.getElementById('timestamp-converter-date-ms-copy');
 
     // Live clock
-    let intervalId;
     function updateLiveClock() {
       const now = new Date();
       liveSec.textContent = Math.floor(now.getTime() / 1000);
@@ -148,7 +147,7 @@ DevForge.registerTool({
       liveLocal.textContent = now.toLocaleString();
     }
     updateLiveClock();
-    intervalId = setInterval(updateLiveClock, 1000);
+    const _intervalId = setInterval(updateLiveClock, 1000);
 
     // Click to copy live values
     liveSec.addEventListener('click', () => DevForge.copyToClipboard(liveSec.textContent));

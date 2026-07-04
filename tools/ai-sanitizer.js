@@ -135,7 +135,7 @@ DevForge.registerTool({
         return;
       }
 
-      let logs = [];
+      const logs = [];
       let score = 0;
 
       // Rule 1: Keyphrase scanning

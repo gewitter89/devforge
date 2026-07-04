@@ -13,7 +13,7 @@ DevForge.registerTool({
   render() {
     const algorithms = ['MD5', 'SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'];
 
-    let hashResultsHtml = algorithms
+    const hashResultsHtml = algorithms
       .map(algo => {
         const id = 'hash-gen-' + algo.toLowerCase().replace('-', '');
         return `
@@ -163,9 +163,9 @@ DevForge.registerTool({
         return md5blks;
       }
 
-      let n = string.length,
-        state = [1732584193, -271733879, -1732584194, 271733878],
-        i;
+      const n = string.length,
+        state = [1732584193, -271733879, -1732584194, 271733878];
+      let i;
       for (i = 64; i <= n; i += 64) {
         md5cycle(state, md5blk(string.substring(i - 64, i)));
       }
@@ -231,7 +231,7 @@ DevForge.registerTool({
           let hash = await algo.fn(text);
           if (upper) hash = hash.toUpperCase();
           document.getElementById(algo.id).textContent = hash;
-        } catch (e) {
+        } catch {
           document.getElementById(algo.id).textContent = 'Error';
         }
       }

@@ -13,7 +13,6 @@ DevForge.registerTool({
   tags: ['ai', 'regex', 'sql', 'generator', 'code-helper'],
 
   render() {
-    const t = k => (window.i18n ? window.i18n.t(k) : k);
     return `
       <div class="tool-full">
         <!-- API Setup Panel -->

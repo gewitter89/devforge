@@ -80,7 +80,7 @@
             card.style.boxShadow = 'none';
           });
         });
-      } catch (err) {
+      } catch {
         console.warn('DevForge: Could not load live contributors, showing placeholder');
         // Render fallback UI with prompt for contributions
         listContainer.innerHTML = this.getPlaceholderHTML() + this.getInvitationCardHTML();

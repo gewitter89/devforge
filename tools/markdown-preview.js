@@ -101,7 +101,6 @@ Write your **Markdown** here...
       let i = 0;
       let inCodeBlock = false;
       let codeBlockContent = '';
-      let codeBlockLang = '';
 
       while (i < lines.length) {
         const line = lines[i];
@@ -110,7 +109,6 @@ Write your **Markdown** here...
         if (line.trim().startsWith('```')) {
           if (!inCodeBlock) {
             inCodeBlock = true;
-            codeBlockLang = line.trim().slice(3).trim();
             codeBlockContent = '';
             i++;
             continue;
@@ -152,7 +150,7 @@ Write your **Markdown** here...
 
         // Blockquote
         if (line.trim().startsWith('>')) {
-          let bqLines = [];
+          const bqLines = [];
           while (
             i < lines.length &&
             (lines[i].trim().startsWith('>') ||
@@ -218,7 +216,7 @@ Write your **Markdown** here...
         }
 
         // Paragraph (collect consecutive non-empty lines)
-        let paraLines = [];
+        const paraLines = [];
         while (
           i < lines.length &&
           lines[i].trim() !== '' &&

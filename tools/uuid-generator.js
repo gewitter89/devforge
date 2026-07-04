@@ -156,14 +156,14 @@ DevForge.registerTool({
 
     uppercaseChk.addEventListener('change', () => {
       listEl.querySelectorAll('code').forEach(el => {
-        let text = el.textContent;
+        const text = el.textContent;
         el.textContent = uppercaseChk.checked ? text.toUpperCase() : text.toLowerCase();
       });
     });
 
     hyphensChk.addEventListener('change', () => {
       listEl.querySelectorAll('code').forEach(el => {
-        let text = el.textContent;
+        const text = el.textContent;
         if (hyphensChk.checked) {
           const clean = text.replace(/-/g, '');
           el.textContent = [
