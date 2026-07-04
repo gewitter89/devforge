@@ -12,7 +12,7 @@
       const container = document.getElementById(targetElementId);
       if (!container) return;
 
-      const t = (k) => window.i18n ? window.i18n.t(k) : k;
+      const t = k => (window.i18n ? window.i18n.t(k) : k);
       container.innerHTML = `
         <div style="text-align:center; padding:var(--space-xl) 0;">
           <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:var(--space-sm); background:var(--gradient-accent); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">
@@ -38,9 +38,9 @@
         // Fetch from GitHub REST API
         const response = await fetch(`https://api.github.com/repos/${repoPath}/contributors`);
         if (!response.ok) throw new Error('API request failed');
-        
+
         const contributors = await response.json();
-        
+
         if (contributors.length === 0) {
           listContainer.innerHTML = this.getPlaceholderHTML();
           return;
@@ -80,7 +80,6 @@
             card.style.boxShadow = 'none';
           });
         });
-
       } catch (err) {
         console.warn('DevForge: Could not load live contributors, showing placeholder');
         // Render fallback UI with prompt for contributions
@@ -98,7 +97,7 @@
     },
 
     getInvitationCardHTML() {
-      const t = (k) => window.i18n ? window.i18n.t(k) : k;
+      const t = k => (window.i18n ? window.i18n.t(k) : k);
       return `
         <a href="https://github.com" target="_blank" rel="noopener" class="contributor-card" 
            style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:90px; padding:var(--space-sm); background:var(--bg-card); border:1px dashed var(--text-accent); border-radius:var(--radius-md); transition:all var(--transition-fast); text-decoration:none;">

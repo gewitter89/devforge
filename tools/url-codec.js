@@ -82,7 +82,8 @@ DevForge.registerTool({
     function encode() {
       const raw = input.value;
       if (!raw) {
-        output.value = ''; return; 
+        output.value = '';
+        return;
       }
       try {
         output.value = encodeFn(raw);
@@ -94,7 +95,8 @@ DevForge.registerTool({
     function decode() {
       const raw = input.value.trim();
       if (!raw) {
-        output.value = ''; return; 
+        output.value = '';
+        return;
       }
       try {
         output.value = decodeFn(raw);
@@ -146,13 +148,14 @@ DevForge.registerTool({
     const parseResult = document.getElementById('url-codec-parse-result');
 
     function escHtml(s) {
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
     function parseURL() {
       const raw = parseInput.value.trim();
       if (!raw) {
-        parseResult.innerHTML = ''; return; 
+        parseResult.innerHTML = '';
+        return;
       }
 
       try {
@@ -169,12 +172,15 @@ DevForge.registerTool({
                 </tr>
               </thead>
               <tbody>
-                ${[...url.searchParams].map(([k, v]) =>
-    `<tr style="border-bottom:1px solid var(--border);">
+                ${[...url.searchParams]
+                  .map(
+                    ([k, v]) =>
+                      `<tr style="border-bottom:1px solid var(--border);">
                     <td style="padding:4px 8px;font-family:'JetBrains Mono',monospace;color:var(--accent);">${escHtml(k)}</td>
                     <td style="padding:4px 8px;font-family:'JetBrains Mono',monospace;">${escHtml(v)}</td>
                   </tr>`
-  ).join('')}
+                  )
+                  .join('')}
               </tbody>
             </table>
           `;
@@ -188,26 +194,31 @@ DevForge.registerTool({
           ['Pathname', url.pathname],
           ['Search', url.search || '(none)'],
           ['Hash', url.hash || '(none)'],
-          ['Origin', url.origin],
+          ['Origin', url.origin]
         ];
 
         parseResult.innerHTML = `
           <div style="display:grid;grid-template-columns:120px 1fr;gap:4px 12px;font-family:'JetBrains Mono',monospace;">
-            ${rows.map(([label, val]) => `
+            ${rows
+              .map(
+                ([label, val]) => `
               <span style="opacity:.6;font-size:12px;text-transform:uppercase;padding:3px 0;">${label}</span>
               <span style="padding:3px 0;word-break:break-all;">${escHtml(val)}</span>
-            `).join('')}
+            `
+              )
+              .join('')}
           </div>
           ${paramsHtml ? '<h4 style="margin:14px 0 4px;font-size:13px;font-weight:600;">Query Parameters</h4>' + paramsHtml : ''}
         `;
       } catch (e) {
-        parseResult.innerHTML = '<span style="color:#f87171;">❌ Invalid URL: ' + escHtml(e.message) + '</span>';
+        parseResult.innerHTML =
+          '<span style="color:#f87171;">❌ Invalid URL: ' + escHtml(e.message) + '</span>';
       }
     }
 
     document.getElementById('url-codec-parse-btn').addEventListener('click', parseURL);
-    parseInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') parseURL(); 
+    parseInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') parseURL();
     });
     parseInput.addEventListener('input', () => {
       clearTimeout(parseInput._t);
@@ -228,7 +239,8 @@ DevForge.registerTool({
         <button class="tool-btn-sm tool-btn" data-qs="remove" title="Remove" style="padding:4px 8px;">✕</button>
       `;
       row.querySelector('[data-qs="remove"]').addEventListener('click', () => {
-        row.remove(); buildQS(); 
+        row.remove();
+        buildQS();
       });
       // Real-time build
       row.querySelectorAll('input').forEach(inp => inp.addEventListener('input', buildQS));
@@ -252,7 +264,9 @@ DevForge.registerTool({
       }
     }
 
-    document.getElementById('url-codec-qs-add').addEventListener('click', () => createQSRow('', ''));
+    document
+      .getElementById('url-codec-qs-add')
+      .addEventListener('click', () => createQSRow('', ''));
     document.getElementById('url-codec-qs-build').addEventListener('click', buildQS);
     document.getElementById('url-codec-qs-copy').addEventListener('click', () => {
       if (qsOutput.textContent) DevForge.copyToClipboard(qsOutput.textContent);

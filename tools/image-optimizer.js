@@ -10,7 +10,7 @@ DevForge.registerTool({
   category: 'web',
   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
   tags: ['image', 'compress', 'optimize', 'resize', 'webp', 'png', 'converter'],
-  
+
   render() {
     return `
       <div class="tool-full">
@@ -116,13 +116,13 @@ DevForge.registerTool({
       qualityVal.textContent = `${qualityInput.value}%`;
     });
 
-    fileInput.addEventListener('change', (e) => {
+    fileInput.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
 
       originalSize = file.size;
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = event => {
         loadedImage = new Image();
         loadedImage.onload = () => {
           widthInput.value = loadedImage.naturalWidth;
@@ -151,28 +151,34 @@ DevForge.registerTool({
       const format = formatSelect.value;
       const quality = parseInt(qualityInput.value) / 100;
 
-      canvas.toBlob((blob) => {
-        if (!blob) return;
-        optimizedBlob = blob;
+      canvas.toBlob(
+        blob => {
+          if (!blob) return;
+          optimizedBlob = blob;
 
-        // Render preview & info
-        previewImg.src = URL.createObjectURL(blob);
-        previewContainer.style.display = 'block';
-        statsDiv.style.display = 'block';
+          // Render preview & info
+          previewImg.src = URL.createObjectURL(blob);
+          previewContainer.style.display = 'block';
+          statsDiv.style.display = 'block';
 
-        origSizeSpan.textContent = formatBytes(originalSize);
-        optSizeSpan.textContent = formatBytes(blob.size);
+          origSizeSpan.textContent = formatBytes(originalSize);
+          optSizeSpan.textContent = formatBytes(blob.size);
 
-        const savings = originalSize - blob.size;
-        const savingsPercent = originalSize > 0 ? Math.round((savings / originalSize) * 100) : 0;
-        savingsSpan.textContent = savingsPercent > 0 ? `${savingsPercent}% (${formatBytes(savings)})` : '0%';
-        savingsSpan.style.color = savingsPercent > 0 ? 'var(--color-success)' : 'var(--color-warning)';
+          const savings = originalSize - blob.size;
+          const savingsPercent = originalSize > 0 ? Math.round((savings / originalSize) * 100) : 0;
+          savingsSpan.textContent =
+            savingsPercent > 0 ? `${savingsPercent}% (${formatBytes(savings)})` : '0%';
+          savingsSpan.style.color =
+            savingsPercent > 0 ? 'var(--color-success)' : 'var(--color-warning)';
 
-        if (window.SoundFX) window.SoundFX.playSuccess();
-        if (window.confetti) {
-          window.confetti({ particleCount: 50, spread: 40, origin: { y: 0.8 } });
-        }
-      }, format, quality);
+          if (window.SoundFX) window.SoundFX.playSuccess();
+          if (window.confetti) {
+            window.confetti({ particleCount: 50, spread: 40, origin: { y: 0.8 } });
+          }
+        },
+        format,
+        quality
+      );
     });
 
     downloadBtn.addEventListener('click', () => {

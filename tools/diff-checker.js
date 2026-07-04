@@ -10,10 +10,10 @@ DevForge.registerTool({
   category: 'text',
   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18 2.5a2.5 2.5 0 0 1 3.5 3.5L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
   tags: ['diff', 'compare', 'text-diff', 'lines', 'match'],
-  
+
   render() {
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
-    const isRu = (window.i18n && window.i18n.lang === 'ru');
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
+    const isRu = window.i18n && window.i18n.lang === 'ru';
     return `
       <div class="tool-full">
         <!-- Texts Inputs Grid -->
@@ -62,7 +62,7 @@ DevForge.registerTool({
     const charLevelCheck = document.getElementById('diff-char-level');
 
     const clean = () => {
-      const isRu = (window.i18n && window.i18n.lang === 'ru');
+      const isRu = window.i18n && window.i18n.lang === 'ru';
       originalText.value = '';
       modifiedText.value = '';
       resultsDiv.innerHTML = `<div style="color:var(--text-tertiary);">${isRu ? 'Результаты сравнения отобразятся здесь...' : 'Compare outputs will appear here...'}</div><div></div>`;
@@ -70,19 +70,22 @@ DevForge.registerTool({
 
     const diffChars = (oldStr, newStr) => {
       // Basic Levenshtein character-level diff highlighting for inline modifications
-      let outOld = '', outNew = '';
-      let i = 0, j = 0;
+      let outOld = '',
+        outNew = '';
+      let i = 0,
+        j = 0;
       while (i < oldStr.length || j < newStr.length) {
         if (oldStr[i] === newStr[j]) {
           outOld += escapeHTML(oldStr[i] || '');
           outNew += escapeHTML(newStr[j] || '');
-          i++; j++;
+          i++;
+          j++;
         } else {
           // Highlight character change
-          if (i < oldStr.length && (j >= newStr.length || oldStr[i+1] === newStr[j])) {
+          if (i < oldStr.length && (j >= newStr.length || oldStr[i + 1] === newStr[j])) {
             outOld += `<span style="background:rgba(239,68,68,0.4); text-decoration:line-through; border-radius:2px;">${escapeHTML(oldStr[i])}</span>`;
             i++;
-          } else if (j < newStr.length && (i >= oldStr.length || oldStr[i] === newStr[j+1])) {
+          } else if (j < newStr.length && (i >= oldStr.length || oldStr[i] === newStr[j + 1])) {
             outNew += `<span style="background:rgba(34,197,94,0.4); border-radius:2px;">${escapeHTML(newStr[j])}</span>`;
             j++;
           } else {
@@ -121,9 +124,11 @@ DevForge.registerTool({
           rightHTML += `<div style="padding:2px var(--space-sm); border-bottom:1px solid rgba(255,255,255,0.01); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>${escapeHTML(right || '')}</span></div>`;
         } else if (left !== null && right === null) {
           leftHTML += `<div style="background:rgba(239,68,68,0.15); border-left:3px solid var(--color-error); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(239,68,68,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>- ${escapeHTML(left)}</span></div>`;
-          rightHTML += '<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>';
+          rightHTML +=
+            '<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>';
         } else if (left === null && right !== null) {
-          leftHTML += '<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>';
+          leftHTML +=
+            '<div style="background:rgba(255,255,255,0.02); padding:2px var(--space-sm); color:var(--text-tertiary); display:flex;"><span style="color:var(--text-tertiary); width:30px; display:inline-block; user-select:none; margin-right:8px;">-</span><span></span></div>';
           rightHTML += `<div style="background:rgba(34,197,94,0.15); border-left:3px solid var(--color-success); padding:2px var(--space-sm); display:flex;"><span style="color:rgba(34,197,94,0.5); width:30px; display:inline-block; user-select:none; margin-right:8px;">${lineNum}</span><span>+ ${escapeHTML(right)}</span></div>`;
         } else {
           // Replaced / modified line

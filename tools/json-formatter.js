@@ -56,7 +56,7 @@ DevForge.registerTool({
     const clearBtn = document.getElementById('json-formatter-clear');
     const copyBtn = document.getElementById('json-formatter-copy');
 
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
 
     // Apply translations to UI buttons
     if (demoBtn) demoBtn.textContent = t('loadDemo');
@@ -130,7 +130,11 @@ DevForge.registerTool({
     }
 
     function escapeHtml(s) {
-      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      return s
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
     }
 
     function updateLines(text) {

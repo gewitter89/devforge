@@ -11,9 +11,9 @@ DevForge.registerTool({
   category: 'ai',
   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 7.54 16.59l-1.42-1.42A8 8 0 1 0 6 12h2a6 6 0 1 1 6 6v2a8 8 0 1 0-8-8H4a10 10 0 0 1 8-10z"/><circle cx="12" cy="12" r="3"/></svg>',
   tags: ['ai', 'regex', 'sql', 'generator', 'code-helper'],
-  
+
   render() {
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
     return `
       <div class="tool-full">
         <!-- API Setup Panel -->
@@ -84,22 +84,26 @@ DevForge.registerTool({
     const outputTitle = document.getElementById('ai-output-title');
     const copyText = document.getElementById('ai-copy-text');
 
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
 
     // Apply translations
     const applyTranslations = () => {
       providerLbl.textContent = t('aiProvider');
-      securityTip.textContent = window.i18n.lang === 'ru' 
-        ? 'Ваши API-ключи хранятся конфиденциально только в памяти вашего браузера и не передаются третьим лицам.'
-        : 'Your API keys are stored securely ONLY in your local browser storage and never touch our servers.';
+      securityTip.textContent =
+        window.i18n.lang === 'ru'
+          ? 'Ваши API-ключи хранятся конфиденциально только в памяти вашего браузера и не передаются третьим лицам.'
+          : 'Your API keys are stored securely ONLY in your local browser storage and never touch our servers.';
       promptTitle.textContent = t('aiPromptLabel');
       btnText.textContent = t('aiGenerateBtn');
       outputTitle.textContent = t('aiOutputLabel');
       copyText.textContent = t('copy');
-      
+
       promptArea.placeholder = t('aiPlaceholder');
-      outputDiv.innerHTML = window.i18n.lang === 'ru' ? 'Результат генерации отобразится здесь...' : 'Response will appear here...';
-      
+      outputDiv.innerHTML =
+        window.i18n.lang === 'ru'
+          ? 'Результат генерации отобразится здесь...'
+          : 'Response will appear here...';
+
       clearBtn.textContent = t('clear');
       demoBtn.textContent = t('loadDemo');
     };
@@ -134,9 +138,10 @@ DevForge.registerTool({
     });
 
     demoBtn.addEventListener('click', () => {
-      promptArea.value = window.i18n.lang === 'ru'
-        ? 'Создай регулярное выражение для проверки сложного пароля: минимум 8 символов, одна заглавная буква, одна цифра и один спецсимвол. Объясни, как работает регулярка.'
-        : 'Create a regular expression to validate a complex password with at least 8 chars, 1 uppercase, 1 symbol, and 1 number. Explain how it works.';
+      promptArea.value =
+        window.i18n.lang === 'ru'
+          ? 'Создай регулярное выражение для проверки сложного пароля: минимум 8 символов, одна заглавная буква, одна цифра и один спецсимвол. Объясни, как работает регулярка.'
+          : 'Create a regular expression to validate a complex password with at least 8 chars, 1 uppercase, 1 symbol, and 1 number. Explain how it works.';
       if (window.SoundFX) window.SoundFX.playSuccess();
       if (window.confetti) {
         window.confetti({ particleCount: 30, spread: 35, origin: { y: 0.8 } });
@@ -145,7 +150,10 @@ DevForge.registerTool({
 
     clearBtn.addEventListener('click', () => {
       promptArea.value = '';
-      outputDiv.innerHTML = window.i18n.lang === 'ru' ? 'Результат генерации отобразится здесь...' : 'Response will appear here...';
+      outputDiv.innerHTML =
+        window.i18n.lang === 'ru'
+          ? 'Результат генерации отобразится здесь...'
+          : 'Response will appear here...';
       outputDiv.className = 'tool-result';
       copyBtn.style.display = 'none';
       if (window.SoundFX) window.SoundFX.playClick();
@@ -163,12 +171,20 @@ DevForge.registerTool({
       const key = apiKeyInput.value.trim();
 
       if (!prompt) {
-        DevForge.toast(window.i18n.lang === 'ru' ? 'Пожалуйста, введите запрос' : 'Please enter a query', 'error');
+        DevForge.toast(
+          window.i18n.lang === 'ru' ? 'Пожалуйста, введите запрос' : 'Please enter a query',
+          'error'
+        );
         return;
       }
 
       if (provider !== 'free-llama' && !key) {
-        DevForge.toast(window.i18n.lang === 'ru' ? `Укажите API-ключ для ${provider}` : `Please provide an API key for ${provider}`, 'error');
+        DevForge.toast(
+          window.i18n.lang === 'ru'
+            ? `Укажите API-ключ для ${provider}`
+            : `Please provide an API key for ${provider}`,
+          'error'
+        );
         return;
       }
 
@@ -184,13 +200,16 @@ DevForge.registerTool({
 
         if (provider === 'free-llama') {
           // Call fully open & free stable HuggingFace serverless inference gateway
-          const response = await fetch('https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              inputs: `<|system|>\nYou are a helpful coding assistant. Solve the user request. Output ONLY valid markdown. Do not include introductory conversational fluff.\n<|user|>\n${prompt}\n<|assistant|>\n`
-            })
-          });
+          const response = await fetch(
+            'https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta',
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                inputs: `<|system|>\nYou are a helpful coding assistant. Solve the user request. Output ONLY valid markdown. Do not include introductory conversational fluff.\n<|user|>\n${prompt}\n<|assistant|>\n`
+              })
+            }
+          );
 
           if (!response.ok) {
             throw new Error(t('aiFallbackErr'));
@@ -201,18 +220,28 @@ DevForge.registerTool({
           const rawResult = data[0]?.generated_text || '';
           // Remove prompt context from response if present
           const splitMarker = '<|assistant|>\n';
-          resultText = rawResult.includes(splitMarker) 
-            ? rawResult.split(splitMarker)[1] 
+          resultText = rawResult.includes(splitMarker)
+            ? rawResult.split(splitMarker)[1]
             : rawResult;
-
         } else if (provider === 'gemini') {
-          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: `You are a helpful coding assistant. Solve this task. Format the output with clear code blocks:\n\n${prompt}` }] }]
-            })
-          });
+          const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [
+                  {
+                    parts: [
+                      {
+                        text: `You are a helpful coding assistant. Solve this task. Format the output with clear code blocks:\n\n${prompt}`
+                      }
+                    ]
+                  }
+                ]
+              })
+            }
+          );
           if (!response.ok) throw new Error(`Gemini API Error: ${response.statusText}`);
           const data = await response.json();
           resultText = data.candidates[0].content.parts[0].text;
@@ -221,7 +250,7 @@ DevForge.registerTool({
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${key}`
+              Authorization: `Bearer ${key}`
             },
             body: JSON.stringify({
               model: 'gpt-4o-mini',
@@ -236,7 +265,7 @@ DevForge.registerTool({
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${key}`
+              Authorization: `Bearer ${key}`
             },
             body: JSON.stringify({
               model: 'deepseek-chat',
@@ -252,7 +281,7 @@ DevForge.registerTool({
         outputDiv.innerHTML = formatMarkdown(resultText);
         outputDiv.className = 'tool-result success';
         copyBtn.style.display = 'inline-flex';
-        
+
         if (window.SoundFX) window.SoundFX.playSuccess();
         if (window.confetti) {
           window.confetti({ particleCount: 80, spread: 60, origin: { y: 0.8 } });
@@ -268,10 +297,7 @@ DevForge.registerTool({
 
     // Helper Markdown-to-HTML parser for code blocks & text
     function formatMarkdown(text) {
-      let html = text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+      let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
       // Format code blocks
       html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
@@ -279,7 +305,10 @@ DevForge.registerTool({
       });
 
       // Format inline code
-      html = html.replace(/`([^`\n]+)`/g, '<code style="background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px; font-size:0.8rem; color:var(--text-accent);">$1</code>');
+      html = html.replace(
+        /`([^`\n]+)`/g,
+        '<code style="background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px; font-size:0.8rem; color:var(--text-accent);">$1</code>'
+      );
 
       return html.replace(/\n/g, '<br>');
     }

@@ -11,10 +11,22 @@
   DevForge.registerTool({
     id: 'opencode-config-generator',
     name: 'OpenCode Config Generator',
-    description: 'Generate opencode.jsonc with 1M context limits, custom providers and model routing. Free LLM optimized.',
+    description:
+      'Generate opencode.jsonc with 1M context limits, custom providers and model routing. Free LLM optimized.',
     category: 'ai',
     icon: '⚙️',
-    tags: ['opencode', 'llm', 'ai', 'config', 'deepseek', 'qwen', 'context', 'cursor', 'cline', 'free api'],
+    tags: [
+      'opencode',
+      'llm',
+      'ai',
+      'config',
+      'deepseek',
+      'qwen',
+      'context',
+      'cursor',
+      'cline',
+      'free api'
+    ],
 
     render: function () {
       return `
@@ -259,19 +271,55 @@
 
     init: function () {
       const MODELS = [
-        { id: 'deepseek-v4-flash-free', name: 'DeepSeek V4 Flash Free', native: '128K', best: 'coding, fast', defaultOutput: 64000 },
-        { id: 'qwen3.6-plus-free', name: 'Qwen 3.6 Plus Free', native: '256K', best: 'reasoning, context', defaultOutput: 32000 },
-        { id: 'glm-5.2-free', name: 'GLM 5.2 Free', native: '128K', best: 'multilingual, balanced', defaultOutput: 32000 },
-        { id: 'fable5-free', name: 'Fable 5 Free', native: '200K', best: 'long-form writing', defaultOutput: 32000 },
-        { id: 'gemma-4-26b-free', name: 'Gemma 4 26B Free', native: '128K', best: 'text, summaries', defaultOutput: 16000 },
-        { id: 'llama-3.3-70b-free', name: 'Llama 3.3 70B Free', native: '128K', best: 'general, instruct', defaultOutput: 16000 },
+        {
+          id: 'deepseek-v4-flash-free',
+          name: 'DeepSeek V4 Flash Free',
+          native: '128K',
+          best: 'coding, fast',
+          defaultOutput: 64000
+        },
+        {
+          id: 'qwen3.6-plus-free',
+          name: 'Qwen 3.6 Plus Free',
+          native: '256K',
+          best: 'reasoning, context',
+          defaultOutput: 32000
+        },
+        {
+          id: 'glm-5.2-free',
+          name: 'GLM 5.2 Free',
+          native: '128K',
+          best: 'multilingual, balanced',
+          defaultOutput: 32000
+        },
+        {
+          id: 'fable5-free',
+          name: 'Fable 5 Free',
+          native: '200K',
+          best: 'long-form writing',
+          defaultOutput: 32000
+        },
+        {
+          id: 'gemma-4-26b-free',
+          name: 'Gemma 4 26B Free',
+          native: '128K',
+          best: 'text, summaries',
+          defaultOutput: 16000
+        },
+        {
+          id: 'llama-3.3-70b-free',
+          name: 'Llama 3.3 70B Free',
+          native: '128K',
+          best: 'general, instruct',
+          defaultOutput: 16000
+        }
       ];
 
       const PRESETS = [
         { label: 'Native (128K)', value: 128000 },
         { label: 'Extended (256K)', value: 256000 },
         { label: 'Huge (500K)', value: 500000 },
-        { label: '🔥 1M (GIG Method)', value: 1000000 },
+        { label: '🔥 1M (GIG Method)', value: 1000000 }
       ];
 
       const selected = new Set(['deepseek-v4-flash-free', 'qwen3.6-plus-free']);
@@ -305,8 +353,8 @@
 
       function renderPresets() {
         const container = document.getElementById('ocg-presets');
-        container.innerHTML = PRESETS.map(p =>
-          `<button class="ocg-preset" data-value="${p.value}">${p.label}</button>`
+        container.innerHTML = PRESETS.map(
+          p => `<button class="ocg-preset" data-value="${p.value}">${p.label}</button>`
         ).join('');
 
         container.querySelectorAll('.ocg-preset').forEach(btn => {
@@ -396,9 +444,11 @@
         if (window.DevForge) DevForge.copyToClipboard(json);
       });
 
-      ['ocg-context', 'ocg-output', 'ocg-reserved', 'ocg-recent', 'ocg-tail', 'ocg-auto'].forEach(id => {
-        document.getElementById(id).addEventListener('change', generate);
-      });
+      ['ocg-context', 'ocg-output', 'ocg-reserved', 'ocg-recent', 'ocg-tail', 'ocg-auto'].forEach(
+        id => {
+          document.getElementById(id).addEventListener('change', generate);
+        }
+      );
     },
 
     destroy: function () {}

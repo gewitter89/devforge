@@ -4,11 +4,12 @@
   DevForge.registerTool({
     id: 'ai-agent-config-hub',
     name: 'AI Agent Config Hub',
-    description: 'Universal configuration generator for AI coding agents (Cline, Cursor, OpenCode, Crush)',
+    description:
+      'Universal configuration generator for AI coding agents (Cline, Cursor, OpenCode, Crush)',
     category: 'ai-tools',
     icon: '🤖',
     tags: ['cline', 'cursor', 'opencode', 'crush', 'ai-agent', 'config', 'llm'],
-    
+
     render() {
       return `
         <div class="tool-container">
@@ -210,11 +211,11 @@
         </div>
       `;
     },
-    
+
     init(container) {
       let currentAgent = 'opencode';
       let currentProvider = 'openrouter';
-      
+
       // Agent selector
       container.querySelectorAll('.agent-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -225,38 +226,42 @@
           generateConfig();
         });
       });
-      
+
       // Provider selector
       container.querySelectorAll('input[name="provider"]').forEach(radio => {
-        radio.addEventListener('change', (e) => {
+        radio.addEventListener('change', e => {
           currentProvider = e.target.value;
-          container.querySelectorAll('.model-group').forEach(g => g.style.display = 'none');
-          container.querySelector(`.model-group[data-provider="${currentProvider}"]`).style.display = 'block';
+          container.querySelectorAll('.model-group').forEach(g => (g.style.display = 'none'));
+          container.querySelector(
+            `.model-group[data-provider="${currentProvider}"]`
+          ).style.display = 'block';
           updateFilename();
           generateConfig();
         });
       });
-      
+
       // Model checkboxes
       container.querySelectorAll('input[type="checkbox"][value]').forEach(cb => {
         cb.addEventListener('change', generateConfig);
       });
-      
+
       // Model radios
       container.querySelectorAll('input[type="radio"][name*="-model"]').forEach(radio => {
         radio.addEventListener('change', generateConfig);
       });
-      
+
       // Input fields
-      container.querySelectorAll("input[type='text'], input[type='number'], input[type='password']").forEach(input => {
-        input.addEventListener('input', generateConfig);
-      });
-      
+      container
+        .querySelectorAll("input[type='text'], input[type='number'], input[type='password']")
+        .forEach(input => {
+          input.addEventListener('input', generateConfig);
+        });
+
       // Toggle options
       container.querySelectorAll('.toggle-option input').forEach(toggle => {
         toggle.addEventListener('change', generateConfig);
       });
-      
+
       // Copy button
       container.querySelector('.copy-btn').addEventListener('click', () => {
         const code = container.querySelector('.config-preview code').textContent;
@@ -264,7 +269,7 @@
           DevForge.toast('📋 Configuration copied!');
         });
       });
-      
+
       // Download button
       container.querySelector('.download-btn').addEventListener('click', () => {
         const code = container.querySelector('.config-preview code').textContent;
@@ -278,7 +283,7 @@
         URL.revokeObjectURL(url);
         DevForge.toast('💾 Configuration downloaded!');
       });
-      
+
       function updateFilename() {
         const filenames = {
           opencode: 'opencode.jsonc',
@@ -289,7 +294,7 @@
         };
         container.querySelector('.filename').textContent = filenames[currentAgent];
       }
-      
+
       function generateConfig() {
         const provider = currentProvider;
         const models = getSelectedModels();
@@ -302,36 +307,58 @@
         const temperature = container.querySelector('.temperature').value;
         const timeout = container.querySelector('.timeout').value;
         const contextWindow = container.querySelector('.context-window').value;
-        
+
         let config = '';
-        
+
         switch (currentAgent) {
           case 'opencode':
             config = generateOpenCodeConfig({
-              provider, models, apiKey, maxTokens, temperature, timeout, contextWindow
+              provider,
+              models,
+              apiKey,
+              maxTokens,
+              temperature,
+              timeout,
+              contextWindow
             });
             break;
           case 'cline':
             config = generateClineConfig({
-              provider, models, apiKey, maxTokens, temperature
+              provider,
+              models,
+              apiKey,
+              maxTokens,
+              temperature
             });
             break;
           case 'cursor':
             config = generateCursorConfig({
-              provider, models, apiKey, maxTokens, temperature
+              provider,
+              models,
+              apiKey,
+              maxTokens,
+              temperature
             });
             break;
           case 'crush':
             config = generateCrushConfig({
-              provider, models, apiKey, maxTokens, temperature
+              provider,
+              models,
+              apiKey,
+              maxTokens,
+              temperature
             });
             break;
           default:
             config = generateCustomConfig({
-              provider, models, apiKey, maxTokens, temperature
+              provider,
+              models,
+              apiKey,
+              maxTokens,
+              temperature
             });
         }
-        
+
         // Add token optimization comments
         if (usePonytail || useCaveman || useMemanto || usePxpipe) {
           config += '\n\n// Token Optimization Hooks:\n';
@@ -341,14 +368,16 @@
           if (usePxpipe) config += '// - pxpipe: Image compression (-77% tokens)\n';
           config += '// See docs/token-savings.md for setup instructions\n';
         }
-        
+
         container.querySelector('.config-preview code').textContent = config;
       }
-      
+
       function getSelectedModels() {
         const models = [];
-        const providerGroup = container.querySelector(`.model-group[data-provider="${currentProvider}"]`);
-        
+        const providerGroup = container.querySelector(
+          `.model-group[data-provider="${currentProvider}"]`
+        );
+
         if (currentProvider === 'anthropic' || currentProvider === 'openai') {
           const selected = providerGroup.querySelector('input[type="radio"]:checked');
           if (selected) models.push(selected.value);
@@ -357,11 +386,19 @@
             models.push(cb.value);
           });
         }
-        
+
         return models;
       }
-      
-      function generateOpenCodeConfig({ provider, models, apiKey, maxTokens, temperature, timeout, contextWindow }) {
+
+      function generateOpenCodeConfig({
+        provider,
+        models,
+        apiKey,
+        maxTokens,
+        temperature,
+        timeout,
+        contextWindow
+      }) {
         let config = `{
   // OpenCode Configuration
   // Generated by DevForge AI Agent Config Hub
@@ -369,12 +406,12 @@
   "provider": {
     "${provider}": {
       "models": ${JSON.stringify(models, null, 6)},`;
-        
+
         if (apiKey) {
           config += `
       "apiKey": "${apiKey}",`;
         }
-        
+
         if (provider === 'ollama') {
           const baseUrl = container.querySelector('.ollama-url').value;
           config += `
@@ -384,7 +421,7 @@
           config += `
       "baseUrl": "${baseUrl}",`;
         }
-        
+
         config += `
       "maxTokens": ${maxTokens},
       "temperature": ${temperature},
@@ -397,17 +434,17 @@
     "reserve": 10000
   }
 }`;
-        
+
         return config;
       }
-      
+
       function generateClineConfig({ provider, models, apiKey, maxTokens, temperature }) {
         let rules = `# Cline Configuration
 # Generated by DevForge AI Agent Config Hub
 
 ## Provider: ${provider}
 `;
-        
+
         if (provider === 'openrouter') {
           rules += `\nModels: ${models.join(', ')}\n`;
           rules += '\n## Setup\n';
@@ -419,17 +456,17 @@
           rules += `   - cline.maxTokens: ${maxTokens}\n`;
           rules += `   - cline.temperature: ${temperature}\n`;
         }
-        
+
         return rules;
       }
-      
+
       function generateCursorConfig({ provider, models, apiKey, maxTokens, temperature }) {
         let rules = `# Cursor Configuration
 # Generated by DevForge AI Agent Config Hub
 
 ## Provider: ${provider}
 `;
-        
+
         if (provider === 'openrouter') {
           rules += '\n## Setup\n';
           rules += '1. Open Cursor Settings (Cmd/Ctrl + ,)\n';
@@ -443,17 +480,17 @@
           rules += `- Temperature: ${temperature}\n`;
           rules += '- Enable "Fast" mode for quick edits\n';
         }
-        
+
         return rules;
       }
-      
+
       function generateCrushConfig({ provider, models, apiKey, maxTokens, temperature }) {
         let yaml = `# Crush Configuration
 # Generated by DevForge AI Agent Config Hub
 
 provider: ${provider}
 `;
-        
+
         if (provider === 'openrouter') {
           yaml += `
 models:
@@ -467,20 +504,24 @@ settings:
   timeout: 300
 `;
         }
-        
+
         return yaml;
       }
-      
+
       function generateCustomConfig({ provider, models, apiKey, maxTokens, temperature }) {
-        return JSON.stringify({
-          provider,
-          models,
-          api_key: apiKey || null,
-          max_tokens: parseInt(maxTokens),
-          temperature: parseFloat(temperature)
-        }, null, 2);
+        return JSON.stringify(
+          {
+            provider,
+            models,
+            api_key: apiKey || null,
+            max_tokens: parseInt(maxTokens),
+            temperature: parseFloat(temperature)
+          },
+          null,
+          2
+        );
       }
-      
+
       // Generate initial config
       generateConfig();
     }

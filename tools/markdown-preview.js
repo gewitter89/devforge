@@ -153,7 +153,11 @@ Write your **Markdown** here...
         // Blockquote
         if (line.trim().startsWith('>')) {
           let bqLines = [];
-          while (i < lines.length && (lines[i].trim().startsWith('>') || (lines[i].trim() !== '' && bqLines.length > 0 && !lines[i].trim().startsWith('#')))) {
+          while (
+            i < lines.length &&
+            (lines[i].trim().startsWith('>') ||
+              (lines[i].trim() !== '' && bqLines.length > 0 && !lines[i].trim().startsWith('#')))
+          ) {
             if (lines[i].trim().startsWith('>')) {
               bqLines.push(lines[i].trim().replace(/^>\s?/, ''));
             } else if (lines[i].trim() !== '') {
@@ -169,15 +173,21 @@ Write your **Markdown** here...
 
         // Table
         if (i + 1 < lines.length && /^\|?[\s]*-{3,}/.test(lines[i + 1]) && line.includes('|')) {
-          const headerCells = line.split('|').map(c => c.trim()).filter(c => c !== '');
+          const headerCells = line
+            .split('|')
+            .map(c => c.trim())
+            .filter(c => c !== '');
           html += '<table><thead><tr>';
-          headerCells.forEach(c => html += `<th>${parseInline(c)}</th>`);
+          headerCells.forEach(c => (html += `<th>${parseInline(c)}</th>`));
           html += '</tr></thead><tbody>\n';
           i += 2; // skip header and separator
           while (i < lines.length && lines[i].includes('|') && lines[i].trim() !== '') {
-            const cells = lines[i].split('|').map(c => c.trim()).filter(c => c !== '');
+            const cells = lines[i]
+              .split('|')
+              .map(c => c.trim())
+              .filter(c => c !== '');
             html += '<tr>';
-            cells.forEach(c => html += `<td>${parseInline(c)}</td>`);
+            cells.forEach(c => (html += `<td>${parseInline(c)}</td>`));
             html += '</tr>\n';
             i++;
           }
@@ -209,13 +219,16 @@ Write your **Markdown** here...
 
         // Paragraph (collect consecutive non-empty lines)
         let paraLines = [];
-        while (i < lines.length && lines[i].trim() !== '' &&
-               !lines[i].trim().startsWith('#') &&
-               !lines[i].trim().startsWith('>') &&
-               !lines[i].trim().startsWith('```') &&
-               !/^\s*[-*+]\s+/.test(lines[i]) &&
-               !/^\s*\d+[.)]\s+/.test(lines[i]) &&
-               !/^(-{3,}|\*{3,}|_{3,})\s*$/.test(lines[i].trim())) {
+        while (
+          i < lines.length &&
+          lines[i].trim() !== '' &&
+          !lines[i].trim().startsWith('#') &&
+          !lines[i].trim().startsWith('>') &&
+          !lines[i].trim().startsWith('```') &&
+          !/^\s*[-*+]\s+/.test(lines[i]) &&
+          !/^\s*\d+[.)]\s+/.test(lines[i]) &&
+          !/^(-{3,}|\*{3,}|_{3,})\s*$/.test(lines[i].trim())
+        ) {
           paraLines.push(lines[i]);
           i++;
         }
@@ -233,7 +246,11 @@ Write your **Markdown** here...
     }
 
     function escapeHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
     }
 
     function parseInline(text) {
@@ -241,7 +258,10 @@ Write your **Markdown** here...
       text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
 
       // Links
-      text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      text = text.replace(
+        /\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener">$1</a>'
+      );
 
       // Inline code (before bold/italic to avoid conflicts)
       text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
@@ -267,7 +287,8 @@ Write your **Markdown** here...
     function updatePreview() {
       const md = input.value;
       if (!md.trim()) {
-        output.innerHTML = '<p style="color:var(--text-tertiary);font-style:italic;">Start typing Markdown to see the preview...</p>';
+        output.innerHTML =
+          '<p style="color:var(--text-tertiary);font-style:italic;">Start typing Markdown to see the preview...</p>';
         stats.textContent = '';
         return;
       }
@@ -275,7 +296,10 @@ Write your **Markdown** here...
       output.innerHTML = parseMarkdown(md);
 
       // Stats
-      const words = md.trim().split(/\s+/).filter(w => w).length;
+      const words = md
+        .trim()
+        .split(/\s+/)
+        .filter(w => w).length;
       const chars = md.length;
       const lineCount = md.split('\n').length;
       stats.textContent = `${lineCount} lines · ${words} words · ${chars} chars`;
@@ -284,7 +308,7 @@ Write your **Markdown** here...
     input.addEventListener('input', updatePreview);
 
     // Tab key support in editor
-    input.addEventListener('keydown', (e) => {
+    input.addEventListener('keydown', e => {
       if (e.key === 'Tab') {
         e.preventDefault();
         const start = input.selectionStart;

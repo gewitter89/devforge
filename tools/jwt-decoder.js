@@ -10,9 +10,9 @@ DevForge.registerTool({
   category: 'encoders',
   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
   tags: ['jwt', 'token', 'decode', 'json', 'auth'],
-  
+
   render() {
-    const isRu = (window.i18n && window.i18n.lang === 'ru');
+    const isRu = window.i18n && window.i18n.lang === 'ru';
     return `
       <div class="tool-split">
         <div class="tool-group">
@@ -68,14 +68,15 @@ DevForge.registerTool({
     const metaPanel = document.getElementById('jwt-meta-panel');
     const metaIssued = document.getElementById('jwt-meta-issued');
     const metaExpires = document.getElementById('jwt-meta-expires');
-    const isRu = () => (window.i18n && window.i18n.lang === 'ru');
+    const isRu = () => window.i18n && window.i18n.lang === 'ru';
 
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
 
     if (demoBtn) demoBtn.textContent = t('loadDemo');
     if (clearBtn) clearBtn.textContent = t('clear');
 
-    const DEMO_JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikdld2l0dGVyODkiLCJyb2xlIjoiY3JlYXRvciIsImlhdCI6MTc4MDIwOTYwMCwiZXhwIjoxOTEwMDc4NDAwfQ.dummy-signature-here';
+    const DEMO_JWT =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikdld2l0dGVyODkiLCJyb2xlIjoiY3JlYXRvciIsImlhdCI6MTc4MDIwOTYwMCwiZXhwIjoxOTEwMDc4NDAwfQ.dummy-signature-here';
 
     const cleanOut = () => {
       headerOut.textContent = '';
@@ -83,14 +84,19 @@ DevForge.registerTool({
       metaPanel.style.display = 'none';
     };
 
-    const base64UrlDecode = (str) => {
+    const base64UrlDecode = str => {
       str = str.replace(/-/g, '+').replace(/_/g, '/');
       while (str.length % 4) {
         str += '=';
       }
-      return decodeURIComponent(atob(str).split('').map(c => {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+      return decodeURIComponent(
+        atob(str)
+          .split('')
+          .map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join('')
+      );
     };
 
     const processJWT = () => {
@@ -130,14 +136,13 @@ DevForge.registerTool({
         if (payloadObj.exp) {
           const expDate = new Date(payloadObj.exp * 1000);
           const isExpired = expDate.getTime() < Date.now();
-          const color = isExpired ? 'var(--color-error)' : 'var(--color-success)' ;
-          const label = isExpired ? (isRu() ? 'Истёк' : 'Expired') : (isRu() ? 'Expires' : 'Expires');
-          
+          const color = isExpired ? 'var(--color-error)' : 'var(--color-success)';
+          const label = isExpired ? (isRu() ? 'Истёк' : 'Expired') : isRu() ? 'Expires' : 'Expires';
+
           metaExpires.innerHTML = `<span style="color:${color}; font-weight:bold;">${expDate.toLocaleString()} (${label})</span>`;
         } else {
           metaExpires.textContent = isRu() ? 'Никогда не истекает' : 'Never expires';
         }
-
       } catch (err) {
         headerOut.innerHTML = `<span style="color:var(--color-error)">Failed to decode token parts:\n${err.message}</span>`;
         payloadOut.textContent = '';

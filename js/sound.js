@@ -14,7 +14,7 @@
       // Toggle state from localStorage
       const saved = localStorage.getItem('devforge-sound');
       this.enabled = saved !== 'false';
-      
+
       // Auto init AudioContext on first user interaction to bypass browser policies
       const initAudio = () => {
         if (!this.ctx) {
@@ -24,7 +24,7 @@
           this.ctx.resume();
         }
       };
-      
+
       window.addEventListener('click', initAudio, { once: true });
       window.addEventListener('keydown', initAudio, { once: true });
     },
@@ -41,18 +41,18 @@
       try {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        
+
         osc.type = 'sine';
         // Short, high-frequency pop
         osc.frequency.setValueAtTime(800, this.ctx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.08);
-        
+
         gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.08);
-        
+
         osc.connect(gain);
         gain.connect(this.ctx.destination);
-        
+
         osc.start();
         osc.stop(this.ctx.currentTime + 0.08);
       } catch (e) {
@@ -65,7 +65,7 @@
       if (!this.enabled || !this.ctx) return;
       try {
         const now = this.ctx.currentTime;
-        
+
         // Tone 1
         const osc1 = this.ctx.createOscillator();
         const gain1 = this.ctx.createGain();

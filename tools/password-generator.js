@@ -135,12 +135,18 @@ DevForge.registerTool({
       if (symbolsCb.checked) chars += SYMBOLS;
 
       if (ambiguousCb.checked) {
-        chars = chars.split('').filter(c => !AMBIGUOUS.includes(c)).join('');
+        chars = chars
+          .split('')
+          .filter(c => !AMBIGUOUS.includes(c))
+          .join('');
       }
 
       const exclude = excludeInput.value;
       if (exclude) {
-        chars = chars.split('').filter(c => !exclude.includes(c)).join('');
+        chars = chars
+          .split('')
+          .filter(c => !exclude.includes(c))
+          .join('');
       }
 
       return [...new Set(chars.split(''))].join('');
@@ -190,7 +196,8 @@ DevForge.registerTool({
 
     // Sync slider & number input
     slider.addEventListener('input', () => {
-      lengthInput.value = slider.value; generate(); 
+      lengthInput.value = slider.value;
+      generate();
     });
     lengthInput.addEventListener('input', () => {
       const v = Math.max(8, Math.min(128, parseInt(lengthInput.value) || 8));
@@ -199,7 +206,9 @@ DevForge.registerTool({
     });
 
     // Checkboxes & exclude
-    [upperCb, lowerCb, numbersCb, symbolsCb, ambiguousCb].forEach(cb => cb.addEventListener('change', generate));
+    [upperCb, lowerCb, numbersCb, symbolsCb, ambiguousCb].forEach(cb =>
+      cb.addEventListener('change', generate)
+    );
     excludeInput.addEventListener('input', generate);
 
     // Generate button

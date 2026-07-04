@@ -7,7 +7,7 @@ DevForge.registerTool({
   tags: ['uuid', 'guid', 'unique id', 'random', 'v4', 'v7', 'identifier'],
 
   render() {
-    const isRu = (window.i18n && window.i18n.lang === 'ru');
+    const isRu = window.i18n && window.i18n.lang === 'ru';
     return `
       <div class="tool-full">
         <div class="tool-options" style="margin-bottom:16px;flex-wrap:wrap;">
@@ -41,10 +41,11 @@ DevForge.registerTool({
         <div id="uuid-gen-list" style="display:flex;flex-direction:column;gap:6px;"></div>
 
         <p style="margin-top:14px;font-size:12px;opacity:.5;">
-          ${isRu 
-    ? 'UUID генерируются на основе безопасных псевдослучайных чисел API <code>crypto.getRandomValues()</code>.' 
-    : 'UUIDs are generated using <code>crypto.getRandomValues()</code> — cryptographically secure random values.'
-}
+          ${
+            isRu
+              ? 'UUID генерируются на основе безопасных псевдослучайных чисел API <code>crypto.getRandomValues()</code>.'
+              : 'UUIDs are generated using <code>crypto.getRandomValues()</code> — cryptographically secure random values.'
+          }
         </p>
       </div>
     `;
@@ -69,9 +70,9 @@ DevForge.registerTool({
       // RFC 9562 UUID v7 (Unix millisecond timestamp + random bits)
       const bytes = new Uint8Array(16);
       crypto.getRandomValues(bytes);
-      
+
       const timestamp = Date.now();
-      
+
       // Timestamp takes up the first 48 bits (6 bytes)
       bytes[0] = (timestamp / 0x10000000000) & 0xff;
       bytes[1] = (timestamp / 0x100000000) & 0xff;
@@ -148,7 +149,7 @@ DevForge.registerTool({
       if (uuids.length) {
         DevForge.copyToClipboard(uuids.join('\n'));
       } else {
-        const isRu = (window.i18n && window.i18n.lang === 'ru');
+        const isRu = window.i18n && window.i18n.lang === 'ru';
         DevForge.toast(isRu ? 'Сначала сгенерируйте UUID' : 'Generate UUIDs first', 'error');
       }
     });
@@ -165,14 +166,20 @@ DevForge.registerTool({
         let text = el.textContent;
         if (hyphensChk.checked) {
           const clean = text.replace(/-/g, '');
-          el.textContent = [clean.slice(0,8), clean.slice(8,12), clean.slice(12,16), clean.slice(16,20), clean.slice(20)].join('-');
+          el.textContent = [
+            clean.slice(0, 8),
+            clean.slice(8, 12),
+            clean.slice(12, 16),
+            clean.slice(16, 20),
+            clean.slice(20)
+          ].join('-');
         } else {
           el.textContent = text.replace(/-/g, '');
         }
       });
     });
 
-    qtyInput.addEventListener('keydown', (e) => {
+    qtyInput.addEventListener('keydown', e => {
       if (e.key === 'Enter') generate();
     });
 

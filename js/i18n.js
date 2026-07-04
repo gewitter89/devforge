@@ -108,11 +108,13 @@
     // Auto-detect language from browser
     detectLanguage() {
       const navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-      
+
       // Priority: match exact code, then prefix, then default to 'en'
-      const exactMatch = SUPPORTED_LANGUAGES.find(l => navLang === l.code || navLang.startsWith(l.code.toLowerCase()));
+      const exactMatch = SUPPORTED_LANGUAGES.find(
+        l => navLang === l.code || navLang.startsWith(l.code.toLowerCase())
+      );
       if (exactMatch) return exactMatch.code;
-      
+
       // Special cases for regional variants
       if (navLang.startsWith('zh')) return 'zh';
       if (navLang.startsWith('ja')) return 'ja';
@@ -126,21 +128,21 @@
       if (navLang.startsWith('de')) return 'de';
       if (navLang.startsWith('fr')) return 'fr';
       if (navLang.startsWith('it')) return 'it';
-      
+
       return 'en'; // Safe fallback
     },
 
     init() {
       // Priority: localStorage > browser detection > 'en'
       const saved = localStorage.getItem('devforge-lang');
-      const isSupported = (code) => SUPPORTED_LANGUAGES.some(l => l.code === code);
-      
+      const isSupported = code => SUPPORTED_LANGUAGES.some(l => l.code === code);
+
       if (saved && isSupported(saved)) {
         this.lang = saved;
       } else {
         this.lang = this.detectLanguage();
       }
-      
+
       // Load translations for detected language if not already loaded
       this.loadTranslations(this.lang);
     },
@@ -150,12 +152,12 @@
       if (lang === 'en' || lang === 'ru') {
         return Promise.resolve();
       }
-      
+
       // Check if already loaded
       if (this.translations[lang]) {
         return Promise.resolve();
       }
-      
+
       try {
         const response = await fetch(`./i18n/${lang}.json`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -173,7 +175,7 @@
         console.warn(`[i18n] Unsupported language: ${lang}`);
         return;
       }
-      
+
       this.loadTranslations(lang).then(() => {
         this.lang = lang;
         localStorage.setItem('devforge-lang', lang);
@@ -184,10 +186,8 @@
     t(key) {
       const currentLang = this.translations[this.lang];
       const fallbackLang = this.translations['en'];
-      
-      return (currentLang && currentLang[key]) || 
-             (fallbackLang && fallbackLang[key]) || 
-             key;
+
+      return (currentLang && currentLang[key]) || (fallbackLang && fallbackLang[key]) || key;
     },
 
     // Get all supported languages for UI

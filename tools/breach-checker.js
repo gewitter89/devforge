@@ -19,8 +19,8 @@
     },
 
     render: function () {
-      const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
-      
+      const t = key => (window.i18n && window.i18n.t ? window.i18n.t(key) : key);
+
       return `
         <div class="tool breach-checker">
           <style>
@@ -191,7 +191,7 @@
       }
 
       if (input) {
-        input.addEventListener('keypress', (e) => {
+        input.addEventListener('keypress', e => {
           if (e.key === 'Enter') this.checkBreach();
         });
       }
@@ -201,7 +201,7 @@
       const input = document.getElementById('breach-input');
       const results = document.getElementById('breach-results');
       const checkBtn = document.getElementById('check-btn');
-      const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
+      const t = key => (window.i18n && window.i18n.t ? window.i18n.t(key) : key);
 
       const email = input.value.trim();
 
@@ -225,12 +225,15 @@
 
       try {
         // Using HIBP API (requires API key for full access, but we'll use free tier)
-        const response = await fetch(`https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(email)}?truncateResponse=true`, {
-          headers: {
-            'hibp-api-key': 'devforge-public-demo', // Public demo key (limited)
-            'User-Agent': 'DevForge-BreachChecker'
+        const response = await fetch(
+          `https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(email)}?truncateResponse=true`,
+          {
+            headers: {
+              'hibp-api-key': 'devforge-public-demo', // Public demo key (limited)
+              'User-Agent': 'DevForge-BreachChecker'
+            }
           }
-        });
+        );
 
         checkBtn.disabled = false;
 
@@ -240,16 +243,23 @@
         } else if (response.status === 404) {
           this.displaySafe(email);
         } else if (response.status === 403) {
-          this.showError(t('breachApiLimit') || 'API rate limit reached. Please try again later or use your own HIBP API key.');
+          this.showError(
+            t('breachApiLimit') ||
+              'API rate limit reached. Please try again later or use your own HIBP API key.'
+          );
         } else {
-          this.showError(`${t('breachError') || 'Error:'} ${response.status} ${response.statusText}`);
+          this.showError(
+            `${t('breachError') || 'Error:'} ${response.status} ${response.statusText}`
+          );
         }
-
       } catch (error) {
         checkBtn.disabled = false;
         // Handle CORS or network errors
         if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
-          this.showError(t('breachCorsError') || 'Browser security blocked the request. Use the HIBP website directly: haveibeenpwned.com');
+          this.showError(
+            t('breachCorsError') ||
+              'Browser security blocked the request. Use the HIBP website directly: haveibeenpwned.com'
+          );
         } else {
           this.showError(`${t('breachError') || 'Error:'} ${error.message}`);
         }
@@ -262,16 +272,17 @@
 
     displayBreaches: function (breaches, email) {
       const results = document.getElementById('breach-results');
-      const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
+      const t = key => (window.i18n && window.i18n.t ? window.i18n.t(key) : key);
 
-      const breachList = breaches.map(breach => {
-        const dataTypes = (breach.DataClasses || []).join(', ');
-        return `
+      const breachList = breaches
+        .map(breach => {
+          const dataTypes = (breach.DataClasses || []).join(', ');
+          return `
           <div class="breach-item">
             <h4>${breach.Title || breach.Name}</h4>
             <div class="meta">
               ${breach.Domain || 'Unknown domain'} • 
-              ${(breach.BreachDate || 'Unknown date')} • 
+              ${breach.BreachDate || 'Unknown date'} • 
               ${(breach.PwnCount || 0).toLocaleString()} accounts
             </div>
             <div class="data-types">
@@ -279,7 +290,8 @@
             </div>
           </div>
         `;
-      }).join('');
+        })
+        .join('');
 
       results.innerHTML = `
         <div class="result-header" style="color: #ef4444;">
@@ -299,7 +311,7 @@
 
     displaySafe: function (email) {
       const results = document.getElementById('breach-results');
-      const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
+      const t = key => (window.i18n && window.i18n.t ? window.i18n.t(key) : key);
 
       results.innerHTML = `
         <div class="safe-message">
@@ -325,5 +337,4 @@
   if (window.DevForge) {
     window.DevForge.registerTool(BreachChecker);
   }
-
 })();

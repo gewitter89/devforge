@@ -192,7 +192,7 @@ DevForge.registerTool({
       const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
       d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
       const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+      return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
     }
 
     // RFC 2822 format
@@ -204,11 +204,13 @@ DevForge.registerTool({
     function convertTimestamp() {
       const val = tsInput.value.trim();
       if (!val) {
-        tsResult.style.display = 'none'; return; 
+        tsResult.style.display = 'none';
+        return;
       }
       const num = parseInt(val, 10);
       if (isNaN(num)) {
-        tsResult.style.display = 'none'; return; 
+        tsResult.style.display = 'none';
+        return;
       }
 
       // Auto-detect seconds vs milliseconds (if > year 2100 in seconds, assume ms)
@@ -216,7 +218,8 @@ DevForge.registerTool({
       const date = new Date(ms);
 
       if (isNaN(date.getTime())) {
-        tsResult.style.display = 'none'; return; 
+        tsResult.style.display = 'none';
+        return;
       }
 
       tsResult.style.display = 'block';
@@ -224,8 +227,14 @@ DevForge.registerTool({
       rfcEl.textContent = toRFC2822(date);
       utcEl.textContent = date.toUTCString();
       localEl.textContent = date.toLocaleString(undefined, {
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short'
       });
       relEl.textContent = relativeTime(date);
       extraEl.textContent = `Day ${dayOfYear(date)} of year · Week ${weekNumber(date)}`;
@@ -248,11 +257,13 @@ DevForge.registerTool({
     function convertDate() {
       const val = dateInput.value;
       if (!val) {
-        dateResult.style.display = 'none'; return; 
+        dateResult.style.display = 'none';
+        return;
       }
       const date = new Date(val);
       if (isNaN(date.getTime())) {
-        dateResult.style.display = 'none'; return; 
+        dateResult.style.display = 'none';
+        return;
       }
 
       dateResult.style.display = 'block';

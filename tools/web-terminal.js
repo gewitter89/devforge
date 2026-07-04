@@ -7,11 +7,12 @@
 DevForge.registerTool({
   id: 'web-terminal',
   name: 'Visual Web Terminal',
-  description: 'Interact with DevForge using an interactive Unix-like command-line interface in your browser.',
+  description:
+    'Interact with DevForge using an interactive Unix-like command-line interface in your browser.',
   category: 'web',
   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
   tags: ['terminal', 'cli', 'console', 'unix', 'shell', 'interactive'],
-  
+
   render() {
     return `
       <div class="tool-full" style="font-family:'JetBrains Mono', monospace;">
@@ -46,7 +47,7 @@ DevForge.registerTool({
   init() {
     const output = document.getElementById('term-output');
     const input = document.getElementById('term-input');
-    
+
     let history = [];
     let historyIndex = -1;
 
@@ -57,7 +58,7 @@ DevForge.registerTool({
 
     const printLine = (text, type = 'default') => {
       const div = document.createElement('div');
-      
+
       if (type === 'error') {
         div.style.color = 'var(--color-error)';
       } else if (type === 'success') {
@@ -76,7 +77,7 @@ DevForge.registerTool({
       output.scrollTop = output.scrollHeight;
     };
 
-    const executeCommand = (line) => {
+    const executeCommand = line => {
       const raw = line.trim();
       if (!raw) return;
 
@@ -131,7 +132,7 @@ DevForge.registerTool({
           bytes[6] = (bytes[6] & 0x0f) | 0x40;
           bytes[8] = (bytes[8] & 0x3f) | 0x80;
           const hex = [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
-          const uuid = `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
+          const uuid = `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
           DevForge.copyToClipboard(uuid);
           printLine(`UUID generated and copied to clipboard: <strong>${uuid}</strong>`, 'success');
           break;
@@ -194,7 +195,10 @@ DevForge.registerTool({
           break;
 
         default:
-          printLine(`Command not found: <strong>${cmd}</strong>. Type "help" for a list of commands.`, 'error');
+          printLine(
+            `Command not found: <strong>${cmd}</strong>. Type "help" for a list of commands.`,
+            'error'
+          );
       }
     };
 
@@ -202,7 +206,7 @@ DevForge.registerTool({
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    input.addEventListener('keydown', (e) => {
+    input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         executeCommand(input.value);
         input.value = '';

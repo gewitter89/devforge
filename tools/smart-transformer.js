@@ -2,13 +2,14 @@
   'use strict';
 
   // Translation helper
-  const t = (k) => window.i18n ? window.i18n.t(k) : k;
+  const t = k => (window.i18n ? window.i18n.t(k) : k);
 
   // Extend localization dynamically if needed
   if (window.i18n && window.i18n.translations) {
     // English
     window.i18n.translations.en.smartHubName = 'Smart Hub: OCR & Transformer';
-    window.i18n.translations.en.smartHubDesc = 'Extract text from images (OCR), convert CSV/Excel to JSON/HTML, and clean/minify texts 100% locally.';
+    window.i18n.translations.en.smartHubDesc =
+      'Extract text from images (OCR), convert CSV/Excel to JSON/HTML, and clean/minify texts 100% locally.';
     window.i18n.translations.en.tabOcr = '🖼️ Image to Text (OCR)';
     window.i18n.translations.en.tabTable = '📊 Table Converter';
     window.i18n.translations.en.tabText = '📝 Text Optimizer';
@@ -16,28 +17,35 @@
     window.i18n.translations.en.ocrProgress = 'Recognizing text...';
     window.i18n.translations.en.ocrLang = 'Language:';
     window.i18n.translations.en.convert = 'Convert';
-    window.i18n.translations.en.tablePlaceholder = 'Paste CSV, Excel cells, or Tab-separated values here...';
-    window.i18n.translations.en.textPlaceholder = 'Paste dirty text, logs, or unformatted strings here...';
+    window.i18n.translations.en.tablePlaceholder =
+      'Paste CSV, Excel cells, or Tab-separated values here...';
+    window.i18n.translations.en.textPlaceholder =
+      'Paste dirty text, logs, or unformatted strings here...';
 
     // Russian
     window.i18n.translations.ru.smartHubName = 'Умный Трансформер: OCR и Данные';
-    window.i18n.translations.ru.smartHubDesc = 'Извлечение текста из скриншотов (OCR), конвертер Excel/CSV в HTML/JSON и очистка текстов полностью локально.';
+    window.i18n.translations.ru.smartHubDesc =
+      'Извлечение текста из скриншотов (OCR), конвертер Excel/CSV в HTML/JSON и очистка текстов полностью локально.';
     window.i18n.translations.ru.tabOcr = '🖼️ Текст из картинки (OCR)';
     window.i18n.translations.ru.tabTable = '📊 Конвертер таблиц';
     window.i18n.translations.ru.tabText = '📝 Оптимизатор текста';
-    window.i18n.translations.ru.ocrPlaceholder = 'Перетащите сюда картинку/скриншот или кликните для выбора';
+    window.i18n.translations.ru.ocrPlaceholder =
+      'Перетащите сюда картинку/скриншот или кликните для выбора';
     window.i18n.translations.ru.ocrProgress = 'Распознавание текста...';
     window.i18n.translations.ru.ocrLang = 'Язык распознавания:';
     window.i18n.translations.ru.convert = 'Преобразовать';
-    window.i18n.translations.ru.tablePlaceholder = 'Вставьте CSV или скопированные ячейки Excel/Google Таблиц сюда...';
-    window.i18n.translations.ru.textPlaceholder = 'Вставьте сюда текст, логи или неформатированные строки для очистки...';
+    window.i18n.translations.ru.tablePlaceholder =
+      'Вставьте CSV или скопированные ячейки Excel/Google Таблиц сюда...';
+    window.i18n.translations.ru.textPlaceholder =
+      'Вставьте сюда текст, логи или неформатированные строки для очистки...';
   }
 
   // Register the tool
   window.DevForge.registerTool({
     id: 'smart-transformer',
     name: 'Smart Hub: OCR & Transformer',
-    description: 'Extract text from screenshots, convert Excel/CSV to HTML/JSON, and optimize dirty text locally / Умный OCR трансформер',
+    description:
+      'Extract text from screenshots, convert Excel/CSV to HTML/JSON, and optimize dirty text locally / Умный OCR трансформер',
     category: 'converters',
     icon: '🔮',
     tags: ['ocr', 'excel', 'csv', 'json', 'cleaner', 'parser', 'ru', 'en'],
@@ -188,7 +196,7 @@
       tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           tabBtns.forEach(b => b.classList.remove('active'));
-          panels.forEach(p => p.style.display = 'none');
+          panels.forEach(p => (p.style.display = 'none'));
 
           btn.classList.add('active');
           document.getElementById(btn.dataset.target).style.display = 'block';
@@ -210,7 +218,7 @@
 
       dropzone.addEventListener('click', () => fileInput.click());
 
-      dropzone.addEventListener('dragover', (e) => {
+      dropzone.addEventListener('dragover', e => {
         e.preventDefault();
         dropzone.style.borderColor = 'var(--text-accent)';
         dropzone.style.background = 'rgba(139,92,246,0.05)';
@@ -221,7 +229,7 @@
         dropzone.style.background = 'none';
       });
 
-      dropzone.addEventListener('drop', (e) => {
+      dropzone.addEventListener('drop', e => {
         e.preventDefault();
         dropzone.style.borderColor = 'var(--border-accent)';
         dropzone.style.background = 'none';
@@ -230,7 +238,7 @@
         }
       });
 
-      fileInput.addEventListener('change', (e) => {
+      fileInput.addEventListener('change', e => {
         if (e.target.files.length) {
           processOcrImage(e.target.files[0]);
         }
@@ -238,7 +246,7 @@
 
       function processOcrImage(file) {
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = e => {
           imgPreview.src = e.target.result;
           resultContainer.style.display = 'grid';
           progressWrap.style.display = 'block';
@@ -262,21 +270,23 @@
       function runTesseract(file) {
         const lang = ocrLangSelect.value;
         Tesseract.recognize(file, lang, {
-          logger: (m) => {
+          logger: m => {
             if (m.status === 'recognizing text') {
               const p = Math.round(m.progress * 100);
               progressBar.style.width = `${p}%`;
               progressPercent.textContent = `${p}%`;
             }
           }
-        }).then(({ data: { text } }) => {
-          resultText.value = text;
-          progressWrap.style.display = 'none';
-          if (window.SoundFX) window.SoundFX.playSuccess();
-        }).catch(err => {
-          resultText.value = `OCR Error: ${err.message || err}`;
-          progressWrap.style.display = 'none';
-        });
+        })
+          .then(({ data: { text } }) => {
+            resultText.value = text;
+            progressWrap.style.display = 'none';
+            if (window.SoundFX) window.SoundFX.playSuccess();
+          })
+          .catch(err => {
+            resultText.value = `OCR Error: ${err.message || err}`;
+            progressWrap.style.display = 'none';
+          });
       }
 
       ocrCopy.addEventListener('click', () => {
@@ -320,14 +330,16 @@
       document.getElementById('table-to-html-btn').addEventListener('click', () => {
         const rows = parseTable();
         if (!rows.length) return;
-        let html = '<table class="kb-table" style="width:100%; border-collapse:collapse; font-size:0.85rem;">\n';
+        let html =
+          '<table class="kb-table" style="width:100%; border-collapse:collapse; font-size:0.85rem;">\n';
         rows.forEach((row, rIdx) => {
           html += '  <tr>\n';
           row.forEach(cell => {
             const tag = rIdx === 0 ? 'th' : 'td';
-            const style = rIdx === 0 
-              ? 'background:var(--bg-tertiary); border:1px solid var(--border-primary); padding:8px; font-weight:bold; text-align:left;' 
-              : 'border:1px solid var(--border-primary); padding:8px;';
+            const style =
+              rIdx === 0
+                ? 'background:var(--bg-tertiary); border:1px solid var(--border-primary); padding:8px; font-weight:bold; text-align:left;'
+                : 'border:1px solid var(--border-primary); padding:8px;';
             html += `    <${tag} style="${style}">${cell.trim()}</${tag}>\n`;
           });
           html += '  </tr>\n';
@@ -392,5 +404,4 @@
       });
     }
   });
-
 })();

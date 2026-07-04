@@ -18,8 +18,8 @@
     },
 
     render: function () {
-      const t = (key) => window.i18n && window.i18n.t ? window.i18n.t(key) : key;
-      
+      const t = key => (window.i18n && window.i18n.t ? window.i18n.t(key) : key);
+
       return `
         <div class="tool llm-quality-monitor">
           <style>
@@ -147,5 +147,4 @@
   if (window.DevForge) {
     window.DevForge.registerTool(LLMQualityMonitor);
   }
-
 })();

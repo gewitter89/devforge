@@ -1,13 +1,14 @@
 DevForge.registerTool({
   id: 'cron-parser',
   name: 'Cron Parser',
-  description: 'Parse cron expressions into human-readable descriptions and calculate execution schedules.',
+  description:
+    'Parse cron expressions into human-readable descriptions and calculate execution schedules.',
   category: 'web',
   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
   tags: ['cron', 'scheduler', 'schedule', 'parser', 'unix', 'time'],
-  
+
   render() {
-    const isRu = (window.i18n && window.i18n.lang === 'ru');
+    const isRu = window.i18n && window.i18n.lang === 'ru';
     return `
       <div class="tool-split">
         <div class="tool-group">
@@ -53,7 +54,7 @@ DevForge.registerTool({
     const input = document.getElementById('cron-input');
     const desc = document.getElementById('cron-desc');
     const nextDatesList = document.getElementById('cron-next-dates');
-    const isRu = () => (window.i18n && window.i18n.lang === 'ru');
+    const isRu = () => window.i18n && window.i18n.lang === 'ru';
 
     const parseCron = () => {
       const expr = input.value.trim().replace(/\s+/g, ' ');
@@ -74,7 +75,9 @@ DevForge.registerTool({
         const parsed = translateCron(parts);
         desc.textContent = parsed;
         const nextDates = getMockNextDates(parts);
-        nextDatesList.innerHTML = nextDates.map(date => `<li>${date.toLocaleString()}</li>`).join('');
+        nextDatesList.innerHTML = nextDates
+          .map(date => `<li>${date.toLocaleString()}</li>`)
+          .join('');
       } catch (err) {
         desc.innerHTML = `<span style="color:var(--color-error)">Error: ${err.message}</span>`;
         nextDatesList.innerHTML = '<li>-</li>';
@@ -84,7 +87,7 @@ DevForge.registerTool({
     function translateCron(parts) {
       const [m, h, dom, mon, dow] = parts;
       const ru = isRu();
-      
+
       const describePart = (val, typeRu, typeEn) => {
         if (val === '*') return ru ? `каждую ${typeRu}` : `every ${typeEn}`;
         if (val.startsWith('*/')) {
@@ -103,9 +106,24 @@ DevForge.registerTool({
 
       const mDesc = describePart(m, 'минуту', 'minute');
       const hDesc = describePart(h, 'час', 'hour');
-      const domDesc = dom === '*' ? '' : (ru ? `день месяца: ${describePart(dom, 'день', 'day')}` : `on ${describePart(dom, 'day of month', 'day')}`);
-      const monDesc = mon === '*' ? '' : (ru ? `в месяцах: ${describePart(mon, 'месяц', 'month')}` : `in ${describePart(mon, 'month', 'month')}`);
-      const dowDesc = dow === '*' ? '' : (ru ? `в дни недели: ${describePart(dow, 'день', 'day')}` : `on ${describePart(dow, 'day of week', 'day')}`);
+      const domDesc =
+        dom === '*'
+          ? ''
+          : ru
+            ? `день месяца: ${describePart(dom, 'день', 'day')}`
+            : `on ${describePart(dom, 'day of month', 'day')}`;
+      const monDesc =
+        mon === '*'
+          ? ''
+          : ru
+            ? `в месяцах: ${describePart(mon, 'месяц', 'month')}`
+            : `in ${describePart(mon, 'month', 'month')}`;
+      const dowDesc =
+        dow === '*'
+          ? ''
+          : ru
+            ? `в дни недели: ${describePart(dow, 'день', 'day')}`
+            : `on ${describePart(dow, 'day of week', 'day')}`;
 
       let result = ru ? `Запускается ${mDesc}` : `Runs ${mDesc}`;
       if (h !== '*') result += ` ${hDesc}`;

@@ -7,11 +7,12 @@
 DevForge.registerTool({
   id: 'ai-packager',
   name: 'AI Context Packager',
-  description: 'Combine multiple code files into a single structured Markdown text optimized for AI prompts.',
+  description:
+    'Combine multiple code files into a single structured Markdown text optimized for AI prompts.',
   category: 'ai',
   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
   tags: ['ai', 'context', 'packager', 'prompt', 'files', 'combine'],
-  
+
   render() {
     return `
       <div class="tool-split">
@@ -53,11 +54,11 @@ DevForge.registerTool({
 
     let loadedFiles = [];
 
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
     if (clearBtn) clearBtn.textContent = t('clear');
     if (copyBtn) copyBtn.textContent = t('copy');
 
-    fileInput.addEventListener('change', (e) => {
+    fileInput.addEventListener('change', e => {
       const files = Array.from(e.target.files);
       if (files.length === 0) return;
 
@@ -71,12 +72,16 @@ DevForge.registerTool({
         return;
       }
 
-      queueList.innerHTML = loadedFiles.map((file, idx) => `
+      queueList.innerHTML = loadedFiles
+        .map(
+          (file, idx) => `
         <li style="display:flex; justify-content:space-between; margin-bottom:4px;">
           <span>📄 <strong>${file.name}</strong> (${formatBytes(file.size)})</span>
           <span style="color:var(--color-error); cursor:pointer; font-weight:bold; padding:0 6px;" data-index="${idx}">✕</span>
         </li>
-      `).join('');
+      `
+        )
+        .join('');
 
       // Wire remove actions
       queueList.querySelectorAll('span[data-index]').forEach(el => {
@@ -138,14 +143,14 @@ DevForge.registerTool({
     function readFileAsText(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = (e) => resolve(e.target.result);
-        reader.onerror = (e) => reject(new Error('File reading error'));
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = e => reject(new Error('File reading error'));
         reader.readAsText(file);
       });
     }
 
     function getFileExtension(filename) {
-      return filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2) || 'text';
+      return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2) || 'text';
     }
 
     function formatBytes(bytes) {

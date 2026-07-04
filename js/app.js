@@ -11,7 +11,7 @@
     tools: [],
     currentCategory: 'all',
     currentTool: null,
-    searchQuery: '',
+    searchQuery: ''
   };
 
   // Expose globally for tool registration
@@ -21,12 +21,24 @@
   const getCategories = () => [
     { id: 'all', name: window.i18n ? window.i18n.t('allTools') : 'All Tools', icon: '⚡' },
     { id: 'ai', name: window.i18n ? window.i18n.t('ai') : 'AI Tools', icon: '🤖' },
-    { id: 'formatters', name: window.i18n ? window.i18n.t('formatters') : 'Formatters', icon: '📝' },
-    { id: 'generators', name: window.i18n ? window.i18n.t('generators') : 'Generators', icon: '🎲' },
-    { id: 'converters', name: window.i18n ? window.i18n.t('converters') : 'Converters', icon: '🔄' },
+    {
+      id: 'formatters',
+      name: window.i18n ? window.i18n.t('formatters') : 'Formatters',
+      icon: '📝'
+    },
+    {
+      id: 'generators',
+      name: window.i18n ? window.i18n.t('generators') : 'Generators',
+      icon: '🎲'
+    },
+    {
+      id: 'converters',
+      name: window.i18n ? window.i18n.t('converters') : 'Converters',
+      icon: '🔄'
+    },
     { id: 'encoders', name: window.i18n ? window.i18n.t('encoders') : 'Encoders', icon: '🔐' },
     { id: 'text', name: window.i18n ? window.i18n.t('text') : 'Text', icon: '✏️' },
-    { id: 'web', name: window.i18n ? window.i18n.t('web') : 'Web', icon: '🌐' },
+    { id: 'web', name: window.i18n ? window.i18n.t('web') : 'Web', icon: '🌐' }
   ];
 
   // ================== TOOL REGISTRATION =====================
@@ -74,7 +86,7 @@
   function renderCatalog() {
     const main = document.getElementById('main-content');
     const filtered = getFilteredTools();
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
 
     let html = `
       <div class="hero-banner">
@@ -107,7 +119,10 @@
     } else {
       html += '<div class="tools-grid">';
       filtered.forEach(tool => {
-        const tagsHtml = tool.tags.slice(0, 3).map(tag => `<span class="tool-tag">${tag}</span>`).join('');
+        const tagsHtml = tool.tags
+          .slice(0, 3)
+          .map(tag => `<span class="tool-tag">${tag}</span>`)
+          .join('');
         html += `
           <div class="tool-card" data-tool-id="${tool.id}" role="button" tabindex="0" aria-label="Open ${tool.name}">
             <div class="tool-card-icon">${tool.icon}</div>
@@ -149,7 +164,7 @@
       const handler = () => navigateTo('#/tool/' + card.dataset.toolId);
       card.addEventListener('click', handler);
       card.addEventListener('keydown', e => {
-        if (e.key === 'Enter') handler(); 
+        if (e.key === 'Enter') handler();
       });
     });
   }
@@ -157,7 +172,7 @@
   // ================= RENDER TOOL VIEW =======================
   function renderToolView(tool) {
     const main = document.getElementById('main-content');
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
 
     const html = `
       <div class="tool-view">
@@ -205,10 +220,11 @@
     // Filter by search
     if (DevForge.searchQuery) {
       const q = DevForge.searchQuery.toLowerCase();
-      tools = tools.filter(t =>
-        t.name.toLowerCase().includes(q) ||
-        t.description.toLowerCase().includes(q) ||
-        t.tags.some(tag => tag.toLowerCase().includes(q))
+      tools = tools.filter(
+        t =>
+          t.name.toLowerCase().includes(q) ||
+          t.description.toLowerCase().includes(q) ||
+          t.tags.some(tag => tag.toLowerCase().includes(q))
       );
     }
 
@@ -219,33 +235,40 @@
     if (!DevForge.searchQuery) return text;
     const q = DevForge.searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const regex = new RegExp(`(${q})`, 'gi');
-    return text.replace(regex, '<mark style="background:rgba(139,92,246,0.25);color:inherit;border-radius:2px;padding:0 1px">$1</mark>');
+    return text.replace(
+      regex,
+      '<mark style="background:rgba(139,92,246,0.25);color:inherit;border-radius:2px;padding:0 1px">$1</mark>'
+    );
   }
 
   // =================== SIDEBAR ==============================
   function renderSidebar() {
     const nav = document.getElementById('categories');
-    const t = (k) => window.i18n ? window.i18n.t(k) : k;
+    const t = k => (window.i18n ? window.i18n.t(k) : k);
     const cats = getCategories();
 
-    nav.innerHTML = cats.map(cat => {
-      const count = cat.id === 'all'
-        ? DevForge.tools.length
-        : DevForge.tools.filter(t => t.category === cat.id).length;
+    nav.innerHTML = cats
+      .map(cat => {
+        const count =
+          cat.id === 'all'
+            ? DevForge.tools.length
+            : DevForge.tools.filter(t => t.category === cat.id).length;
 
-      if (cat.id !== 'all' && count === 0) return '';
+        if (cat.id !== 'all' && count === 0) return '';
 
-      return `
+        return `
         <button class="category-btn ${DevForge.currentCategory === cat.id ? 'active' : ''}" data-category="${cat.id}">
           <span class="cat-icon">${cat.icon}</span>
           ${cat.name}
           <span class="cat-count">${count}</span>
         </button>
       `;
-    }).join('');
+      })
+      .join('');
 
     // Update tool count & footer translation
-    document.getElementById('tool-count').textContent = `${DevForge.tools.length} ${t('toolsAvailable')}`;
+    document.getElementById('tool-count').textContent =
+      `${DevForge.tools.length} ${t('toolsAvailable')}`;
     const addBtnLink = document.querySelector('.sidebar-footer a');
     if (addBtnLink) addBtnLink.textContent = t('addYourTool');
 
@@ -284,7 +307,7 @@
     };
 
     // Close palette on backdrop click
-    backdrop.addEventListener('click', (e) => {
+    backdrop.addEventListener('click', e => {
       if (e.target === backdrop) hidePalette();
     });
 
@@ -301,7 +324,7 @@
     });
 
     // Intercept click on search input to open palette
-    headerInput.addEventListener('focus', (e) => {
+    headerInput.addEventListener('focus', e => {
       e.preventDefault();
       headerInput.blur();
       showPalette();
@@ -311,7 +334,7 @@
       updatePaletteResults(cmdInput.value.trim());
     });
 
-    cmdInput.addEventListener('keydown', (e) => {
+    cmdInput.addEventListener('keydown', e => {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         selectedIndex = (selectedIndex + 1) % currentItems.length;
@@ -339,36 +362,87 @@
         const param = cmd.slice(1).join(' ');
 
         if (action === 'uuid') {
-          currentItems = [{ type: 'action', title: 'Generate & Copy UUID', desc: 'Creates a v4 UUID and saves it to clipboard', handler: executeUUIDAction }];
+          currentItems = [
+            {
+              type: 'action',
+              title: 'Generate & Copy UUID',
+              desc: 'Creates a v4 UUID and saves it to clipboard',
+              handler: executeUUIDAction
+            }
+          ];
         } else if (action === 'theme') {
           currentItems = [
-            { type: 'action', title: 'Set Theme: Dark', desc: 'Switch interface to dark mode', handler: () => setTheme('dark') },
-            { type: 'action', title: 'Set Theme: Light', desc: 'Switch interface to light mode', handler: () => setTheme('light') }
+            {
+              type: 'action',
+              title: 'Set Theme: Dark',
+              desc: 'Switch interface to dark mode',
+              handler: () => setTheme('dark')
+            },
+            {
+              type: 'action',
+              title: 'Set Theme: Light',
+              desc: 'Switch interface to light mode',
+              handler: () => setTheme('light')
+            }
           ];
         } else if (action === 'sound') {
           currentItems = [
-            { type: 'action', title: 'Turn Sound On', desc: 'Enable audio interactions', handler: () => setSound(true) },
-            { type: 'action', title: 'Turn Sound Off', desc: 'Disable audio interactions', handler: () => setSound(false) }
+            {
+              type: 'action',
+              title: 'Turn Sound On',
+              desc: 'Enable audio interactions',
+              handler: () => setSound(true)
+            },
+            {
+              type: 'action',
+              title: 'Turn Sound Off',
+              desc: 'Disable audio interactions',
+              handler: () => setSound(false)
+            }
           ];
         } else if (action === 'base64' && param) {
           const enc = btoa(param);
-          currentItems = [{ type: 'action', title: `Base64 Encode: "${param}"`, desc: `Result: ${enc} (Click to copy)`, handler: () => {
-            DevForge.copyToClipboard(enc); hidePalette(); 
-          } }];
+          currentItems = [
+            {
+              type: 'action',
+              title: `Base64 Encode: "${param}"`,
+              desc: `Result: ${enc} (Click to copy)`,
+              handler: () => {
+                DevForge.copyToClipboard(enc);
+                hidePalette();
+              }
+            }
+          ];
         } else if (action === 'hash' && param) {
           // Dummy sync md5 or simple hash fallback
-          currentItems = [{ type: 'action', title: `Hash: "${param}"`, desc: 'Open Hash tool to calculate hashes', handler: () => {
-            navigateTo('#/tool/hash-generator'); hidePalette(); 
-          } }];
+          currentItems = [
+            {
+              type: 'action',
+              title: `Hash: "${param}"`,
+              desc: 'Open Hash tool to calculate hashes',
+              handler: () => {
+                navigateTo('#/tool/hash-generator');
+                hidePalette();
+              }
+            }
+          ];
         } else {
-          currentItems = [{ type: 'action', title: 'Unknown Command', desc: 'Available: >uuid, >theme [light/dark], >sound [on/off], >base64 [text]', handler: () => {} }];
+          currentItems = [
+            {
+              type: 'action',
+              title: 'Unknown Command',
+              desc: 'Available: >uuid, >theme [light/dark], >sound [on/off], >base64 [text]',
+              handler: () => {}
+            }
+          ];
         }
       } else {
         // Case 2: Regular search tool matching
-        const matchingTools = DevForge.tools.filter(t => 
-          !query || 
-          t.name.toLowerCase().includes(query.toLowerCase()) || 
-          t.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+        const matchingTools = DevForge.tools.filter(
+          t =>
+            !query ||
+            t.name.toLowerCase().includes(query.toLowerCase()) ||
+            t.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
         );
 
         currentItems = matchingTools.map(t => ({
@@ -385,13 +459,15 @@
 
     function renderPaletteItems() {
       if (currentItems.length === 0) {
-        cmdResults.innerHTML = '<div style="color:var(--text-tertiary); padding:var(--space-md); text-align:center; font-size:0.85rem;">No matches found</div>';
+        cmdResults.innerHTML =
+          '<div style="color:var(--text-tertiary); padding:var(--space-md); text-align:center; font-size:0.85rem;">No matches found</div>';
         return;
       }
 
-      cmdResults.innerHTML = currentItems.map((item, idx) => {
-        const icon = item.type === 'action' ? '⚙️' : item.icon;
-        return `
+      cmdResults.innerHTML = currentItems
+        .map((item, idx) => {
+          const icon = item.type === 'action' ? '⚙️' : item.icon;
+          return `
           <div class="cmd-item ${idx === selectedIndex ? 'selected' : ''}" data-index="${idx}">
             <span style="font-size:1.1rem; flex-shrink:0;">${icon}</span>
             <div style="flex:1; min-width:0;">
@@ -401,7 +477,8 @@
             <span style="font-size:0.7rem; color:var(--text-tertiary); margin-left:auto; text-transform:uppercase;">${item.type}</span>
           </div>
         `;
-      }).join('');
+        })
+        .join('');
 
       // Mouse triggers
       cmdResults.querySelectorAll('.cmd-item').forEach(el => {
@@ -439,8 +516,8 @@
       bytes[6] = (bytes[6] & 0x0f) | 0x40; // v4
       bytes[8] = (bytes[8] & 0x3f) | 0x80; // variant
       const hex = [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
-      const uuid = `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
-      
+      const uuid = `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+
       DevForge.copyToClipboard(uuid);
       hidePalette();
     }
@@ -452,7 +529,7 @@
       const moon = document.querySelector('.icon-moon');
       if (sun) sun.style.display = theme === 'dark' ? 'block' : 'none';
       if (moon) moon.style.display = theme === 'dark' ? 'none' : 'block';
-      
+
       if (window.SoundFX) window.SoundFX.playSuccess();
       hidePalette();
     }
@@ -499,7 +576,7 @@
     // Sound toggle init
     const soundToggle = document.getElementById('sound-toggle');
     if (soundToggle) {
-      const updateSoundUI = (enabled) => {
+      const updateSoundUI = enabled => {
         const onIcon = soundToggle.querySelector('.icon-sound-on');
         const offIcon = soundToggle.querySelector('.icon-sound-off');
         if (onIcon && offIcon) {
@@ -572,7 +649,8 @@
   };
 
   // ================== COPY ICON SVG =========================
-  DevForge.COPY_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  DevForge.COPY_ICON =
+    '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 
   // ===================== INIT ===============================
   function init() {
@@ -592,7 +670,7 @@
     }
 
     // Subscribe to lang changes to update the UI
-    window.addEventListener('df-lang-changed', (e) => {
+    window.addEventListener('df-lang-changed', e => {
       // Re-translate search placeholder
       const searchInput = document.getElementById('search-input');
       if (searchInput && window.i18n) {
@@ -613,7 +691,8 @@
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
+        navigator.serviceWorker
+          .register('./sw.js')
           .then(reg => console.log('DevForge: Service Worker registered successfully', reg.scope))
           .catch(err => console.warn('DevForge: Service Worker registration failed', err));
       });
@@ -623,7 +702,7 @@
     let deferredPrompt;
     const installBtn = document.getElementById('pwa-install-btn');
 
-    window.addEventListener('beforeinstallprompt', (e) => {
+    window.addEventListener('beforeinstallprompt', e => {
       // Prevent standard browser bar from showing
       e.preventDefault();
       deferredPrompt = e;
@@ -653,10 +732,12 @@
     });
 
     // Log registered tools
-    console.log(`%c⚒ DevForge loaded — ${DevForge.tools.length} tools registered`, 'color: #a78bfa; font-weight: bold; font-size: 14px;');
+    console.log(
+      `%c⚒ DevForge loaded — ${DevForge.tools.length} tools registered`,
+      'color: #a78bfa; font-weight: bold; font-size: 14px;'
+    );
   }
 
   // Wait for DOM + all deferred scripts
   document.addEventListener('DOMContentLoaded', init);
-
 })();

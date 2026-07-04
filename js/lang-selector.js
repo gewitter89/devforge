@@ -33,14 +33,16 @@
 
     // Get current language from i18n
     const currentLang = window.i18n ? window.i18n.lang : 'en';
-    const currentInfo = SUPPORTED_LANGUAGES.find(l => l.code === currentLang) || SUPPORTED_LANGUAGES[0];
+    const currentInfo =
+      SUPPORTED_LANGUAGES.find(l => l.code === currentLang) || SUPPORTED_LANGUAGES[0];
 
     // Update button display
     currentFlag.textContent = currentInfo.flag;
     currentCode.textContent = currentInfo.code.toUpperCase();
 
     // Render dropdown items
-    dropdown.innerHTML = SUPPORTED_LANGUAGES.map(lang => `
+    dropdown.innerHTML = SUPPORTED_LANGUAGES.map(
+      lang => `
       <button class="lang-option" data-lang="${lang.code}" style="
         display: flex;
         align-items: center;
@@ -59,10 +61,11 @@
         <span>${lang.name}</span>
         ${lang.code === currentLang ? '<span style="margin-left:auto; color:var(--primary-color);">✓</span>' : ''}
       </button>
-    `).join('');
+    `
+    ).join('');
 
     // Toggle dropdown
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', e => {
       e.stopPropagation();
       const isOpen = dropdown.style.display === 'block';
       dropdown.style.display = isOpen ? 'none' : 'block';
@@ -74,20 +77,20 @@
     });
 
     // Handle language selection
-    dropdown.addEventListener('click', (e) => {
+    dropdown.addEventListener('click', e => {
       const option = e.target.closest('.lang-option');
       if (!option) return;
 
       const langCode = option.dataset.lang;
-      
+
       if (window.i18n) {
         window.i18n.setLang(langCode);
-        
+
         // Update UI immediately
         const newInfo = SUPPORTED_LANGUAGES.find(l => l.code === langCode);
         currentFlag.textContent = newInfo.flag;
         currentCode.textContent = newInfo.code.toUpperCase();
-        
+
         // Update active state
         dropdown.querySelectorAll('.lang-option').forEach(opt => {
           const isActive = opt.dataset.lang === langCode;
@@ -106,22 +109,22 @@
             checkmark.remove();
           }
         });
-        
+
         // Close dropdown
         dropdown.style.display = 'none';
-        
+
         // Reload page to apply language
         setTimeout(() => location.reload(), 100);
       }
     });
 
     // Hover effect for dropdown items
-    dropdown.addEventListener('mouseover', (e) => {
+    dropdown.addEventListener('mouseover', e => {
       const option = e.target.closest('.lang-option');
       if (option) option.style.background = 'var(--bg-tertiary)';
     });
 
-    dropdown.addEventListener('mouseout', (e) => {
+    dropdown.addEventListener('mouseout', e => {
       const option = e.target.closest('.lang-option');
       if (option) {
         const isActive = option.dataset.lang === (window.i18n ? window.i18n.lang : 'en');

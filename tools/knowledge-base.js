@@ -2,21 +2,23 @@
   'use strict';
 
   // Quick translation helper
-  const t = (k) => window.i18n ? window.i18n.t(k) : k;
+  const t = k => (window.i18n ? window.i18n.t(k) : k);
 
   // Add custom localization dictionary labels dynamically if not already defined
   if (window.i18n && window.i18n.translations) {
     // English overrides
     window.i18n.translations.en.knowledgeBase = 'Knowledge Base';
     window.i18n.translations.en.kbTitle = '🧠 Interactive Knowledge Base & AI Guides';
-    window.i18n.translations.en.kbDesc = 'Learn how to use AI coding agents, setup private repos, compress prompts to save 65% on tokens, and get free API keys. Simplified for everyone, not just geeks!';
+    window.i18n.translations.en.kbDesc =
+      'Learn how to use AI coding agents, setup private repos, compress prompts to save 65% on tokens, and get free API keys. Simplified for everyone, not just geeks!';
     window.i18n.translations.en.viewDetails = 'Read Guide';
     window.i18n.translations.en.kbSearchPlaceholder = 'Search guides, hacks, and tools...';
 
     // Russian overrides
     window.i18n.translations.ru.knowledgeBase = 'База Знаний';
     window.i18n.translations.ru.kbTitle = '🧠 Интерактивная База Знаний и ИИ-гиды';
-    window.i18n.translations.ru.kbDesc = 'Научитесь использовать ИИ-агентов, подключать приватные репозитории, экономить до 65% на токенах и получать бесплатные API-ключи. Написано простым человеческим языком для людей, а не гиков!';
+    window.i18n.translations.ru.kbDesc =
+      'Научитесь использовать ИИ-агентов, подключать приватные репозитории, экономить до 65% на токенах и получать бесплатные API-ключи. Написано простым человеческим языком для людей, а не гиков!';
     window.i18n.translations.ru.viewDetails = 'Читать гайд';
     window.i18n.translations.ru.kbSearchPlaceholder = 'Поиск по гайдам, хакам и фичам...';
   }
@@ -27,8 +29,10 @@
       id: 'gig-ai-boost',
       titleEn: '🚀 GIG AI Boost & Private Repositories',
       titleRu: '🚀 GIG AI Boost и Приватные Репозитории',
-      descEn: 'Connect 2 private updating repos with pre-configured prompts, customized MCP servers, and personal developer stack. 10$ one-time.',
-      descRu: 'Подключите 2 приватных обновляемых репозитория с готовыми инструкциями, настроенными MCP-серверами и личным стеком автора за 10$.',
+      descEn:
+        'Connect 2 private updating repos with pre-configured prompts, customized MCP servers, and personal developer stack. 10$ one-time.',
+      descRu:
+        'Подключите 2 приватных обновляемых репозитория с готовыми инструкциями, настроенными MCP-серверами и личным стеком автора за 10$.',
       url: 'gig-ai-boost.md',
       tag: 'GIG AI'
     },
@@ -36,8 +40,10 @@
       id: 'caveman',
       titleEn: '🪨 Caveman SKILLS — Save 65% on Output Tokens',
       titleRu: '🪨 Фича: Caveman SKILLS — Сэкономь 65% токенов',
-      descEn: 'Make your AI agent communicate like a caveman. Cuts down ~65% of verbose greeting/explanation tokens while keeping code 100% accurate.',
-      descRu: 'Заставьте ИИ-агента общаться кратко, как пещерный человек. Срезает ~65% "воды" при генерации, экономя ваши деньги и ускоряя ответ.',
+      descEn:
+        'Make your AI agent communicate like a caveman. Cuts down ~65% of verbose greeting/explanation tokens while keeping code 100% accurate.',
+      descRu:
+        'Заставьте ИИ-агента общаться кратко, как пещерный человек. Срезает ~65% "воды" при генерации, экономя ваши деньги и ускоряя ответ.',
       url: 'caveman.md',
       tag: 'Hacks'
     },
@@ -45,8 +51,10 @@
       id: 'cursorrules',
       titleEn: '🤖 .cursorrules / .clinerules System Templates',
       titleRu: '🤖 Шаблоны перепрошивки ИИ (.cursorrules)',
-      descEn: 'Copy-paste instruction templates to configure your Cursor, Windsurf, or Cline code assistants for maximum efficiency.',
-      descRu: 'Готовые шаблоны инструкций для ИИ-агентов. Обучите ваш ИИ писать код быстро, без лишних слов и рассуждений.',
+      descEn:
+        'Copy-paste instruction templates to configure your Cursor, Windsurf, or Cline code assistants for maximum efficiency.',
+      descRu:
+        'Готовые шаблоны инструкций для ИИ-агентов. Обучите ваш ИИ писать код быстро, без лишних слов и рассуждений.',
       url: 'cursorrules.md',
       tag: 'System Prompts'
     },
@@ -54,8 +62,10 @@
       id: 'free-llm-apis',
       titleEn: '🔑 Awesome Free LLM APIs (API Keys)',
       titleRu: '🔑 Список постоянных бесплатных API для LLM',
-      descEn: 'Get free, stable keys and endpoints for Gemini, Llama, and Mistral. Perfect for pet-projects and testing.',
-      descRu: 'Постоянные бесплатные ключи и роутеры для Gemini, Llama и Mistral. Идеально для пет-проектов и тестирования.',
+      descEn:
+        'Get free, stable keys and endpoints for Gemini, Llama, and Mistral. Perfect for pet-projects and testing.',
+      descRu:
+        'Постоянные бесплатные ключи и роутеры для Gemini, Llama и Mistral. Идеально для пет-проектов и тестирования.',
       url: 'free-llm-apis.md',
       tag: 'APIs'
     },
@@ -63,8 +73,10 @@
       id: 'cli-in-docker',
       titleEn: '🐳 Sandbox AI CLI inside Docker',
       titleRu: '🐳 Песочница: ИИ-агент внутри Docker',
-      descEn: 'Isolate your coding agent in a container with environment secrets mounted. Stop personal data theft from bad models.',
-      descRu: 'Безопасный запуск ИИ-агентов в изолированном Docker-контейнере с пробросом папки проекта. Защита от кражи личных данных.',
+      descEn:
+        'Isolate your coding agent in a container with environment secrets mounted. Stop personal data theft from bad models.',
+      descRu:
+        'Безопасный запуск ИИ-агентов в изолированном Docker-контейнере с пробросом папки проекта. Защита от кражи личных данных.',
       url: 'cli-in-docker.md',
       tag: 'Security'
     },
@@ -72,8 +84,10 @@
       id: 'cline-pass',
       titleEn: '🔌 ClinePass & OpenAI Compatible Setup',
       titleRu: '🔌 Настройка ClinePass и OpenAI CLI',
-      descEn: 'Unlock DeepSeek V4, GLM-5.2, and Kimi inside Crush CLI and OpenCode using ClinePass gateways.',
-      descRu: 'Настройка ClinePass, Crush CLI и OpenCode для работы с DeepSeek V4, GLM-5.2 и Kimi через прокси-интерфейсы.',
+      descEn:
+        'Unlock DeepSeek V4, GLM-5.2, and Kimi inside Crush CLI and OpenCode using ClinePass gateways.',
+      descRu:
+        'Настройка ClinePass, Crush CLI и OpenCode для работы с DeepSeek V4, GLM-5.2 и Kimi через прокси-интерфейсы.',
       url: 'cline-pass.md',
       tag: 'CLI Config'
     },
@@ -81,8 +95,10 @@
       id: 'telepi',
       titleEn: '🤖 TelePI — Control Agent via Telegram Bot',
       titleRu: '🤖 TelePI — Управление ИИ-агентом из Telegram',
-      descEn: 'Integrate your local PI CLI with a Telegram bot. Supports offline voice messages transcribing on your machine.',
-      descRu: 'Свяжите локальный ИИ-агент PI с ботом в Telegram. Поддерживает офлайн-распознавание ваших голосовых сообщений.',
+      descEn:
+        'Integrate your local PI CLI with a Telegram bot. Supports offline voice messages transcribing on your machine.',
+      descRu:
+        'Свяжите локальный ИИ-агент PI с ботом в Telegram. Поддерживает офлайн-распознавание ваших голосовых сообщений.',
       url: 'telepi.md',
       tag: 'Integrations'
     },
@@ -90,8 +106,10 @@
       id: 'herdr',
       titleEn: '🎛️ Herdr Multiplexer — Tmux for AI Agents',
       titleRu: '🎛️ Herdr — Tmux-панель для AI-агентов',
-      descEn: 'Control panel allowing you to run, view status, and coordinate multiple active coding bots without losing sessions.',
-      descRu: 'Панель управления и мультиплексор для AI-агентов. Следите за статусами ботов и делите экраны в терминале.',
+      descEn:
+        'Control panel allowing you to run, view status, and coordinate multiple active coding bots without losing sessions.',
+      descRu:
+        'Панель управления и мультиплексор для AI-агентов. Следите за статусами ботов и делите экраны в терминале.',
       url: 'herdr.md',
       tag: 'Tools'
     }
@@ -101,12 +119,13 @@
   window.DevForge.registerTool({
     id: 'knowledge-base',
     name: 'Knowledge Base / База знаний',
-    description: 'Interactive guides, cost savings, security, and private repo setups / База знаний ИИ',
+    description:
+      'Interactive guides, cost savings, security, and private repo setups / База знаний ИИ',
     category: 'ai',
     icon: '📚',
     tags: ['guides', 'mcp', 'cheatsheet', 'hacks', 'ru', 'en'],
     render() {
-      const isRu = (window.i18n && window.i18n.lang === 'ru');
+      const isRu = window.i18n && window.i18n.lang === 'ru';
       return `
         <div class="tool-full" style="max-width: 1000px; margin: 0 auto; padding: var(--space-md);">
           <!-- KB Banner -->
@@ -132,7 +151,7 @@
       `;
     },
     init() {
-      const isRu = (window.i18n && window.i18n.lang === 'ru');
+      const isRu = window.i18n && window.i18n.lang === 'ru';
       const grid = document.getElementById('guides-grid');
       const search = document.getElementById('kb-search');
 
@@ -145,7 +164,9 @@
           return title.includes(query) || desc.includes(query) || tag.includes(query);
         });
 
-        grid.innerHTML = filtered.map(g => `
+        grid.innerHTML = filtered
+          .map(
+            g => `
           <div class="tool-card" style="display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-primary); border-radius: var(--radius-md); background: var(--bg-secondary); padding: var(--space-md); position: relative; transition: border-color 0.25s ease;">
             <div>
               <span class="tool-tag" style="background: var(--bg-tertiary); color: var(--text-accent); font-weight:600; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 8px;">
@@ -162,7 +183,9 @@
               ${t('viewDetails')} ↗
             </a>
           </div>
-        `).join('');
+        `
+          )
+          .join('');
       }
 
       // Initial Render
@@ -174,5 +197,4 @@
       }
     }
   });
-
 })();
