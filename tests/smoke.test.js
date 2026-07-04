@@ -67,8 +67,8 @@ test('All tools have proper structure', () => {
       `${file}: Missing required properties (id, name, render)`
     );
 
-    // Check for init function
-    assert(content.includes('init:'), `${file}: Missing init function`);
+    // Check for init function (supports both ES5 and ES6 syntax)
+    assert(content.includes('init:') || content.includes('init('), `${file}: Missing init function`);
   }
 });
 
@@ -106,7 +106,7 @@ test('Core files exist', () => {
     'js/contributors.js',
     'js/i18n.js',
     'js/sound.js',
-    'css/styles.css'
+    'css/main.css'
   ];
 
   for (const file of requiredFiles) {
