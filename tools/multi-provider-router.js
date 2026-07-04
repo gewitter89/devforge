@@ -18,6 +18,12 @@
       ],
       requiresKey: true
     },
+    cloudru: {
+      name: 'Cloud.ru',
+      endpoint: 'https://api.cloud.ru/v1/chat/completions',
+      models: ['deepseek-v3', 'qwen3-235b-a22b', 'glm-5.2', 'minimax-text-01', 'zai-org/glm-4.5'],
+      requiresKey: true
+    },
     groq: {
       name: 'Groq',
       endpoint: 'https://api.groq.com/openai/v1/chat/completions',

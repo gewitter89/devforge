@@ -157,6 +157,33 @@ test('All tool IDs are unique', () => {
   }
 });
 
+// Test 10: Check i18n JSON files are valid
+test('i18n JSON files are valid', () => {
+  const i18nDir = join(rootDir, 'i18n');
+
+  try {
+    const files = readdirSync(i18nDir).filter(f => f.endsWith('.json'));
+    assert(files.length >= 10, `Expected at least 10 i18n files, found ${files.length}`);
+
+    for (const file of files) {
+      const content = readFileSync(join(i18nDir, file), 'utf8');
+      try {
+        const parsed = JSON.parse(content);
+        assert(typeof parsed === 'object' && parsed !== null, `${file}: parsed to non-object`);
+      } catch (parseErr) {
+        throw new Error(`${file}: invalid JSON — ${parseErr.message}`);
+      }
+    }
+
+    console.log(`    Found ${files.length} valid i18n JSON files`);
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      throw new Error('i18n directory not found');
+    }
+    throw e;
+  }
+});
+
 // Summary
 console.log('\n' + '='.repeat(50));
 console.log(`Tests: ${passed} passed, ${failed} failed`);

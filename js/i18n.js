@@ -143,6 +143,8 @@
         this.lang = this.detectLanguage();
       }
 
+      document.documentElement.lang = this.lang;
+
       // Load translations for detected language if not already loaded
       this.loadTranslations(this.lang);
     },
@@ -163,7 +165,7 @@
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         this.translations[lang] = data;
-      } catch (error) {
+      } catch {
         console.warn(`[i18n] Failed to load ${lang}.json, falling back to English`);
         this.translations[lang] = this.translations['en'];
       }
@@ -178,6 +180,7 @@
 
       this.loadTranslations(lang).then(() => {
         this.lang = lang;
+        document.documentElement.lang = lang;
         localStorage.setItem('devforge-lang', lang);
         window.dispatchEvent(new CustomEvent('df-lang-changed', { detail: lang }));
       });
