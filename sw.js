@@ -1,59 +1,71 @@
 /* ============================================================
    DevForge — Service Worker (sw.js)
    Enables 100% offline access by caching static shells and assets.
+   Uses stale-while-revalidate for optimal freshness + offline.
    ============================================================ */
 
-const CACHE_NAME = 'devforge-cache-v1';
-const ASSETS = [
+const CACHE_VERSION = 'devforge-sw-v2-r1';
+const SHELL_ASSETS = [
   './',
   './index.html',
-  './css/main.css',
-  './css/extra.css',
-  './js/i18n.js',
-  './js/sound.js',
-  './js/contributors.js',
-  './js/app.js',
+  './css/main.css?v=2',
+  './css/extra.css?v=2',
+  './js/i18n.js?v=2',
+  './js/sound.js?v=2',
+  './js/contributors.js?v=2',
+  './js/app.js?v=2',
   './manifest.json',
-  
-  // Tools scripts
-  './tools/ai-assistant.js',
-  './tools/json-formatter.js',
-  './tools/base64-codec.js',
-  './tools/hash-generator.js',
-  './tools/url-codec.js',
-  './tools/uuid-generator.js',
-  './tools/color-converter.js',
-  './tools/password-generator.js',
-  './tools/timestamp-converter.js',
-  './tools/markdown-preview.js',
-  './tools/lorem-generator.js',
-  './tools/jwt-decoder.js',
-  './tools/diff-checker.js',
-  './tools/cron-parser.js',
-  './tools/image-optimizer.js',
-  './tools/knowledge-base.js',
-  './tools/smart-transformer.js',
-  './tools/ai-packager.js',
-  './tools/ai-sanitizer.js',
-  './tools/web-terminal.js'
 ];
 
-// Install Event — cache all core shell assets
+const TOOL_ASSETS = [
+  './tools/ai-assistant.js?v=2',
+  './tools/json-formatter.js?v=2',
+  './tools/base64-codec.js?v=2',
+  './tools/hash-generator.js?v=2',
+  './tools/url-codec.js?v=2',
+  './tools/uuid-generator.js?v=2',
+  './tools/color-converter.js?v=2',
+  './tools/password-generator.js?v=2',
+  './tools/timestamp-converter.js?v=2',
+  './tools/markdown-preview.js?v=2',
+  './tools/lorem-generator.js?v=2',
+  './tools/jwt-decoder.js?v=2',
+  './tools/diff-checker.js?v=2',
+  './tools/cron-parser.js?v=2',
+  './tools/image-optimizer.js?v=2',
+  './tools/knowledge-base.js?v=2',
+  './tools/smart-transformer.js?v=2',
+  './tools/ai-packager.js?v=2',
+  './tools/ai-sanitizer.js?v=2',
+  './tools/web-terminal.js?v=2',
+];
+
+const ALL_ASSETS = [...SHELL_ASSETS, ...TOOL_ASSETS];
+
+// Install — cache all core shell + tool assets
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    }).then(() => self.skipWaiting())
+    caches.open(CACHE_VERSION).then((cache) => {
+      // Add each asset individually so a 404 on one file doesn't kill the whole install
+      const promises = ALL_ASSETS.map((url) =>
+        cache.add(url).catch((err) => {
+          console.warn(`[SW] Failed to cache: ${url}`, err);
+        })
+      );
+      return Promise.all(promises);
+    })
   );
 });
 
-// Activate Event — cleanup old caches
+// Activate — cleanup ALL old caches (including devforge-cache-v1)
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((key) => {
-          if (key !== CACHE_NAME) {
+          if (key !== CACHE_VERSION) {
+            console.log(`[SW] Deleting old cache: ${key}`);
             return caches.delete(key);
           }
         })
@@ -62,30 +74,63 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Fetch Event — Intercept requests and return cached versions offline-first
+// Fetch — stale-while-revalidate for HTML/JS/CSS, cache-first for CDN assets
 self.addEventListener('fetch', (e) => {
+  const request = e.request;
+
+  // Ignore non-GET requests
+  if (request.method !== 'GET') return;
+
+  // CDN assets (fonts, confetti) — cache-first (they're versioned by CDN)
+  const isCdnAsset = request.url.includes('cdn.jsdelivr.net') ||
+                      request.url.includes('fonts.googleapis.com') ||
+                      request.url.includes('fonts.gstatic.com');
+
+  if (isCdnAsset) {
+    e.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((networkResponse) => {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_VERSION).then((cache) => {
+            cache.put(request, clone);
+          });
+          return networkResponse;
+        });
+      })
+    );
+    return;
+  }
+
+  // Same-origin assets — stale-while-revalidate
+  // Return cache immediately IF available, then update cache in background
   e.respondWith(
-    caches.match(e.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      
-      // Fallback to fetch over network
-      return fetch(e.request).then((networkResponse) => {
-        // Cache dynamic assets fetched like CDNs (Confetti, fonts)
-        if (e.request.url.includes('cdn.jsdelivr.net') || e.request.url.includes('fonts.googleapis.com')) {
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(e.request, networkResponse.clone());
-            return networkResponse;
+    caches.match(request).then((cachedResponse) => {
+      const fetchPromise = fetch(request).then((networkResponse) => {
+        // Update cache with fresh network copy
+        if (networkResponse && networkResponse.status === 200) {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_VERSION).then((cache) => {
+            cache.put(request, clone);
           });
         }
         return networkResponse;
+      }).catch(() => null);
+
+      // Stale-while-revalidate: return cache hit now, refresh in background
+      return cachedResponse || fetchPromise.catch(() => {
+        // Offline fallback for navigation
+        if (request.mode === 'navigate') {
+          return caches.match('./index.html');
+        }
       });
-    }).catch(() => {
-      // Offline fallback for html routes
-      if (e.request.mode === 'navigate') {
-        return caches.match('./index.html');
-      }
     })
   );
+});
+
+// Listen for "skip and reload" message from the page
+self.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
