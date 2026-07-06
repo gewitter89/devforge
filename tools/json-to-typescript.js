@@ -60,18 +60,22 @@ DevForge.registerTool({
 
     const t = k => (window.i18n ? window.i18n.t(k) : k);
 
-    const DEMO = JSON.stringify({
-      id: 42,
-      username: 'gewitter89',
-      email: 'dev@devforge.dev',
-      isActive: true,
-      roles: ['admin', 'editor'],
-      profile: {
-        firstName: 'John',
-        age: 30,
-        settings: { theme: 'dark', notifications: true }
-      }
-    }, null, 2);
+    const DEMO = JSON.stringify(
+      {
+        id: 42,
+        username: 'gewitter89',
+        email: 'dev@devforge.dev',
+        isActive: true,
+        roles: ['admin', 'editor'],
+        profile: {
+          firstName: 'John',
+          age: 30,
+          settings: { theme: 'dark', notifications: true }
+        }
+      },
+      null,
+      2
+    );
 
     function detectType(value) {
       if (value === null) return 'null';
@@ -93,7 +97,11 @@ DevForge.registerTool({
     }
 
     function toPascalCase(str) {
-      return str.replace(/[^a-zA-Z0-9]/g, ' ').split(/\s+/).map(capitalize).join('');
+      return str
+        .replace(/[^a-zA-Z0-9]/g, ' ')
+        .split(/\s+/)
+        .map(capitalize)
+        .join('');
     }
 
     function generate(obj, name, indent, isOptional, isExport, interfaces) {
@@ -138,7 +146,8 @@ DevForge.registerTool({
           if (parsed[0] && typeof parsed[0] === 'object' && !Array.isArray(parsed[0])) {
             inner = elemName + 'Item';
             const result = generate(parsed[0], inner, '  ', isOptional, isExport, []);
-            output.textContent = result + `\n\n${isExport ? 'export ' : ''}type ${elemName} = ${inner}[];`;
+            output.textContent =
+              result + `\n\n${isExport ? 'export ' : ''}type ${elemName} = ${inner}[];`;
           } else {
             output.textContent = `${isExport ? 'export ' : ''}type ${elemName} = ${inner}[];`;
           }
@@ -162,7 +171,9 @@ DevForge.registerTool({
     [nameInput, optCheckbox, expCheckbox].forEach(el => el.addEventListener('change', convert));
 
     document.getElementById('j2ts-convert').addEventListener('click', convert);
-    document.getElementById('j2ts-copy').addEventListener('click', () => DevForge.copyToClipboard(output.textContent));
+    document
+      .getElementById('j2ts-copy')
+      .addEventListener('click', () => DevForge.copyToClipboard(output.textContent));
     document.getElementById('j2ts-demo').addEventListener('click', () => {
       input.value = DEMO;
       convert();

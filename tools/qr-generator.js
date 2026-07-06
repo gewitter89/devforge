@@ -69,12 +69,23 @@ DevForge.registerTool({
 
     const FIELD_TYPES = {
       text: [
-        { id: 'qr-content', label: 'URL or text', type: 'textarea', placeholder: 'https://devforge.dev' }
+        {
+          id: 'qr-content',
+          label: 'URL or text',
+          type: 'textarea',
+          placeholder: 'https://devforge.dev'
+        }
       ],
       wifi: [
         { id: 'qr-ssid', label: 'Network name (SSID)', type: 'text', placeholder: 'MyWiFi' },
         { id: 'qr-pass', label: 'Password', type: 'password', placeholder: 'secret123' },
-        { id: 'qr-enc', label: 'Encryption', type: 'select', options: ['WPA', 'WEP', 'nopass'], value: 'WPA' }
+        {
+          id: 'qr-enc',
+          label: 'Encryption',
+          type: 'select',
+          options: ['WPA', 'WEP', 'nopass'],
+          value: 'WPA'
+        }
       ],
       email: [
         { id: 'qr-email', label: 'Email', type: 'email', placeholder: 'user@example.com' },
@@ -85,9 +96,7 @@ DevForge.registerTool({
         { id: 'qr-tel', label: 'Phone', type: 'tel', placeholder: '+1234567890' },
         { id: 'qr-smstext', label: 'Message', type: 'textarea', placeholder: 'Hello!' }
       ],
-      tel: [
-        { id: 'qr-phone', label: 'Phone number', type: 'tel', placeholder: '+1234567890' }
-      ]
+      tel: [{ id: 'qr-phone', label: 'Phone number', type: 'tel', placeholder: '+1234567890' }]
     };
 
     function renderFields(type) {
@@ -108,15 +117,25 @@ DevForge.registerTool({
     function getContent() {
       const type = $('qr-type').value;
       switch (type) {
-        case 'text': return $('qr-content').value.trim();
-        case 'wifi': return `WIFI:T:${$('qr-enc').value};S:${$('qr-ssid').value};P:${$('qr-pass').value};;`
+        case 'text':
+          return $('qr-content').value.trim();
+        case 'wifi':
+          return `WIFI:T:${$('qr-enc').value};S:${$('qr-ssid').value};P:${$('qr-pass').value};;`;
         case 'email': {
-          const to = $('qr-email').value, s = $('qr-subject').value, b = $('qr-body').value;
-          return `mailto:${to}?subject=${encodeURIComponent(s)}&body=${encodeURIComponent(b)}`.replace(/\?subject=\s*&body=\s*$/, '');
+          const to = $('qr-email').value,
+            s = $('qr-subject').value,
+            b = $('qr-body').value;
+          return `mailto:${to}?subject=${encodeURIComponent(s)}&body=${encodeURIComponent(b)}`.replace(
+            /\?subject=\s*&body=\s*$/,
+            ''
+          );
         }
-        case 'sms': return `sms:${$('qr-tel').value}?body=${encodeURIComponent($('qr-smstext').value)}`;
-        case 'tel': return `tel:${$('qr-phone').value}`;
-        default: return '';
+        case 'sms':
+          return `sms:${$('qr-tel').value}?body=${encodeURIComponent($('qr-smstext').value)}`;
+        case 'tel':
+          return `tel:${$('qr-phone').value}`;
+        default:
+          return '';
       }
     }
 
@@ -125,17 +144,25 @@ DevForge.registerTool({
       const GF_EXP = new Uint8Array(512);
       const GF_LOG = new Uint8Array(256);
       let x = 1;
-      for (let i = 0; i < 255; i++) { GF_EXP[i] = x; GF_LOG[x] = i; x = (x << 1) ^ (x >= 128 ? 285 : 0); }
+      for (let i = 0; i < 255; i++) {
+        GF_EXP[i] = x;
+        GF_LOG[x] = i;
+        x = (x << 1) ^ (x >= 128 ? 285 : 0);
+      }
       for (let i = 255; i < 512; i++) GF_EXP[i] = GF_EXP[i - 255];
 
-      function gfMul(a, b) { return a === 0 || b === 0 ? 0 : GF_EXP[GF_LOG[a] + GF_LOG[b]]; }
+      function gfMul(a, b) {
+        return a === 0 || b === 0 ? 0 : GF_EXP[GF_LOG[a] + GF_LOG[b]];
+      }
 
       function ecGenerator(degree) {
         const g = new Uint8Array(degree + 1);
         g[0] = 1;
         for (let i = 0; i < degree; i++) {
           g[i + 1] = 1;
-          for (let j = i; j > 0; j--) g[j] = g[j] === 0 ? GF_EXP[i] : g[j - 1] ^ GF_EXP[(GF_LOG[g[j]] + i) % 255];
+          for (let j = i; j > 0; j--) {
+            g[j] = g[j] === 0 ? GF_EXP[i] : g[j - 1] ^ GF_EXP[(GF_LOG[g[j]] + i) % 255];
+          }
           g[0] = g[0] === 0 ? GF_EXP[i] : GF_EXP[(GF_LOG[g[0]] + i) % 255];
         }
         return g.reverse();
@@ -152,7 +179,14 @@ DevForge.registerTool({
         return out.slice(msg.length);
       }
 
-      const CAPS = [[17, 7], [32, 10], [53, 15], [78, 20], [106, 26], [134, 36]];
+      const CAPS = [
+        [17, 7],
+        [32, 10],
+        [53, 15],
+        [78, 20],
+        [106, 26],
+        [134, 36]
+      ];
       function pickVersion(len) {
         for (let i = 0; i < CAPS.length; i++) if (len <= CAPS[i][0]) return i + 1;
         return -1;
@@ -165,8 +199,11 @@ DevForge.registerTool({
         for (const b of bytes) bitstream += b.toString(2).padStart(8, '0');
         bitstream += '0000'.slice(0, Math.min(4, dataCap * 8 - bitstream.length));
         while (bitstream.length % 8) bitstream += '0';
-        let pad = 0xEC;
-        while (bitstream.length < dataCap * 8) { bitstream += pad.toString(2).padStart(8, '0'); pad = pad === 0xEC ? 0x11 : 0xEC; }
+        let pad = 0xec;
+        while (bitstream.length < dataCap * 8) {
+          bitstream += pad.toString(2).padStart(8, '0');
+          pad = pad === 0xec ? 0x11 : 0xec;
+        }
 
         const msg = new Uint8Array(dataCap);
         for (let i = 0; i < dataCap; i++) msg[i] = parseInt(bitstream.slice(i * 8, i * 8 + 8), 2);
@@ -182,38 +219,71 @@ DevForge.registerTool({
         const reserved = Array.from({ length: size }, () => new Uint8Array(size));
 
         function finder(r, c) {
-          for (let dr = 0; dr <= 6; dr++) {for (let dc = 0; dc <= 6; dc++) {
-            if (inFinder(dr, dc)) {
-              m[r + dr][c + dc] = (dr === 0 || dr === 6 || dc === 0 || dc === 6 || (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4)) ? 1 : 0;
+          for (let dr = 0; dr <= 6; dr++) {
+            for (let dc = 0; dc <= 6; dc++) {
+              if (inFinder(dr, dc)) {
+                m[r + dr][c + dc] =
+                  dr === 0 ||
+                  dr === 6 ||
+                  dc === 0 ||
+                  dc === 6 ||
+                  (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4)
+                    ? 1
+                    : 0;
+              }
+              reserved[r + dr][c + dc] = 1;
             }
-            reserved[r + dr][c + dc] = 1;
-          }}
+          }
         }
         function inFinder(dr, dc) {
-          return (dr === 0 || dr === 6 || dc === 0 || dc === 6 || (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4));
+          return (
+            dr === 0 ||
+            dr === 6 ||
+            dc === 0 ||
+            dc === 6 ||
+            (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4)
+          );
         }
-        finder(0, 0); finder(0, size - 7); finder(size - 7, 0);
+        finder(0, 0);
+        finder(0, size - 7);
+        finder(size - 7, 0);
 
         if (ver >= 2) {
           const positions = [6, ...alignmentPositions(ver)];
-          for (const r of positions) {for (const c of positions) {
-            if ((r <= 8 && c <= 8) || (r <= 8 && c >= size - 8) || (r >= size - 8 && c <= 8)) continue;
-            for (let dr = -2; dr <= 2; dr++) {for (let dc = -2; dc <= 2; dc++) {
-              m[r + dr][c + dc] = (Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0)) ? 1 : 0;
-              reserved[r + dr][c + dc] = 1;
-            }}
-          }}
+          for (const r of positions) {
+            for (const c of positions) {
+              if ((r <= 8 && c <= 8) || (r <= 8 && c >= size - 8) || (r >= size - 8 && c <= 8)) {
+                continue;
+              }
+              for (let dr = -2; dr <= 2; dr++) {
+                for (let dc = -2; dc <= 2; dc++) {
+                  m[r + dr][c + dc] =
+                    Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0) ? 1 : 0;
+                  reserved[r + dr][c + dc] = 1;
+                }
+              }
+            }
+          }
         }
 
         for (let i = 8; i < size - 8; i++) {
-          m[6][i] = i % 2 === 0 ? 1 : 0; reserved[6][i] = 1;
-          m[i][6] = i % 2 === 0 ? 1 : 0; reserved[i][6] = 1;
+          m[6][i] = i % 2 === 0 ? 1 : 0;
+          reserved[6][i] = 1;
+          m[i][6] = i % 2 === 0 ? 1 : 0;
+          reserved[i][6] = 1;
         }
 
-        m[4 * ver + 9][8] = 1; reserved[4 * ver + 9][8] = 1;
+        m[4 * ver + 9][8] = 1;
+        reserved[4 * ver + 9][8] = 1;
 
-        for (let i = 0; i <= 8; i++) { reserved[8][i] = 1; reserved[i][8] = 1; }
-        for (let i = 0; i < 8; i++) { reserved[8][size - 8 + i] = 1; reserved[size - 7 + i][8] = 1; }
+        for (let i = 0; i <= 8; i++) {
+          reserved[8][i] = 1;
+          reserved[i][8] = 1;
+        }
+        for (let i = 0; i < 8; i++) {
+          reserved[8][size - 8 + i] = 1;
+          reserved[size - 7 + i][8] = 1;
+        }
 
         let di = 0;
         for (let right = size - 1; right >= 1; right -= 2) {
@@ -232,12 +302,14 @@ DevForge.registerTool({
         }
 
         // Apply mask 0 (checkerboard)
-        for (let y = 0; y < size; y++) {for (let x = 0; x < size; x++) {
-          if (!reserved[y][x] && (y + x) % 2 === 0) m[y][x] ^= 1;
-        }}
+        for (let y = 0; y < size; y++) {
+          for (let x = 0; x < size; x++) {
+            if (!reserved[y][x] && (y + x) % 2 === 0) m[y][x] ^= 1;
+          }
+        }
 
         // Format bits for mask 0, ECC L (bits: 111011111000100)
-        const formatBits = 0x77C4;
+        const formatBits = 0x77c4;
         for (let i = 0; i < 15; i++) {
           const bit = (formatBits >> i) & 1;
           if (i < 6) m[8][i] = bit;
@@ -265,9 +337,16 @@ DevForge.registerTool({
     })();
 
     function generateQR(text) {
-      if (!text) { ctx.clearRect(0, 0, canvas.width, canvas.height); status.textContent = ''; return; }
+      if (!text) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        status.textContent = '';
+        return;
+      }
       const ver = QR.pickVersion(text.length);
-      if (ver === -1) { status.textContent = `❌ Too long (${text.length} chars, max ~120)`; return; }
+      if (ver === -1) {
+        status.textContent = `❌ Too long (${text.length} chars, max ~120)`;
+        return;
+      }
       const data = QR.encode(text, ver);
       const { m, size } = QR.placeModules(data, ver);
       const pixelSize = Math.floor(canvas.width / (size + 8));
@@ -276,16 +355,26 @@ DevForge.registerTool({
       ctx.fillStyle = $('qr-light').value;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = $('qr-dark').value;
-      for (let y = 0; y < size; y++) {for (let x = 0; x < size; x++) {
-        if (m[y][x]) ctx.fillRect(offset + x * pixelSize, offset + y * pixelSize, pixelSize, pixelSize);
-      }}
+      for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
+          if (m[y][x]) {
+            ctx.fillRect(offset + x * pixelSize, offset + y * pixelSize, pixelSize, pixelSize);
+          }
+        }
+      }
       status.textContent = `${size}x${size} (v${ver}, ${text.length} chars)`;
     }
 
-    function renderCurrent() { renderFields($('qr-type').value); $('qr-main-label').textContent = $('qr-type').selectedOptions[0].text; }
+    function renderCurrent() {
+      renderFields($('qr-type').value);
+      $('qr-main-label').textContent = $('qr-type').selectedOptions[0].text;
+    }
 
     $('qr-type').addEventListener('change', renderCurrent);
-    $('qr-size').addEventListener('change', () => { canvas.width = canvas.height = +$('qr-size').value; generateQR(getContent()); });
+    $('qr-size').addEventListener('change', () => {
+      canvas.width = canvas.height = +$('qr-size').value;
+      generateQR(getContent());
+    });
     $('qr-dark').addEventListener('input', () => generateQR(getContent()));
     $('qr-light').addEventListener('input', () => generateQR(getContent()));
     fieldsBox.addEventListener('input', () => generateQR(getContent()));
@@ -309,9 +398,15 @@ DevForge.registerTool({
       const px = 10;
       let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size * px} ${size * px}" width="${size * px}" height="${size * px}">`;
       svg += `<rect width="100%" height="100%" fill="${$('qr-light').value}"/>`;
-      for (let y = 0; y < size; y++) {for (let x = 0; x < size; x++) {
-        if (m[y][x]) svg += `<rect x="${x * px}" y="${y * px}" width="${px}" height="${px}" fill="${$('qr-dark').value}"/>`;
-      }}
+      for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
+          if (m[y][x]) {
+            svg += `<rect x="${x * px}" y="${y * px}" width="${px}" height="${px}" fill="${
+              $('qr-dark').value
+            }"/>`;
+          }
+        }
+      }
       svg += '</svg>';
       const a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
@@ -319,12 +414,15 @@ DevForge.registerTool({
       a.click();
     });
     $('qr-demo').addEventListener('click', () => {
-      $('qr-type').value = 'text'; renderCurrent();
+      $('qr-type').value = 'text';
+      renderCurrent();
       $('qr-content').value = 'https://gewitter89.github.io/devforge/';
       generateQR(getContent());
     });
 
-    function getStatus() { return status.textContent; }
+    function getStatus() {
+      return status.textContent;
+    }
     $('qr-demo').textContent = '💡 ' + (t('loadDemo') || 'Demo');
     renderCurrent();
     generateQR('https://gewitter89.github.io/devforge/');

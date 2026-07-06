@@ -106,16 +106,21 @@ DevForge.registerTool({
       $('mt-output').textContent = lines.join('\n');
     }
 
-    ['mt-title', 'mt-desc', 'mt-url', 'mt-image', 'mt-site', 'mt-twitter', 'mt-card'].forEach(id => {
-      $(id).addEventListener('input', generate);
-      $(id).addEventListener('change', generate);
-    });
+    ['mt-title', 'mt-desc', 'mt-url', 'mt-image', 'mt-site', 'mt-twitter', 'mt-card'].forEach(
+      id => {
+        $(id).addEventListener('input', generate);
+        $(id).addEventListener('change', generate);
+      }
+    );
 
     $('mt-generate').addEventListener('click', generate);
-    $('mt-copy').addEventListener('click', () => DevForge.copyToClipboard($('mt-output').textContent));
+    $('mt-copy').addEventListener('click', () =>
+      DevForge.copyToClipboard($('mt-output').textContent)
+    );
     $('mt-demo').addEventListener('click', () => {
       $('mt-title').value = 'DevForge — Free Browser Dev Toolkit';
-      $('mt-desc').value = '25 free, offline-capable browser developer tools. No ads, no tracking. Privacy-first developer toolkit.';
+      $('mt-desc').value =
+        '25 free, offline-capable browser developer tools. No ads, no tracking. Privacy-first developer toolkit.';
       $('mt-url').value = 'https://gewitter89.github.io/devforge/';
       $('mt-image').value = 'https://gewitter89.github.io/devforge/og.png';
       $('mt-site').value = 'DevForge';
@@ -123,7 +128,9 @@ DevForge.registerTool({
       generate();
     });
     $('mt-clear').addEventListener('click', () => {
-      ['mt-title', 'mt-desc', 'mt-url', 'mt-image', 'mt-site', 'mt-twitter'].forEach(id => ($(id).value = ''));
+      ['mt-title', 'mt-desc', 'mt-url', 'mt-image', 'mt-site', 'mt-twitter'].forEach(
+        id => ($(id).value = '')
+      );
       $('mt-output').textContent = '';
     });
 

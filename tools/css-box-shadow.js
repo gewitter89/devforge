@@ -106,7 +106,9 @@ DevForge.registerTool({
       $(id).addEventListener('change', update);
     });
 
-    $('bs-copy').addEventListener('click', () => DevForge.copyToClipboard($('bs-output').textContent));
+    $('bs-copy').addEventListener('click', () =>
+      DevForge.copyToClipboard($('bs-output').textContent)
+    );
     $('bs-presets').addEventListener('click', () => {
       const p = PRESETS[presetIdx % PRESETS.length];
       $('bs-x').value = p.x;

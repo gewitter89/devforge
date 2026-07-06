@@ -55,14 +55,25 @@ DevForge.registerTool({
     const $ = id => document.getElementById(id);
     const t = k => (window.i18n ? window.i18n.t(k) : k);
     const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const COLORS = ['#22c55e33','#3b82f633','#a855f733','#fb923c33','#ec489933'];
+    const COLORS = ['#22c55e33', '#3b82f633', '#a855f733', '#fb923c33', '#ec489933'];
 
     function test() {
-      const pattern = $('rx-pattern').value, flags = $('rx-flags').value, text = $('rx-input').value;
-      if (!pattern) { $('rx-output').innerHTML = esc(text); $('rx-matches').innerHTML = ''; return; }
+      const pattern = $('rx-pattern').value,
+        flags = $('rx-flags').value,
+        text = $('rx-input').value;
+      if (!pattern) {
+        $('rx-output').innerHTML = esc(text);
+        $('rx-matches').innerHTML = '';
+        return;
+      }
       let re;
-      try { re = new RegExp(pattern, flags); }
-      catch (err) { $('rx-output').innerHTML = `<span style="color:var(--danger,#f44)">❌ ${esc(err.message)}</span>`; return; }
+      try {
+        re = new RegExp(pattern, flags);
+      } catch (err) {
+        $('rx-output').innerHTML =
+          `<span style="color:var(--danger,#f44)">❌ ${esc(err.message)}</span>`;
+        return;
+      }
 
       const matches = [];
       const clone = new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g');
@@ -73,7 +84,8 @@ DevForge.registerTool({
         if (matches.length > 200) break;
       }
 
-      let html = '', cursor = 0;
+      let html = '',
+        cursor = 0;
       matches.forEach((match, i) => {
         if (match.start > cursor) html += esc(text.slice(cursor, match.start));
         html += `<mark style="background:${COLORS[i % 5]};padding:1px 2px;border-radius:2px;">${esc(match.groups[0])}</mark>`;
@@ -82,31 +94,45 @@ DevForge.registerTool({
       if (cursor < text.length) html += esc(text.slice(cursor));
       $('rx-output').innerHTML = html;
 
-      const lines = matches.map((m, i) => `#${i+1} "<b>${esc(m.groups[0])}</b>" [${m.start}..${m.end}]`).join('<br>');
-      $('rx-matches').innerHTML = `<div style="font-weight:600;margin-bottom:6px;">${matches.length} match${matches.length === 1 ? '' : 'es'}</div>${lines}`;
+      const lines = matches
+        .map((m, i) => `#${i + 1} "<b>${esc(m.groups[0])}</b>" [${m.start}..${m.end}]`)
+        .join('<br>');
+      $('rx-matches').innerHTML =
+        `<div style="font-weight:600;margin-bottom:6px;">${matches.length} match${matches.length === 1 ? '' : 'es'}</div>${lines}`;
       if (window.SoundFX && matches.length > 0) window.SoundFX.playSuccess();
     }
 
     let timer;
     ['rx-pattern', 'rx-flags', 'rx-input'].forEach(id => {
       $(id).addEventListener('input', () => {
-        if ($('rx-realtime').checked) { clearTimeout(timer); timer = setTimeout(test, 150); }
+        if ($('rx-realtime').checked) {
+          clearTimeout(timer);
+          timer = setTimeout(test, 150);
+        }
       });
     });
 
     $('rx-test').addEventListener('click', test);
     $('rx-replace').addEventListener('click', () => {
-      const p = $('rx-replace-panel'); p.style.display = p.style.display === 'none' ? 'block' : 'none';
+      const p = $('rx-replace-panel');
+      p.style.display = p.style.display === 'none' ? 'block' : 'none';
     });
     $('rx-do-replace').addEventListener('click', () => {
       try {
         const re = new RegExp($('rx-pattern').value, $('rx-flags').value);
-        $('rx-replace-output').textContent = $('rx-input').value.replace(re, $('rx-replace-with').value);
-      } catch (err) { $('rx-replace-output').innerHTML = `<span style="color:var(--danger,#f44)">❌ ${esc(err.message)}</span>`; }
+        $('rx-replace-output').textContent = $('rx-input').value.replace(
+          re,
+          $('rx-replace-with').value
+        );
+      } catch (err) {
+        $('rx-replace-output').innerHTML =
+          `<span style="color:var(--danger,#f44)">❌ ${esc(err.message)}</span>`;
+      }
     });
     $('rx-clear').addEventListener('click', () => {
       ['rx-pattern', 'rx-input'].forEach(id => ($(id).value = ''));
-      $('rx-output').innerHTML = ''; $('rx-matches').innerHTML = '';
+      $('rx-output').innerHTML = '';
+      $('rx-matches').innerHTML = '';
     });
 
     $('rx-clear').textContent = '✕ ' + (t('clear') || 'Clear');
