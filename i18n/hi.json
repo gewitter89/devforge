@@ -32,5 +32,12 @@
   "aiGenerateBtn": "जनरेट करें",
   "aiPlaceholder": "उदाहरण: ईमेल वैलिडेशन के लिए रेगेक्स बनाएं...",
   "aiWaiting": "🤖 AI सोच रहा है...",
-  "aiFallbackErr": "सभी मुफ्त LLM गेटवे विफल हुए। अपना API key प्रदान करें।"
+  "aiFallbackErr": "सभी मुफ्त LLM गेटवे विफल हुए। अपना API key प्रदान करें।",
+  "tools": {
+    "json-to-typescript": "JSON से TypeScript",
+    "meta-tags-generator": "Meta Tags जनरेटर",
+    "css-box-shadow": "CSS Shadow बिल्डर",
+    "regex-tester": "Regex परीक्षक",
+    "qr-generator": "QR जनरेटर"
+  }
 }

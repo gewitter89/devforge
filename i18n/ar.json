@@ -32,5 +32,12 @@
   "aiGenerateBtn": "توليد",
   "aiPlaceholder": "مثال: إنشاء تعبير نمطي للتحقق من البريد الإلكتروني...",
   "aiWaiting": "🤖 الذكاء الاصطناعي يفكر...",
-  "aiFallbackErr": "فشلت جميع بوابات LLM المجانية. قدم مفتاح API الخاص بك."
+  "aiFallbackErr": "فشلت جميع بوابات LLM المجانية. قدم مفتاح API الخاص بك.",
+  "tools": {
+    "json-to-typescript": "JSON إلى TypeScript",
+    "meta-tags-generator": "مولد Meta Tags",
+    "css-box-shadow": "منشئ CSS Shadow",
+    "regex-tester": "اختبار Regex",
+    "qr-generator": "مولد QR"
+  }
 }

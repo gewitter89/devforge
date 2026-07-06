@@ -32,5 +32,12 @@
   "aiGenerateBtn": "Genera",
   "aiPlaceholder": "Esempio: Crea regex per validare email...",
   "aiWaiting": "🤖 IA sta pensando...",
-  "aiFallbackErr": "Tutti i gateway LLM gratuiti hanno fallito. Fornisci la tua chiave API."
+  "aiFallbackErr": "Tutti i gateway LLM gratuiti hanno fallito. Fornisci la tua chiave API.",
+  "tools": {
+    "json-to-typescript": "JSON a TypeScript",
+    "meta-tags-generator": "Generatore Meta Tags",
+    "css-box-shadow": "Costruttore CSS Shadow",
+    "regex-tester": "Tester Regex",
+    "qr-generator": "Generatore QR"
+  }
 }

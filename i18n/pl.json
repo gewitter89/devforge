@@ -32,5 +32,12 @@
   "aiGenerateBtn": "Generuj",
   "aiPlaceholder": "Przykład: Stwórz regex do walidacji email...",
   "aiWaiting": "🤖 AI myśli...",
-  "aiFallbackErr": "Wszystkie darmowe bramki LLM zawiodły. Podaj własny klucz API."
+  "aiFallbackErr": "Wszystkie darmowe bramki LLM zawiodły. Podaj własny klucz API.",
+  "tools": {
+    "json-to-typescript": "JSON do TypeScript",
+    "meta-tags-generator": "Generator Meta Tags",
+    "css-box-shadow": "Generator CSS Shadow",
+    "regex-tester": "Tester Regex",
+    "qr-generator": "Generator QR"
+  }
 }

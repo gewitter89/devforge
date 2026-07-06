@@ -32,5 +32,12 @@
   "aiGenerateBtn": "Generieren",
   "aiPlaceholder": "Beispiel: Regex für E-Mail-Validierung erstellen...",
   "aiWaiting": "🤖 KI denkt...",
-  "aiFallbackErr": "Alle kostenlosen LLM-Gateways sind fehlgeschlagen. Gib deinen eigenen API-Schlüssel an."
+  "aiFallbackErr": "Alle kostenlosen LLM-Gateways sind fehlgeschlagen. Gib deinen eigenen API-Schlüssel an.",
+  "tools": {
+    "json-to-typescript": "JSON zu TypeScript",
+    "meta-tags-generator": "Meta-Tags Generator",
+    "css-box-shadow": "CSS Shadow Builder",
+    "regex-tester": "Regex Tester",
+    "qr-generator": "QR-Generator"
+  }
 }

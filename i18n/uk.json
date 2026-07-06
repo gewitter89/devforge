@@ -32,5 +32,12 @@
   "aiGenerateBtn": "Згенерувати",
   "aiPlaceholder": "Наприклад: Створи regex для валідації email...",
   "aiWaiting": "🤖 ШІ думає...",
-  "aiFallbackErr": "Безкоштовні сервери ШІ перевантажені. Вставте свій API-ключ."
+  "aiFallbackErr": "Безкоштовні сервери ШІ перевантажені. Вставте свій API-ключ.",
+  "tools": {
+    "json-to-typescript": "JSON у TypeScript",
+    "meta-tags-generator": "Генератор Meta-тегів",
+    "css-box-shadow": "CSS Тіні",
+    "regex-tester": "Тестер Regex",
+    "qr-generator": "QR Генератор"
+  }
 }

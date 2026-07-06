@@ -32,5 +32,12 @@
   "aiGenerateBtn": "生成",
   "aiPlaceholder": "例如：创建邮箱验证的正则表达式...",
   "aiWaiting": "🤖 AI思考中...",
-  "aiFallbackErr": "所有免费LLM网关都失败了。请提供你自己的API密钥。"
+  "aiFallbackErr": "所有免费LLM网关都失败了。请提供你自己的API密钥。",
+  "tools": {
+    "json-to-typescript": "JSON 转 TypeScript",
+    "meta-tags-generator": "Meta 标签生成器",
+    "css-box-shadow": "CSS 阴影构建器",
+    "regex-tester": "正则测试器",
+    "qr-generator": "QR 生成器"
+  }
 }

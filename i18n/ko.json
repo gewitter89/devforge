@@ -32,5 +32,12 @@
   "aiGenerateBtn": "생성",
   "aiPlaceholder": "예: 이메일 유효성 검사를 위한 정규식 생성...",
   "aiWaiting": "🤖 AI가 생각 중...",
-  "aiFallbackErr": "모든 무료 LLM 게이트웨이가 실패했습니다. 자신의 API 키를 제공하세요."
+  "aiFallbackErr": "모든 무료 LLM 게이트웨이가 실패했습니다. 자신의 API 키를 제공하세요.",
+  "tools": {
+    "json-to-typescript": "JSON에서 TypeScript",
+    "meta-tags-generator": "Meta 태그 생성기",
+    "css-box-shadow": "CSS Shadow 빌더",
+    "regex-tester": "Regex 테스터",
+    "qr-generator": "QR 생성기"
+  }
 }

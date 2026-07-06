@@ -32,5 +32,12 @@
   "aiGenerateBtn": "生成",
   "aiPlaceholder": "例：メール検証の正規表現を作成...",
   "aiWaiting": "🤖 AIが考え中...",
-  "aiFallbackErr": "すべての無料LLMゲートウェイが失敗しました。独自のAPIキーを提供してください。"
+  "aiFallbackErr": "すべての無料LLMゲートウェイが失敗しました。独自のAPIキーを提供してください。",
+  "tools": {
+    "json-to-typescript": "JSON から TypeScript",
+    "meta-tags-generator": "Metaタグジェネレーター",
+    "css-box-shadow": "CSS Shadow ビルダー",
+    "regex-tester": "Regex テスター",
+    "qr-generator": "QRジェネレーター"
+  }
 }
